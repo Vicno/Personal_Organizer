@@ -39,17 +39,16 @@ describe("Scheduling CRUD", () => {
   });
 });
 describe("LocalVue", () => {
-    it("using the store directly", () => {
-      const localVue = createLocalVue();
-      localVue.use(VueRouter);
-      localVue.use(Vuex);
-      const router = new VueRouter({ routes: [] });
-  
-      let wrapper = shallowMount(Scheduling, {
-        router,
-        store,
-        localVue
-      });
-      assert.equal(wrapper.vm.$store.state.scheduledAppointments.length, 1);
+  it("using the store directly", () => {
+    const localVue = createLocalVue();
+    localVue.use(VueRouter);
+    localVue.use(Vuex);
+    const router = new VueRouter({ routes: [] });
+    let wrapper = shallowMount(Scheduling, {
+      router,
+      store,
+      localVue
     });
+    assert.equal(wrapper.vm.$store.state.scheduledAppointments.length, 1);
+  });
 });
