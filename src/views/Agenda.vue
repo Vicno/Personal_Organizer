@@ -60,10 +60,20 @@ export default {
                 if (this.verifyHora(this.startHora, this.endHora)) {
                   correct = true;
                 }
+              } else {
+                alert("End Hour not defined");
               }
+            } else {
+              alert("Start Hour not defined");
             }
+          } else {
+            alert("Missing Description");
           }
+        } else {
+          alert("Missing Name");
         }
+      } else {
+        alert("Missing ID");
       }
       return correct;
     },
