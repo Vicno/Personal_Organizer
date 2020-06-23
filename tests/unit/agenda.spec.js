@@ -20,14 +20,21 @@ describe("Agenda CRUD", () => {
     const wrapper = shallowMount(Agenda, {
       router,
       store,
-      localVue
+      localVue,
     }); // wrapper = { new Vue(), html, find, findAll, etc }
     let expectedInitialLength = 1;
     //const agendas = wrapper.vm.$data.agendas; // wrapper.vm.$data.groups[0]
     assert.equal(store.agendas.length, expectedInitialLength);
-
+    const newVal = {
+      agendaId: "ANG-001",
+      name: "Nuevo1",
+      description: "Prueba Nuevo",
+      startHour: "10:00",
+      endHour: "12:00",
+      appointments: []
+    };
     expectedInitialLength = 2;
-    wrapper.vm.createNewAgenda();
+    wrapper.vm.createNewAgenda(newVal);
     assert.equal(store.agendas.length, expectedInitialLength);
   });
 
@@ -35,7 +42,7 @@ describe("Agenda CRUD", () => {
     const wrapper = shallowMount(Agenda, {
       router,
       store,
-      localVue
+      localVue,
     }); // wrapper = { new Vue(), html, find, findAll, etc }
     const updateVal = {
       agendaId: "ANG-001",
@@ -43,11 +50,11 @@ describe("Agenda CRUD", () => {
       description: "Prueba Update",
       startHour: "10:00",
       endHour: "12:00",
-      appointments: []
+      appointments: [],
     };
     assert.isFalse().equal(store.agendas[0], updateVal);
     //const agendas = wrapper.vm.$data.agendas; // wrapper.vm.$data.groups[0]
-    wrapper.vm.updateAgenda(updateVal);
+    wrapper.vm.modifyAgenda(updateVal);
     assert.equal(store.agendas[0], updateVal);
   });
 
@@ -55,14 +62,14 @@ describe("Agenda CRUD", () => {
     const wrapper = shallowMount(Agenda, {
       router,
       store,
-      localVue
+      localVue,
     }); // wrapper = { new Vue(), html, find, findAll, etc }
     let expectedInitialLength = 1;
     //const agendas = wrapper.vm.$data.agendas; // wrapper.vm.$data.groups[0]
     assert.equal(store.agendas.length, expectedInitialLength);
     const id = "ANG-001";
     expectedInitialLength = 0;
-    wrapper.vm.deleteAgenda(id);
+    wrapper.vm.removeAgenda(id);
     assert.equal(store.agendas.length, expectedInitialLength);
   });
 });
