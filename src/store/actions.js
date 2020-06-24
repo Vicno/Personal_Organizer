@@ -2,7 +2,11 @@
 const addAccount = ({ commit }, item) => {
   commit("mutateAccountList", item);
 };
+const addAppointment = ({ commit }, item) => {
+  commit("mutateAppointmentsList", item);
+};
 export default {
-  addAccount
+  addAccount,
+  addAppointment
   // los nombres de las funciones
 };

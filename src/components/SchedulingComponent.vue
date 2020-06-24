@@ -7,19 +7,38 @@
       <div class="form">
         <h3>Make An Appointment</h3>
         <div class="form-row">
-          <input type="text" class="form-control" placeholder="Name" />
-          <select id="agendas">
-            <option :key="ag.id" v-for="ag in agenda" class="optionsAgenda">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Name"
+            v-model="name"
+          />
+          <select v-model="agenda" id="agendas">
+            <option :key="ag.id" v-for="ag in agendas" class="optionsAgenda">
               {{ ag.name }}
             </option>
           </select>
         </div>
         <div class="form-row">
-          <input type="text" class="form-control" placeholder="Begin Hour" />
-          <input type="text" class="form-control" placeholder="End Hour" />
+          <input
+            type="time"
+            id="begin_hour"
+            name="begin_hour"
+            v-model="begin_hour"
+            required
+          />
+          <small class="timebegin">Begin Hour</small>
+          <input
+            type="time"
+            id="end_hour"
+            name="end_hour"
+            v-model="end_hour"
+            required
+          />
+          <small>End Hour</small>
         </div>
         <div class="form-row">
-          <input type="date" id="dateP" name="dateP" />
+          <input v-model="date" type="date" id="dateP" name="dateP" />
         </div>
         <textarea
           name="description"
@@ -27,35 +46,59 @@
           placeholder="Description"
           class="form-control"
           style="height: 130px;"
+          v-model="description"
         ></textarea>
-        <button>Book Now</button>
+        <button @click="saveApointment">Book Now</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "SchedulingComponent",
   data() {
     return {
       name: "",
       description: "",
-      end_hour: "",
-      begin_hour: "",
+      end_hour: "23:59",
+      begin_hour: "00:00",
       date: "",
       agenda: "",
       participants: {}
     };
   },
+  computed: {
+    ...mapGetters(["getAgendas"]),
+    agendas() {
+      return this.getAgendas;
+    }
+  },
   methods: {
+    ...mapActions(["addAppointment"]),
     saveApointment() {
       if (this._validateData()) {
         if (this._validateDate()) {
           if (this._validateHour()) {
-            // code
+            this._getAgendaId();
+            this.addAppointment({
+              name: this.name,
+              description: this.description,
+              date: String(this.date),
+              startHour: String(this.begin_hour),
+              endHour: String(this.end_hour),
+              agendaId: this.agenda,
+              participants: this.participants
+            });
+          } else {
+            alert("The date is wrong, you are gonna break time line");
           }
+        } else {
+          alert("The date is wrong, you are gonna break time line");
         }
+      } else {
+        alert("The spaces can not be empty");
       }
     },
     _validateData() {
@@ -69,10 +112,43 @@ export default {
       );
     },
     _validateHour() {
-      return this.begin_hour === "11:00" && this.end_hour === "12:00";
+      var bool = false;
+      var endarray = this.end_hour.split(":");
+      var beginarray = this.begin_hour.split(":");
+      if (endarray[0] > beginarray[0]) {
+        bool = true;
+      } else if (endarray[0] === beginarray[0]) {
+        if (endarray[1] > beginarray[0]) {
+          bool = true;
+        }
+      }
+      return bool;
     },
     _validateDate() {
-      return this.date === "2020-05-10";
+      var bool = false;
+      var utc = new Date()
+        .toJSON()
+        .slice(0, 10)
+        .replace(/-/g, "-");
+      var utcarray = utc.split("-");
+      var datearray = this.date.split("-");
+      if (datearray[0] > utcarray[0]) {
+        bool = true;
+      } else if (utcarray[0] === datearray[0]) {
+        if (datearray[1] > utcarray[1]) {
+          bool = true;
+        } else if (utcarray[1] === datearray[1]) {
+          if (datearray[2] > utcarray[2]) {
+            bool = true;
+          }
+        }
+      }
+      this.date = this.date.replace(/-/g, "/");
+      return bool;
+    },
+    _getAgendaId() {
+      var index = this.agendas.findIndex(ag => ag.name === this.agenda);
+      this.agenda = this.agendas[index].id;
     }
   }
 };

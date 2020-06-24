@@ -1,7 +1,7 @@
 
   h3 {
     margin: 0; }
-  input, textarea, select, button {
+  input, textarea, select, button, small {
     font-size: 20px;
     color: rgb(102, 102, 102);
     border-radius: 5px;
@@ -81,7 +81,9 @@
     width: 100%;
     padding-top: 13px;
     padding-bottom: 13px; }
-  
+  .timebegin{
+    padding-right: 50px;
+  }
   .form-row {
     display: flex;
     margin-bottom: 20px; 

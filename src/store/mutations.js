@@ -2,7 +2,11 @@
 const mutateAccountList = (state, newAccount) => {
   state.ACCOUNTS.push(newAccount);
 };
+const mutateAppointmentsList = (state, newAppointment) => {
+  state.scheduledAppointments.push(newAppointment);
+};
 export default {
-  mutateAccountList
+  mutateAccountList,
+  mutateAppointmentsList
   // los nombres de las funciones
 };
