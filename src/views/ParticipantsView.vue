@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for="text">Hi</label>
-    <Participants>Register</Participants>
+    <Participants>HOla</Participants>
   </div>
 </template>
 
