@@ -13,11 +13,12 @@ const routes = [
   {
     path: "/schedul",
     name: "Schedul",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Scheduling.vue")
+    component: () => import("../views/Scheduling.vue")
+  },
+  {
+    path: "/recursiveschedul",
+    name: "RecursiveSchedul",
+    component: () => import("../views/RecursiveScheduling.vue")
   }
 ];
 
