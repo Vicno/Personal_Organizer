@@ -19,6 +19,11 @@ const routes = [
     path: "/recursiveschedul",
     name: "RecursiveSchedul",
     component: () => import("../views/RecursiveScheduling.vue")
+  },
+  {
+    path: "/participants",
+    name: "Participants",
+    component: () => import("../views/ParticipantsView.vue")
   }
 ];
 

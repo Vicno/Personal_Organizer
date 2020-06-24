@@ -3,7 +3,8 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/schedul">Scheduling</router-link> |
-      <router-link to="/recursiveschedul">Repetitive Scheduling</router-link>
+      <router-link to="/recursiveschedul">Repetitive Scheduling</router-link> |
+      <router-link to="/participants">Participants</router-link>
     </div>
     <router-view />
   </div>

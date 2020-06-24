@@ -61,9 +61,9 @@ export default new Vuex.Store({
     ],
     participants: [
       {
-        participantId: "PART-001",
+        participantId: "PART-1",
         name: "Person A",
-        contactNumber: "70710101"
+        contactNumber: 70710101
       }
     ]
   },
