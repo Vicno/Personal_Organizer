@@ -19,10 +19,12 @@ export default {
   computed: {
     ...mapGetters(["getLastParticipants"]),
     getLastId() {
-      return "PART-1"
+      var id = this.getLastParticipants;
+      return id;
     }
   },
   methods: {
+    ...mapActions(["addParticipant"]),
     saveNewPart() {
       if (this._validateData()) {
         //code
@@ -32,7 +34,10 @@ export default {
       return this.name !== "" && this.contactNumber !== "";
     },
     _generateNewCode() {
-      return "PART-2"
+      var fracmentId = this.getLastId.split("-");
+      var getNumber = parseInt(fracmentId[1]) + 1;
+      var newPartId = "PART-" + getNumber;
+      return newPartId;
     }
   }
 };
