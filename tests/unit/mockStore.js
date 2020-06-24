@@ -58,7 +58,7 @@ export const mockStore = {
       {
         participantId: "PART-1",
         name: "Person A",
-        contactNumber: "70710101"
+        contactNumber: 70710101
       }
     ]
   },

@@ -5,8 +5,12 @@ const addAccount = ({ commit }, item) => {
 const addParticipant = ({ commit }, participant) => {
   commit("mutateParticipantsList", participant);
 };
+const deleteParticipant = ({ commit }, participantId) => {
+  commit("mutationDeletePart", participantId);
+};
 export default {
   addAccount,
-  addParticipant
+  addParticipant,
+  deleteParticipant
   // los nombres de las funciones
 };
