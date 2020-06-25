@@ -19,26 +19,26 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getCategoryList"]),
+    ...mapGetters(["getAgendas"]),
     // getList,
     categories() {
-      return this.getCategoryList;
+      return this.getAgendas;
     },
   },
   methods: {
-    ...mapActions("createAgenda"),
-    ...mapActions("deleteAgenda"),
-    ...mapActions("updateAgenda"),
-    createNewAgenda() {
-      this.createAgenda({
+    ...mapActions(["createNewAgenda", "deleteAgenda", "updateAgenda"]),
+
+    create() {
+      this.createNewAgenda({
         agendaId: this.agendaID,
         name: this.nombre,
         description: this.descripcion,
         startHour: this.endHora,
         endHour: this.startHora,
+        appointments: []
       });
     },
-    modifyAgenda() {
+    update() {
       this.updateAgenda({
         agendaid: this.agendaID,
         name: this.nombre,
@@ -47,7 +47,7 @@ export default {
         endHour: this.startHora,
       });
     },
-    removeAgenda() {
+    delete() {
       this.deleteAgenda(this.removeId);
     },
     verifyFields() {
