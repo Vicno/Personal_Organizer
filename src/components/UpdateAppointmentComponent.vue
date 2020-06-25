@@ -58,7 +58,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
-  name: "SchedulingComponent",
+  name: "UpdateAppointmentComponent",
   data() {
     return {
       name: "",
@@ -71,18 +71,22 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getAgendas"]),
+    ...mapGetters(["getAgendas", "getAppointments"]),
     agendas() {
       return this.getAgendas;
+    },
+    appointments(){
+      return this.getAppointments;
     }
   },
   methods: {
-    ...mapActions(["addAppointment"]),
+    ...mapActions(["updateAppointment"]),
     saveApointment() {
       if (this._validateData()) {
         if (this._validateDate()) {
           if (this._validateHour()) {
-            this.addAppointment({
+            this._getParticipants();
+            this.updateAppointment({
               name: this.name,
               description: this.description,
               date: String(this.date),
@@ -165,6 +169,10 @@ export default {
     _getAgendaId() {
       var index = this.agendas.findIndex(ag => ag.name === this.agenda);
       this.agenda = this.agendas[index].agendaId;
+    },
+    _getParticipants() {
+      var index = this.appointments.findIndex(ag => ag.name === this.name);
+      this.participants = this.appointments[index].participants;
     }
   }
 };

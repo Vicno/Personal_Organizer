@@ -1,6 +1,6 @@
 import { assert } from "chai";
 import { shallowMount, createLocalVue } from "@vue/test-utils";
-import Scheduling from "@/components/SchedulingComponent.vue";
+import UpdateAppoint from "@/components/UpdateAppointmentComponent.vue";
 import { mockStore } from "./mockStore";
 import store from "@/store";
 import VueRouter from "vue-router";
@@ -17,7 +17,7 @@ describe("Scheduling CRUD", () => {
     store = new Vuex.Store(mockStore);
   });
   it("Validate data shoul pass if data enter", () => {
-    wrapper = shallowMount(Scheduling, {
+    wrapper = shallowMount(UpdateAppoint, {
       store,
       localVue
     });
@@ -25,7 +25,7 @@ describe("Scheduling CRUD", () => {
     assert.isFalse(isValid);
   });
   it("Validate data should pass if data enter", () => {
-    wrapper = shallowMount(Scheduling, {
+    wrapper = shallowMount(UpdateAppoint, {
       store,
       localVue
     });
@@ -40,7 +40,7 @@ describe("Scheduling CRUD", () => {
     assert.isTrue(isValid);
   });
   it("Validate hour data should pass if data enter is correct", () => {
-    wrapper = shallowMount(Scheduling, {
+    wrapper = shallowMount(UpdateAppoint, {
       store,
       localVue
     });
@@ -51,26 +51,12 @@ describe("Scheduling CRUD", () => {
     assert.isTrue(isValid);
   });
   it("Validate date data should pass if data enter is a possible date", () => {
-    wrapper = shallowMount(Scheduling, {
+    wrapper = shallowMount(UpdateAppoint, {
       store,
       localVue
     });
     wrapper.vm.$data.date = "2020-12-10";
     const isValid = wrapper.vm._validateDate();
     assert.isTrue(isValid);
-  });
-});
-describe("LocalVue", () => {
-  it("using the store directly", () => {
-    const localVue = createLocalVue();
-    localVue.use(VueRouter);
-    localVue.use(Vuex);
-    const router = new VueRouter({ routes: [] });
-    let wrapper = shallowMount(Scheduling, {
-      router,
-      store,
-      localVue
-    });
-    assert.equal(wrapper.vm.$store.state.scheduledAppointments.length, 1);
   });
 });
