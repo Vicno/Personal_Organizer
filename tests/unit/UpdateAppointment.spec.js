@@ -60,3 +60,17 @@ describe("Scheduling CRUD", () => {
     assert.isTrue(isValid);
   });
 });
+describe("LocalVue", () => {
+  it("using the store directly", () => {
+    const localVue = createLocalVue();
+    localVue.use(VueRouter);
+    localVue.use(Vuex);
+    const router = new VueRouter({ routes: [] });
+    let wrapper = shallowMount(UpdateAppoint, {
+      router,
+      store,
+      localVue
+    });
+    assert.equal(wrapper.vm.$store.state.scheduledAppointments.length, 1);
+  });
+});
