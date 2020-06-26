@@ -1,5 +1,26 @@
 <template>
-  <div></div>
+  <div>
+    <label class="title">Create New Agenda</label>
+    <div id="CreateInterface" class="cred">
+      <div class="cred" style="background-color: whitesmoke;">
+        <div :key="agenda.agendaId" v-for="agenda in agendas">
+          <ul>
+            <div>
+              <label class="title">{{ agenda.agendaId }}</label>
+              <br />
+              Name : {{ agenda.name }}
+              <br />
+              Description:
+              {{ agenda.description }}
+              <div class="cred">Start Hour : {{ agenda.startHour }}</div>
+              <div class="cred">End Hour : {{ agenda.endHour }}</div>
+              <div></div>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -21,7 +42,7 @@ export default {
   computed: {
     ...mapGetters(["getAgendas"]),
     // getList,
-    categories() {
+    agendas() {
       return this.getAgendas;
     },
   },
@@ -35,7 +56,7 @@ export default {
         description: this.descripcion,
         startHour: this.endHora,
         endHour: this.startHora,
-        appointments: []
+        appointments: [],
       });
     },
     update() {
@@ -90,3 +111,4 @@ export default {
   },
 };
 </script>
+<style src="@/views/Agenda.css"></style>
