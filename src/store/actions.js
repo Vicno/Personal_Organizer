@@ -14,10 +14,21 @@ const updateAgenda = ({ commit }, agenda) => {
 const deleteAgenda = ({ commit }, id) => {
   commit("mutateDeleteAgenda", id);
 };
+const addAccount = ({ commit }, item) => {
+  commit("mutateAccountList", item);
+};
+const addAppointment = ({ commit }, item) => {
+  commit("mutateAppointmentsList", item);
+};
+const updateAppointment = ({ commit }, itemToUpdate) => {
+  commit("updateAppointment", itemToUpdate);
+};
 export default {
   createNewAgenda,
   updateAgenda,
-  deleteAgenda
-
+  deleteAgenda,
+  addAccount,
+  addAppointment,
+  updateAppointment
   // los nombres de las funciones
 };
