@@ -23,7 +23,7 @@ const mutateDeleteAgenda = (state, id) => {
   state.agendas.forEach(agenda => {
     if (agenda.agendaId === id) {
       index = state.agendas.indexOf(agenda);
-      console.log(index);
+
       if (index > -1) {
         state.agendas.splice(index, 1);
       }
