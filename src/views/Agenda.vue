@@ -127,7 +127,7 @@ export default {
       startHora2: "",
       endHora2: "",
       removeId: "",
-      appointmentId: "",
+      appointmentId: ""
     };
   },
   computed: {
@@ -138,7 +138,7 @@ export default {
     },
     lastId() {
       return this.getLastId;
-    },
+    }
   },
   methods: {
     ...mapActions(["createNewAgenda", "deleteAgenda", "updateAgenda"]),
@@ -149,9 +149,9 @@ export default {
           agendaId: this.getId(),
           name: this.nombre,
           description: this.descripcion,
-          startHour: this.endHora,
-          endHour: this.startHora,
-          appointments: [],
+          startHour: this.startHora,
+          endHour: this.endHora,
+          appointments: []
         });
       }
     },
@@ -161,8 +161,8 @@ export default {
           agendaId: this.agendaID2,
           name: this.nombre2,
           description: this.descripcion2,
-          startHour: this.endHora2,
-          endHour: this.startHora2,
+          startHour: this.startHora2,
+          endHour: this.endHora2
         };
         this.updateAgenda(newval);
       }
@@ -177,7 +177,7 @@ export default {
       this.deleteAgenda(this.removeId);
     },
     borrarAgenda(id) {
-      this.agendas.forEach((agenda) => {
+      this.agendas.forEach(agenda => {
         if (agenda.agendaId === id) {
           if (agenda.appointments.length === 0) {
             this.removeId = id;
@@ -273,8 +273,8 @@ export default {
         x.style.display = "none";
       }
       this.agendaID2 = id;
-    },
-  },
+    }
+  }
 };
 </script>
-<style src="@/views/Agenda.css"></style>
+<style src="@/views/Agenda.css" scoped></style>

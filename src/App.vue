@@ -10,7 +10,6 @@
         single-line
         @input="updateAgenda"
       ></v-select>
-      <v-spacer></v-spacer>
       <v-btn icon router :to="'/schedul'">
         <v-icon>mdi-book-plus</v-icon>
         <span class="mr-2">Book new Appointment</span>
@@ -24,6 +23,7 @@
       <v-btn icon router :to="'/calendar'">
         <v-icon>mdi-calendar-month</v-icon>
       </v-btn>
+      <v-spacer></v-spacer>
       <v-btn icon router :to="'/Agenda'">
         <v-icon>mdi-book-plus-multiple</v-icon>
         <span class="mr-2">New Agenda</span>
