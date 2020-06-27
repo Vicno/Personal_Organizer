@@ -94,12 +94,13 @@ export default {
               agendaId: this.agenda,
               participants: this.participants
             });
-            let agendaAppointments = this.appointments.filter(
-              app => app.agendaId === this.agendaId
+            var agendaAppointments = this.appointments.filter(
+              app => app.agendaId === this.agenda
             );
-            let agendaToUpdate = this.agendas.filter(
-              app => app.agendaId === this.agendaId
+            var index = this.agendas.findIndex(
+              app => app.agendaId === this.agenda
             );
+            var agendaToUpdate = this.agendas[index];
             this.updateAgendaAppointments({
               name: agendaToUpdate.name,
               description: agendaToUpdate.description,
@@ -108,7 +109,6 @@ export default {
               agendaId: this.agenda,
               appointments: agendaAppointments
             });
-            console.log(this.agendas[0].appointments[0].name);
           } else {
             alert("The hours are wrong, you are gonna break time line");
           }

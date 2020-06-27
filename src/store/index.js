@@ -43,6 +43,15 @@ export default new Vuex.Store({
         endHour: "11:00",
         agendaId: "ANG-0001",
         participants: ["PART-001"]
+      },
+      {
+        name: "Doctor",
+        description: "I need to go to Docotor",
+        date: "06/21/2020",
+        startHour: "10:00",
+        endHour: "11:00",
+        agendaId: "ANG-0001",
+        participants: ["PART-001"]
       }
     ],
     postponedAppointments: [
