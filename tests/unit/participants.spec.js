@@ -4,6 +4,7 @@ import Participants from "@/components/Participants.vue";
 import VueRouter from "vue-router";
 import Vuex from "vuex";
 import { mockStore } from "./mockStore";
+
 describe("Participants CRUD", () => {
   let localVue;
   let router;
@@ -14,21 +15,6 @@ describe("Participants CRUD", () => {
     localVue.use(Vuex);
     router = new VueRouter({ routes: [] });
     store = new Vuex.Store(mockStore);
-  });
-  it("Validate data should not pass if no data enter", () => {
-    const wrapper = shallowMount(Participants);
-
-    const isValid = wrapper.vm._validateData();
-    assert.isFalse(isValid);
-  });
-
-  it("Validate data should pass if data enter", () => {
-    const wrapper = shallowMount(Participants);
-
-    wrapper.vm.$data.name = "Person B";
-    wrapper.vm.$data.contactNumber = 74164815;
-    const isValid = wrapper.vm._validateData();
-    assert.isTrue(isValid);
   });
   it("GenerateCode", () => {
     const wrapper = shallowMount(Participants, {

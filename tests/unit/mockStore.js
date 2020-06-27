@@ -1,6 +1,6 @@
-import actions from "./actions";
-import getters from "./getters";
-import mutations from "./mutations";
+import actions from "@/store/actions";
+import getters from "@/store/getters";
+import mutations from "@/store/mutations";
 
 export const mockStore = {
   state: {
@@ -11,14 +11,8 @@ export const mockStore = {
         description: "My Agenda to manage my workd",
         startHour: "10:00",
         endHour: "16:00",
-        appointments: [
-          // scheduledAppointments.filter(app => app.agendaId === this.agendaId)
-          // concat
-          // Iterate to simulate by clonning
-          // recursiveAppointments.filter(app => app.agendaId === this.agendaId)
-        ]
+        appointments: []
       }
-      // more agendas
     ],
     scheduledAppointments: [
       {
@@ -35,10 +29,6 @@ export const mockStore = {
       {
         name: "Dentist",
         description: "I need to go to dentist"
-        // date: "06/18/2020"
-        // startHour: "10:00",
-        // endHour: "11:00",
-        // agendaId: "ANG-001"
       }
     ],
     recursiveAppointments: [

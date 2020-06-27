@@ -52,7 +52,7 @@ export default new Vuex.Store({
         description: "I need to go to dentist",
         date: "06/19/2020",
         endDate: "12/18/2020",
-        frequency: "Day|Week|Month",
+        frequency: "Day",
         startHour: "10:00",
         endHour: "11:00",
         agendaId: "ANG-0001",
