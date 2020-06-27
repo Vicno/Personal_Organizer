@@ -130,16 +130,6 @@ export default {
       appointmentId: ""
     };
   },
-  computed: {
-    ...mapGetters(["getAgendas", "getAppointments", "getLastId"]),
-    // getList,
-    agendas() {
-      return this.getAgendas;
-    },
-    lastId() {
-      return this.getLastId;
-    }
-  },
   methods: {
     ...mapActions(["createNewAgenda", "deleteAgenda", "updateAgenda"]),
 
@@ -273,6 +263,16 @@ export default {
         x.style.display = "none";
       }
       this.agendaID2 = id;
+    }
+  },
+  computed: {
+    ...mapGetters(["getAgendas", "getAppointments", "getLastId"]),
+    // getList,
+    agendas() {
+      return this.getAgendas;
+    },
+    lastId() {
+      return this.getLastId;
     }
   }
 };

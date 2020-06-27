@@ -5,6 +5,11 @@ import VueRouter from "vue-router";
 import Vuex from "vuex";
 import { mockStore } from "./mockStore";
 
+before(() => {
+  global.alert = function(alertMessage) {
+    console.log(alertMessage);
+  };
+});
 describe("Agenda CRUD", () => {
   let localVue;
   let store;
@@ -20,7 +25,7 @@ describe("Agenda CRUD", () => {
     const wrapper = shallowMount(Agenda, {
       router,
       store,
-      localVue,
+      localVue
     }); // wrapper = { new Vue(), html, find, findAll, etc }
     let expectedInitialLength = 1;
     //const agendas = wrapper.vm.$data.agendas; // wrapper.vm.$data.groups[0]
@@ -32,7 +37,7 @@ describe("Agenda CRUD", () => {
       description: "Prueba Nuevo",
       startHour: "10:00",
       endHour: "12:00",
-      appointments: [],
+      appointments: []
     };
     expectedInitialLength = 2;
     wrapper.vm.createNewAgenda(newVal);
@@ -44,7 +49,7 @@ describe("Agenda CRUD", () => {
     const wrapper = shallowMount(Agenda, {
       router,
       store,
-      localVue,
+      localVue
     }); // wrapper = { new Vue(), html, find, findAll, etc }
     const updateVal = {
       agendaId: "ANG-0001",
@@ -52,7 +57,7 @@ describe("Agenda CRUD", () => {
       description: "Prueba Update",
       startHour: "10:00",
       endHour: "12:00",
-      appointments: [],
+      appointments: []
     };
     assert.notEqual(wrapper.vm.$store.state.agendas[0], updateVal);
     //const agendas = wrapper.vm.$data.agendas; // wrapper.vm.$data.groups[0]
@@ -81,7 +86,7 @@ describe("Agenda CRUD", () => {
     const wrapper = shallowMount(Agenda, {
       router,
       store,
-      localVue,
+      localVue
     }); // wrapper = { new Vue(), html, find, findAll, etc }
     let expectedInitialLength = 2;
     //const agendas = wrapper.vm.$data.agendas; // wrapper.vm.$data.groups[0]
@@ -93,7 +98,7 @@ describe("Agenda CRUD", () => {
   });
 });
 
-describe("Agenda logic tests should work propperly", () => {
+describe("Agenda logic tests should work properly", () => {
   let localVue;
   let store;
   let router;
@@ -108,7 +113,7 @@ describe("Agenda logic tests should work propperly", () => {
     const wrapper = shallowMount(Agenda, {
       router,
       store,
-      localVue,
+      localVue
     }); // wrapper = { new Vue(), html, find, findAll, etc }
     //const agendas = wrapper.vm.$data.agendas; // wrapper.vm.$data.groups[0]
     assert.equal(wrapper.vm.verifyHora("10:30", "10:40"), true);
@@ -136,7 +141,7 @@ describe("Agenda logic tests should work propperly", () => {
     const wrapper = shallowMount(Agenda, {
       router,
       store,
-      localVue,
+      localVue
     });
     const agenda = {
       agendaId: "ANG-0001",
