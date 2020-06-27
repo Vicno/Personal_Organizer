@@ -2,14 +2,18 @@
   <v-app>
     <v-app-bar app color="#gggg   " dark>
       <v-spacer></v-spacer>
-      <v-btn router :to="'/calendar'">
-        <span class="mr-2">Calendar</span>
+      <v-btn icon router :to="'/schedul'">
+        <v-icon>mdi-book-plus</v-icon>
+        <span class="mr-2">Book new Appointment</span>
       </v-btn>
-      <v-btn router :to="'/schedul'">
-        <span class="mr-2">Scheduling</span>
+      <v-spacer></v-spacer>
+      <v-btn icon router :to="'/schedul'">
+        <v-icon>mdi-book-plus-multiple</v-icon>
+        <span class="mr-2">Book new Recurrent Appointment</span>
       </v-btn>
-      <v-btn router :to="'/updateAppoint'">
-        <span class="mr-2">UpdateAppointment</span>
+      <v-spacer></v-spacer>
+      <v-btn icon router :to="'/calendar'">
+        <v-icon>mdi-calendar-month</v-icon>
       </v-btn>
     </v-app-bar>
     <v-main>

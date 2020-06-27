@@ -54,6 +54,9 @@
           v-model="description"
         ></textarea>
         <button @click="saveApointment">Book Now</button>
+        <button icon @click="deleteApp">
+          <v-icon>mdi-delete</v-icon>
+        </button>
       </div>
     </div>
   </div>
@@ -84,7 +87,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["updateAppointment"]),
+    ...mapActions([
+      "updateAppointment",
+      "deleteAppointment",
+      "updateAgendaAppointments"
+    ]),
     saveApointment() {
       if (this._validateData()) {
         if (this._validateDate()) {
@@ -177,6 +184,28 @@ export default {
     _getParticipants() {
       var index = this.appointments.findIndex(ag => ag.name === this.name);
       this.participants = this.appointments[index].participants;
+    },
+    deleteApp() {
+      var indexDeleted = this.appointments.findIndex(
+        app => app.name === this.name
+      );
+      var idAgendaDeleted = this.appointments[indexDeleted].agendaId;
+      var index = this.agendas.findIndex(
+        app => app.agendaId === idAgendaDeleted
+      );
+      var agendaToUpdate = this.agendas[index];
+      this.deleteAppointment(this.name);
+      var agendaAppointments = this.appointments.filter(
+        app => app.agendaId === idAgendaDeleted
+      );
+      this.updateAgendaAppointments({
+        name: agendaToUpdate.name,
+        description: agendaToUpdate.description,
+        startHour: agendaToUpdate.startHour,
+        endHour: agendaToUpdate.endHour,
+        agendaId: this.agendas[index].agendaId,
+        appointments: agendaAppointments
+      });
     }
   }
 };

@@ -11,10 +11,14 @@ const updateAppointment = ({ commit }, itemToUpdate) => {
 const updateAgendaAppointments = ({ commit }, itemToUpdate) => {
   commit("updateAgendaAppointment", itemToUpdate);
 };
+const deleteAppointment = ({ commit }, itemToDelete) => {
+  commit("deleteAppointment", itemToDelete);
+};
 export default {
   addAccount,
   addAppointment,
   updateAppointment,
-  updateAgendaAppointments
+  updateAgendaAppointments,
+  deleteAppointment
   // los nombres de las funciones
 };

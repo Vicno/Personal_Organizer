@@ -21,10 +21,16 @@ const updateAgendaAppointment = (state, itemToUpdate) => {
     state.agendas.splice(foundItem, 1, itemToUpdate);
   }
 };
+const deleteAppointment = (state, itemToDelete) => {
+  state.scheduledAppointments = state.scheduledAppointments.filter(
+    it => it.name !== itemToDelete
+  );
+};
 export default {
   mutateAccountList,
   mutateAppointmentsList,
   updateAppointment,
-  updateAgendaAppointment
+  updateAgendaAppointment,
+  deleteAppointment
   // los nombres de las funciones
 };

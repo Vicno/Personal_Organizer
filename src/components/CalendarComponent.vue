@@ -1,9 +1,6 @@
 <template>
   <div>
     <v-sheet tile height="54" color="grey lighten-3" class="d-flex">
-      <v-btn icon class="ma-2" @click="$refs.calendar.prev()">
-        <v-icon>mdi-chevron-left</v-icon>
-      </v-btn>
       <v-select
         v-model="type"
         :items="types"
@@ -13,16 +10,13 @@
         class="ma-2"
         label="type"
       ></v-select>
-      <v-select
-        v-model="weekday"
-        :items="weekdays"
-        dense
-        outlined
-        hide-details
-        label="weekdays"
-        class="ma-2"
-      ></v-select>
       <v-spacer></v-spacer>
+      <v-btn icon class="ma-2" @click="$refs.calendar.prev()">
+        <v-icon>mdi-chevron-left</v-icon>
+      </v-btn>
+      <v-toolbar-title v-if="$refs.calendar">
+        {{ $refs.calendar.title }}
+      </v-toolbar-title>
       <v-btn icon class="ma-2" @click="$refs.calendar.next()">
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
@@ -38,7 +32,42 @@
         :event-overlap-threshold="30"
         :event-color="getEventColor"
         @change="getEvents"
+        @click:event="showEvent"
+        @click:more="viewDay"
+        @click:date="viewDay"
       ></v-calendar>
+      <v-menu
+        v-model="selectedOpen"
+        :close-on-content-click="false"
+        :activator="selectedElement"
+        offset-x
+      >
+        <v-card color="grey lighten-4" min-width="350px" flat>
+          <v-toolbar :color="selectedEvent.color" dark>
+            <v-btn icon router :to="'/updateAppoint'">
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+            <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn icon>
+              <!--router :to="'/participants'"-->
+              <v-icon>mdi-account-multiple-plus</v-icon>
+            </v-btn>
+            <v-btn icon>
+              <!--router :to="'/postpone'"-->
+              <v-icon>mdi-clock-time-four</v-icon>
+            </v-btn>
+          </v-toolbar>
+          <v-card-text>
+            <span v-html="selectedEvent.description"></span>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn text color="secondary" @click="selectedOpen = false">
+              Cancel
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-menu>
     </v-sheet>
   </div>
 </template>
@@ -47,17 +76,14 @@
 import { mapGetters } from "vuex";
 export default {
   data: () => ({
+    selectedEvent: {},
+    selectedElement: null,
+    selectedOpen: false,
     type: "month",
     types: ["month", "week", "day", "4day"],
     mode: "stack",
     modes: ["stack", "column"],
     weekday: [0, 1, 2, 3, 4, 5, 6],
-    weekdays: [
-      { text: "Sun - Sat", value: [0, 1, 2, 3, 4, 5, 6] },
-      { text: "Mon - Sun", value: [1, 2, 3, 4, 5, 6, 0] },
-      { text: "Mon - Fri", value: [1, 2, 3, 4, 5] },
-      { text: "Mon, Wed, Fri", value: [1, 3, 5] }
-    ],
     value: "",
     events: [],
     colors: [
@@ -104,7 +130,7 @@ export default {
     getEvents() {
       let events = [];
       var agendaAppointments = this.agendas[0].appointments;
-      console.log(agendaAppointments[0].name);
+      //console.log("largo pooki" + agendaAppointments.length);
       for (let i = 0; i < agendaAppointments.length; i++) {
         var datearray1 = agendaAppointments[i].date.split("/");
         var appointmentDateStart =
@@ -127,6 +153,7 @@ export default {
           name: agendaAppointments[i].name,
           start: appointmentDateStart,
           end: appointmentDateEnd,
+          description: agendaAppointments[i].description,
           color: this.colors[this.rnd(0, this.colors.length - 1)]
         });
       }
@@ -137,6 +164,24 @@ export default {
     },
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;
+    },
+    viewDay({ date }) {
+      this.focus = date;
+      this.type = "day";
+    },
+    showEvent({ nativeEvent, event }) {
+      const open = () => {
+        this.selectedEvent = event;
+        this.selectedElement = nativeEvent.target;
+        setTimeout(() => (this.selectedOpen = true), 10);
+      };
+      if (this.selectedOpen) {
+        this.selectedOpen = false;
+        setTimeout(open, 10);
+      } else {
+        open();
+      }
+      nativeEvent.stopPropagation();
     }
   }
 };
