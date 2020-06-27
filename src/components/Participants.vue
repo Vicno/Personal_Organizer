@@ -1,11 +1,5 @@
 <template>
   <div>
-    <div>
-      <tipo_lista>
-        <li>Primer elemento</li>
-        <li>Segundo elemento</li></tipo_lista
-      >
-    </div>
     <div v-if="formUpdate">
       <label> {{ idUpdate }}</label>
     </div>
