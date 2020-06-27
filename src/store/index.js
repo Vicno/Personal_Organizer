@@ -17,10 +17,24 @@ export default new Vuex.Store({
         startHour: "10:00",
         endHour: "16:00",
         appointments: [
-          // scheduledAppointments.filter(app => app.agendaId === this.agendaId)
-          // concat
-          // Iterate to simulate by clonning
-          // recursiveAppointments.filter(app => app.agendaId === this.agendaId)
+          {
+            name: "Dentist",
+            description: "I need to go to dentist",
+            date: "06/18/2020",
+            startHour: "10:00",
+            endHour: "11:00",
+            agendaId: "ANG-0001",
+            participants: ["PART-001"]
+          },
+          {
+            name: "Psicologo",
+            description: "I need to go to nonwhere",
+            date: "06/18/2020",
+            startHour: "11:00",
+            endHour: "12:00",
+            agendaId: "ANG-0002",
+            participants: ["PART-001"]
+          }
         ]
       }
       // more agendas

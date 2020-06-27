@@ -119,20 +119,27 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getAgendas"]),
-    ...mapGetters(["getAgendaAppointments"]),
-    ...mapGetters(["getPostponedAppointments"]),
+    ...mapGetters([
+      "getAgendas",
+      "getAgendaAppointments",
+      "getPostponedAppointments"
+    ]),
     agendas() {
       return this.getAgendas;
+    },
+    agendaAppointments() {
+      return this.getAgendaAppointments;
     },
     postponedAppointmentsList() {
       return this.getPostponedAppointments;
     }
   },
   methods: {
-    ...mapActions(["addTargetAgendaAppointment"]),
-    ...mapActions(["PostponeAppointment"]),
-    ...mapActions(["deleteAppointment"]),
+    ...mapActions([
+      "addTargetAgendaAppointment",
+      "PostponeAppointment",
+      "deleteAppointment"
+    ]),
     savePostponedAppointment() {
       this.PostponeAppointment({
         name: this.name,
