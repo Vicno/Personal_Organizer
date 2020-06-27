@@ -4,11 +4,13 @@ const getAgendas = state => state.agendas;
 const getAppointments = state => state.scheduledAppointments;
 const getpostponedAppointments = state => state.postponedAppointments;
 const getrecursiveAppointments = state => state.recursiveAppointments;
+const getAgendaSelected = state => state.agendaSelected;
 export default {
   getAccounts,
   getAgendas,
   getAppointments,
   getpostponedAppointments,
-  getrecursiveAppointments
+  getrecursiveAppointments,
+  getAgendaSelected
   // los nombres de las funciones
 };

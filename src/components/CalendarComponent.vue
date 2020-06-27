@@ -111,7 +111,8 @@ export default {
       "getAgendas",
       "getAppointments",
       "getrecursiveAppointments",
-      "getpostponedAppointments"
+      "getpostponedAppointments",
+      "getAgendaSelected"
     ]),
     appointments() {
       return this.getAppointments;
@@ -124,13 +125,18 @@ export default {
     },
     agendas() {
       return this.getAgendas;
+    },
+    selectedAgenda() {
+      return this.getAgendaSelected;
     }
   },
   methods: {
     getEvents() {
       let events = [];
-      var agendaAppointments = this.agendas[0].appointments;
-      //console.log("largo pooki" + agendaAppointments.length);
+      var indexselectedAgenda = this.agendas.findIndex(
+        ag => ag.name === this.selectedAgenda
+      );
+      var agendaAppointments = this.agendas[indexselectedAgenda].appointments;
       for (let i = 0; i < agendaAppointments.length; i++) {
         var datearray1 = agendaAppointments[i].date.split("/");
         var appointmentDateStart =

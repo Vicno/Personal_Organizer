@@ -1,6 +1,15 @@
 <template>
   <v-app>
     <v-app-bar app color="#gggg   " dark>
+      <v-select
+        v-model="agendaSelected"
+        :items="agendasName()"
+        label="Agenda"
+        persistent-hint
+        return-object
+        single-line
+        @input="updateAgenda"
+      ></v-select>
       <v-spacer></v-spacer>
       <v-btn icon router :to="'/schedul'">
         <v-icon>mdi-book-plus</v-icon>
@@ -24,13 +33,34 @@
 
 <script>
 import router from "@/router";
+
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "App",
   router,
-  components: {},
-
-  data: () => ({
-    //
-  })
+  data() {
+    return {
+      agendaSelected: ""
+    };
+  },
+  computed: {
+    ...mapGetters(["getAgendas"]),
+    agendas() {
+      return this.getAgendas;
+    }
+  },
+  methods: {
+    ...mapActions(["updateAgendaSelected"]),
+    agendasName() {
+      var agendaName = [];
+      for (var i = 0; i < this.agendas.length; i++) {
+        agendaName.push(this.agendas[i].name);
+      }
+      return agendaName;
+    },
+    updateAgenda() {
+      this.updateAgendaSelected(this.agendaSelected);
+    }
+  }
 };
 </script>

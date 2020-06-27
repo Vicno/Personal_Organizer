@@ -13,6 +13,9 @@ const updateAppointment = (state, itemToUpdate) => {
     state.scheduledAppointments.splice(foundItem, 1, itemToUpdate);
   }
 };
+const updateAgendaSelected = (state, itemToUpdate) => {
+  state.agendaSelected = itemToUpdate;
+};
 const updateAgendaAppointment = (state, itemToUpdate) => {
   const foundItem = state.agendas.findIndex(
     st => st.agendaId === itemToUpdate.agendaId
@@ -22,6 +25,19 @@ const updateAgendaAppointment = (state, itemToUpdate) => {
   }
 };
 const deleteAppointment = (state, itemToDelete) => {
+  var appointmentToDelete = (state.scheduledAppointments = state.scheduledAppointments.filter(
+    it => it.name === itemToDelete
+  ));
+  var today = new Date();
+  ("06/18/2020");
+  var date =
+    today.getMonth() + 1 + "/" + today.getDate() + "/" + today.getFullYear();
+  if (appointmentToDelete.date === date) {
+    state.postponedAppointments.push({
+      name: appointmentToDelete.name,
+      description: appointmentToDelete.description
+    });
+  }
   state.scheduledAppointments = state.scheduledAppointments.filter(
     it => it.name !== itemToDelete
   );
@@ -31,6 +47,7 @@ export default {
   mutateAppointmentsList,
   updateAppointment,
   updateAgendaAppointment,
-  deleteAppointment
+  deleteAppointment,
+  updateAgendaSelected
   // los nombres de las funciones
 };
