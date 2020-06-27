@@ -13,9 +13,18 @@ const updateAppointment = (state, itemToUpdate) => {
     state.scheduledAppointments.splice(foundItem, 1, itemToUpdate);
   }
 };
+const updateAgendaAppointment = (state, itemToUpdate) => {
+  const foundItem = state.agendas.findIndex(
+    st => st.agendaId === itemToUpdate.agendaId
+  );
+  if (foundItem >= 0) {
+    state.agendas.splice(foundItem, 1, itemToUpdate);
+  }
+};
 export default {
   mutateAccountList,
   mutateAppointmentsList,
-  updateAppointment
+  updateAppointment,
+  updateAgendaAppointment
   // los nombres de las funciones
 };

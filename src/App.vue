@@ -1,33 +1,32 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/schedul">Scheduling</router-link>
-      <router-link to="/updateAppoint">UpdateAppointment</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app>
+    <v-app-bar app color="#gggg   " dark>
+      <v-spacer></v-spacer>
+      <v-btn router :to="'/calendar'">
+        <span class="mr-2">Calendar</span>
+      </v-btn>
+      <v-btn router :to="'/schedul'">
+        <span class="mr-2">Scheduling</span>
+      </v-btn>
+      <v-btn router :to="'/updateAppoint'">
+        <span class="mr-2">UpdateAppointment</span>
+      </v-btn>
+    </v-app-bar>
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import router from "@/router";
+export default {
+  name: "App",
+  router,
+  components: {},
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+  data: () => ({
+    //
+  })
+};
+</script>

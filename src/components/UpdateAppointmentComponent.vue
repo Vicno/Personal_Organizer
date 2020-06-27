@@ -7,12 +7,16 @@
       <div class="form">
         <h3>Make An Appointment</h3>
         <div class="form-row">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Name"
-            v-model="name"
-          />
+          <label>Name</label>
+          <select v-model="name" id="names">
+            <option
+              :key="na.id"
+              v-for="na in appointments"
+              class="optionsAppointments"
+            >
+              {{ na.name }}
+            </option>
+          </select>
           <label>Agenda</label>
           <select v-model="agenda" id="agendas">
             <option :key="ag.id" v-for="ag in agendas" class="optionsAgenda">
@@ -75,7 +79,7 @@ export default {
     agendas() {
       return this.getAgendas;
     },
-    appointments(){
+    appointments() {
       return this.getAppointments;
     }
   },
@@ -163,7 +167,7 @@ export default {
           }
         }
       }
-      this.date = this.date.replace(/-/g, "/");
+      this.date = datearray[1] + "/" + datearray[2] + "/" + datearray[0];
       return bool;
     },
     _getAgendaId() {

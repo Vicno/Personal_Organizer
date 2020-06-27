@@ -71,13 +71,16 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getAgendas"]),
+    ...mapGetters(["getAgendas", "getAppointments"]),
     agendas() {
       return this.getAgendas;
+    },
+    appointments() {
+      return this.getAppointments;
     }
   },
   methods: {
-    ...mapActions(["addAppointment"]),
+    ...mapActions(["addAppointment", "updateAgendaAppointments"]),
     saveApointment() {
       if (this._validateData()) {
         if (this._validateDate()) {
@@ -91,6 +94,21 @@ export default {
               agendaId: this.agenda,
               participants: this.participants
             });
+            let agendaAppointments = this.appointments.filter(
+              app => app.agendaId === this.agendaId
+            );
+            let agendaToUpdate = this.agendas.filter(
+              app => app.agendaId === this.agendaId
+            );
+            this.updateAgendaAppointments({
+              name: agendaToUpdate.name,
+              description: agendaToUpdate.description,
+              startHour: agendaToUpdate.startHour,
+              endHour: agendaToUpdate.endHour,
+              agendaId: this.agenda,
+              appointments: agendaAppointments
+            });
+            console.log(this.agendas[0].appointments[0].name);
           } else {
             alert("The hours are wrong, you are gonna break time line");
           }
@@ -159,7 +177,7 @@ export default {
           }
         }
       }
-      this.date = this.date.replace(/-/g, "/");
+      this.date = datearray[1] + "/" + datearray[2] + "/" + datearray[0];
       return bool;
     },
     _getAgendaId() {

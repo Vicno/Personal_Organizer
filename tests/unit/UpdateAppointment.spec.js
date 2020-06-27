@@ -5,11 +5,16 @@ import { mockStore } from "./mockStore";
 import store from "@/store";
 import VueRouter from "vue-router";
 import Vuex from "vuex";
+import Vuetify from "vuetify";
 
 describe("Scheduling CRUD", () => {
   let localVue;
   let store;
   let wrapper;
+  let vuetify;
+  beforeEach(() => {
+    vuetify = new Vuetify();
+  });
   beforeEach(() => {
     localVue = createLocalVue();
     localVue.use(VueRouter);
@@ -19,6 +24,7 @@ describe("Scheduling CRUD", () => {
   it("Validate data shoul pass if data enter", () => {
     wrapper = shallowMount(UpdateAppoint, {
       store,
+      vuetify,
       localVue
     });
     const isValid = wrapper.vm._validateData();
@@ -27,6 +33,7 @@ describe("Scheduling CRUD", () => {
   it("Validate data should pass if data enter", () => {
     wrapper = shallowMount(UpdateAppoint, {
       store,
+      vuetify,
       localVue
     });
     wrapper.vm.$data.name = "test";
@@ -42,6 +49,7 @@ describe("Scheduling CRUD", () => {
   it("Validate hour data should pass if data enter is correct", () => {
     wrapper = shallowMount(UpdateAppoint, {
       store,
+      vuetify,
       localVue
     });
     wrapper.vm.$data.end_hour = "12:00";
@@ -53,6 +61,7 @@ describe("Scheduling CRUD", () => {
   it("Validate date data should pass if data enter is a possible date", () => {
     wrapper = shallowMount(UpdateAppoint, {
       store,
+      vuetify,
       localVue
     });
     wrapper.vm.$data.date = "2020-12-10";
