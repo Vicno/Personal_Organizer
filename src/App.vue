@@ -15,9 +15,9 @@
         <span class="mr-2">Book new Appointment</span>
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn icon router :to="'/schedul'">
+      <v-btn icon router :to="'/recursiveschedul'">
         <v-icon>mdi-book-plus-multiple</v-icon>
-        <span class="mr-2">Book new Recurrent Appointment</span>
+        <span class="mr-2">Book new Recursive Appointment</span>
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn icon router :to="'/calendar'">
@@ -27,6 +27,11 @@
       <v-btn icon router :to="'/Agenda'">
         <v-icon>mdi-book-plus-multiple</v-icon>
         <span class="mr-2">New Agenda</span>
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn icon router :to="'/participants'">
+        <v-icon>mdi-book-plus-multiple</v-icon>
+        <span class="mr-2"> Participants</span>
       </v-btn>
     </v-app-bar>
     <v-main>

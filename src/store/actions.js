@@ -1,8 +1,4 @@
 // Ejemplo de como escribir la funcion
-/*const addAccount = ({ commit }, item) => {
-  commit("mutateAccountList", item);
-};*/
-
 const createNewAgenda = ({ commit }, agenda) => {
   commit("mutateCreateAgenda", agenda);
 };
@@ -14,9 +10,23 @@ const updateAgenda = ({ commit }, agenda) => {
 const deleteAgenda = ({ commit }, id) => {
   commit("mutateDeleteAgenda", id);
 };
-const addAccount = ({ commit }, item) => {
-  commit("mutateAccountList", item);
+const addParticipant = ({ commit }, participant) => {
+  commit("mutateParticipantsList", participant);
 };
+const deleteParticipant = ({ commit }, participantId) => {
+  commit("mutationDeletePart", participantId);
+};
+const addRecursive = ({ commit }, schedule) => {
+  commit("mutateAddRecursive", schedule);
+};
+
+const updateRecursive = ({ commit }, schedule) => {
+  commit("mutateUpdateRecursive", schedule);
+};
+const deleteRecursive = ({ commit }, schedulename) => {
+  commit("mutateDeleteRecursive", schedulename);
+};
+
 const addAppointment = ({ commit }, item) => {
   commit("mutateAppointmentsList", item);
 };
@@ -36,11 +46,15 @@ export default {
   createNewAgenda,
   updateAgenda,
   deleteAgenda,
-  addAccount,
   addAppointment,
   updateAppointment,
   updateAgendaAppointments,
   deleteAppointment,
-  updateAgendaSelected
+  updateAgendaSelected,
+  addParticipant,
+  deleteParticipant,
+  addRecursive,
+  updateRecursive,
+  deleteRecursive
   // los nombres de las funciones
 };

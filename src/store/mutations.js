@@ -1,8 +1,3 @@
-// Ejemplo de como escribir la funcion
-/*const mutateAccountList = (state, newAccount) => {
-  state.ACCOUNTS.push(newAccount);
-};*/
-
 const mutateCreateAgenda = (state, newAgenda) => {
   state.agendas.push(newAgenda);
 };
@@ -23,17 +18,47 @@ const mutateDeleteAgenda = (state, id) => {
   state.agendas.forEach(agenda => {
     if (agenda.agendaId === id) {
       index = state.agendas.indexOf(agenda);
-
       if (index > -1) {
         state.agendas.splice(index, 1);
       }
     }
   });
 };
-
-const mutateAccountList = (state, newAccount) => {
-  state.ACCOUNTS.push(newAccount);
+const mutateParticipantsList = (state, newParticipant) => {
+  state.participants.push(newParticipant);
 };
+
+const mutationDeletePart = (state, partToDelete) => {
+  state.participants = state.participants.filter(
+    part => part.participantId !== partToDelete
+  );
+};
+
+const mutateAddRecursive = (state, newSchedule) => {
+  state.recursiveAppointments.push(newSchedule);
+};
+
+const mutateUpdateRecursive = (state, updateSchedule) => {
+  const indexSchedule = state.recursiveAppointments.findIndex(
+    rt => rt.name === updateSchedule.name
+  );
+  if (indexSchedule > -1) {
+    state.recursiveAppointments.splice(indexSchedule, 1, updateSchedule);
+  }
+};
+
+const mutateDeleteRecursive = (state, name) => {
+  let index;
+  state.recursiveAppointments.forEach(schedule => {
+    if (schedule.name === name) {
+      index = state.recursiveAppointments.indexOf(schedule);
+      if (index > -1) {
+        state.recursiveAppointments.splice(index, 1);
+      }
+    }
+  });
+};
+
 const mutateAppointmentsList = (state, newAppointment) => {
   state.scheduledAppointments.push(newAppointment);
 };
@@ -78,11 +103,15 @@ export default {
   mutateCreateAgenda,
   mutateUpdateAgenda,
   mutateDeleteAgenda,
-  mutateAccountList,
   mutateAppointmentsList,
   updateAppointment,
   updateAgendaAppointment,
   deleteAppointment,
-  updateAgendaSelected
+  updateAgendaSelected,
+  mutateParticipantsList,
+  mutationDeletePart,
+  mutateAddRecursive,
+  mutateUpdateRecursive,
+  mutateDeleteRecursive
   // los nombres de las funciones
 };

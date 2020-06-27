@@ -23,19 +23,22 @@ const routes = [
   {
     path: "/updateAppoint",
     name: "UpdateAppoint",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/UpdateAppointment.vue")
+    component: () => import("../views/UpdateAppointment.vue")
   },
   {
-    path: "/Agenda",
-    name: "Agenda",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Agenda.vue")
+    path: "/recursiveschedul",
+    name: "RecursiveSchedul",
+    component: () => import("../views/RecursiveScheduling.vue")
   },
   {
     path: "/calendar",
     name: "Calendar",
     component: () => import("../components/CalendarComponent.vue")
+  },
+  {
+    path: "/participants",
+    name: "Participants",
+    component: () => import("../views/ParticipantsView.vue")
   }
 ];
 

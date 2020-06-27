@@ -33,7 +33,6 @@ export default new Vuex.Store({
           }
         ]
       }
-      // more agendas
     ],
     scheduledAppointments: [
       {
@@ -50,10 +49,6 @@ export default new Vuex.Store({
       {
         name: "Dentist",
         description: "I need to go to dentist"
-        //date: "06/18/2020",
-        //startHour: "10:00",
-        //endHour: "11:00",
-        //agendaId: "ANG-001"
       }
     ],
     recursiveAppointments: [
@@ -62,7 +57,7 @@ export default new Vuex.Store({
         description: "I need to go to dentist",
         date: "06/19/2020",
         endDate: "12/18/2020",
-        frequency: "Day|Week|Month",
+        frequency: "Day",
         startHour: "10:00",
         endHour: "11:00",
         agendaId: "ANG-0001",
@@ -71,9 +66,9 @@ export default new Vuex.Store({
     ],
     participants: [
       {
-        participantId: "PART-001",
+        participantId: "PART-1",
         name: "Person A",
-        contactNumber: "70710101"
+        contactNumber: 70710101
       }
     ]
   },
