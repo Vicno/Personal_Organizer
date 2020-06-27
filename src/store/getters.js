@@ -9,6 +9,9 @@ const getRecursiveSchedules = state => state.recursiveAppointments;
 const getLastParticipant = state =>
   state.participants[state.participants.length - 1].participantId;
 const getParticipants = state => state.participants;
+
+const getUpdateIdPart = state => state.partIdToUpdate;
+//const getParticipantsId = state => state.participants.
 export default {
   getAgendas,
   getAppointments,
@@ -18,6 +21,7 @@ export default {
   getLastId,
   getRecursiveSchedules,
   getLastParticipant,
-  getParticipants
+  getParticipants,
+  getUpdateIdPart
   // los nombres de las funciones
 };

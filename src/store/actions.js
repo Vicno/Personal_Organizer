@@ -42,6 +42,12 @@ const deleteAppointment = ({ commit }, itemToDelete) => {
 const updateAgendaSelected = ({ commit }, itemToUpdate) => {
   commit("updateAgendaSelected", itemToUpdate);
 };
+const updateParticipant = ({ commit }, partToUpdate) => {
+  commit("mutationUpdatePart", partToUpdate);
+};
+const updatePartId = ({ commit }, idUpdate) => {
+  commit("idToUpdate", idUpdate);
+};
 export default {
   createNewAgenda,
   updateAgenda,
@@ -55,6 +61,8 @@ export default {
   deleteParticipant,
   addRecursive,
   updateRecursive,
-  deleteRecursive
+  deleteRecursive,
+  updateParticipant,
+  updatePartId
   // los nombres de las funciones
 };

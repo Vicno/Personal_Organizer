@@ -99,6 +99,15 @@ const deleteAppointment = (state, itemToDelete) => {
     it => it.name !== itemToDelete
   );
 };
+const mutationUpdatePart = (state, partToUpdate) => {
+  let foundAccountIndex = state.participants.findIndex(
+    account => account.participantId === partToUpdate.participantId
+  );
+  state.participants.splice(foundAccountIndex, 1, partToUpdate);
+};
+const idToUpdate = (state, idToUpdate) => {
+  state.partIdToUpdate = idToUpdate;
+};
 export default {
   mutateCreateAgenda,
   mutateUpdateAgenda,
@@ -112,6 +121,8 @@ export default {
   mutationDeletePart,
   mutateAddRecursive,
   mutateUpdateRecursive,
-  mutateDeleteRecursive
+  mutateDeleteRecursive,
+  mutationUpdatePart,
+  idToUpdate
   // los nombres de las funciones
 };
