@@ -65,7 +65,8 @@ export default new Vuex.Store({
         name: "Person A",
         contactNumber: 70710101
       }
-    ]
+    ],
+    partIdToUpdate: "-1"
   },
   actions,
   getters,

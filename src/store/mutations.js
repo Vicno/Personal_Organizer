@@ -10,9 +10,20 @@ const mutationDeletePart = (state, partToDelete) => {
     part => part.participantId !== partToDelete
   );
 };
+const mutationUpdatePart = (state, partToUpdate) => {
+  let foundAccountIndex = state.participants.findIndex(
+    account => account.participantId === partToUpdate.participantId
+  );
+  state.participants.splice(foundAccountIndex, 1, partToUpdate);
+};
+const idToUpdate = (state, idToUpdate) => {
+  state.partIdToUpdate = idToUpdate;
+};
 export default {
   mutateAccountList,
   mutateParticipantsList,
-  mutationDeletePart
+  mutationDeletePart,
+  mutationUpdatePart,
+  idToUpdate
   // los nombres de las funciones
 };
