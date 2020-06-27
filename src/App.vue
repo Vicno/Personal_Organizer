@@ -24,6 +24,10 @@
       <v-btn icon router :to="'/calendar'">
         <v-icon>mdi-calendar-month</v-icon>
       </v-btn>
+      <v-btn icon router :to="'/Agenda'">
+        <v-icon>mdi-book-plus-multiple</v-icon>
+        <span class="mr-2">New Agenda</span>
+      </v-btn>
     </v-app-bar>
     <v-main>
       <router-view />
