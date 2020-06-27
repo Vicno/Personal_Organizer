@@ -1,9 +1,14 @@
 import { assert } from "chai";
 import { mount, createLocalVue } from "@vue/test-utils";
-import RecursiveScheduling from "@/components/RecursiveSchedulingComp.vue";
+import RecursiveScheduling from "@/views/RecursiveScheduling.vue";
 import { mockStore } from "./mockStore";
 import VueRouter from "vue-router";
 import Vuex from "vuex";
+before(() => {
+  global.alert = function(alertMessage) {
+    console.log(alertMessage);
+  };
+});
 describe("LocalVue", () => {
   it("using the mockstore", () => {
     const localVue = createLocalVue();
@@ -20,18 +25,6 @@ describe("LocalVue", () => {
   });
 });
 describe("Validate CRUD", () => {
-  let localVue;
-  // eslint-disable-next-line no-unused-vars
-  let store;
-  // eslint-disable-next-line no-unused-vars
-  let router;
-  beforeEach(() => {
-    localVue = createLocalVue();
-    localVue.use(VueRouter);
-    localVue.use(Vuex);
-    router = new VueRouter({ routes: [] });
-    store = new Vuex.Store(mockStore);
-  });
   it("Validate data should pass if data enter", () => {
     const wrapper = mount(RecursiveScheduling);
     wrapper.vm.$data.name = "test";
