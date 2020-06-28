@@ -2,15 +2,11 @@ import { assert } from "chai";
 import { shallowMount, createLocalVue } from "@vue/test-utils";
 import Scheduling from "@/components/SchedulingComponent.vue";
 import { mockStore } from "./mockStore";
+import store from "@/store";
 import VueRouter from "vue-router";
 import Vuex from "vuex";
 import Vuetify from "vuetify";
 
-before(() => {
-  global.alert = function(alertMessage) {
-    console.log(alertMessage);
-  };
-});
 describe("Scheduling CRUD", () => {
   let localVue;
   let store;
@@ -78,7 +74,6 @@ describe("LocalVue", () => {
     const localVue = createLocalVue();
     localVue.use(VueRouter);
     localVue.use(Vuex);
-    const store = new Vuex.Store(mockStore);
     const router = new VueRouter({ routes: [] });
     let wrapper = shallowMount(Scheduling, {
       router,

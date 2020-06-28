@@ -52,34 +52,34 @@ describe("Agenda CRUD", () => {
       localVue
     }); // wrapper = { new Vue(), html, find, findAll, etc }
     const updateVal = {
-      agendaId: "ANG-0001",
+      agendaId: "ANG-0002",
       name: "Cambio1",
       description: "Prueba Update",
       startHour: "10:00",
       endHour: "12:00",
       appointments: []
     };
-    assert.notEqual(wrapper.vm.$store.state.agendas[0], updateVal);
+    assert.notEqual(wrapper.vm.$store.state.agendas[1], updateVal);
     //const agendas = wrapper.vm.$data.agendas; // wrapper.vm.$data.groups[0]
     wrapper.vm.updateAgenda(updateVal);
     assert.equal(
-      wrapper.vm.$store.state.agendas[0].agendaId,
+      wrapper.vm.$store.state.agendas[1].agendaId,
       updateVal.agendaId
     );
-    assert.equal(wrapper.vm.$store.state.agendas[0].name, updateVal.name);
+    assert.equal(wrapper.vm.$store.state.agendas[1].name, updateVal.name);
     assert.equal(
-      wrapper.vm.$store.state.agendas[0].description,
+      wrapper.vm.$store.state.agendas[1].description,
       updateVal.description
     );
     assert.equal(
-      wrapper.vm.$store.state.agendas[0].description,
+      wrapper.vm.$store.state.agendas[1].description,
       updateVal.description
     );
     assert.equal(
-      wrapper.vm.$store.state.agendas[0].startHour,
+      wrapper.vm.$store.state.agendas[1].startHour,
       updateVal.startHour
     );
-    assert.equal(wrapper.vm.$store.state.agendas[0].endHour, updateVal.endHour);
+    assert.equal(wrapper.vm.$store.state.agendas[1].endHour, updateVal.endHour);
   });
 
   it("Removing an agenda should work properly", () => {
@@ -91,7 +91,7 @@ describe("Agenda CRUD", () => {
     let expectedInitialLength = 2;
     //const agendas = wrapper.vm.$data.agendas; // wrapper.vm.$data.groups[0]
     assert.equal(wrapper.vm.$store.state.agendas.length, expectedInitialLength);
-    const id = "ANG-0001";
+    const id = "ANG-0002";
     expectedInitialLength = 1;
     wrapper.vm.deleteAgenda(id);
     assert.equal(wrapper.vm.$store.state.agendas.length, expectedInitialLength);
@@ -144,12 +144,12 @@ describe("Agenda logic tests should work properly", () => {
       localVue
     });
     const agenda = {
-      agendaId: "ANG-0001",
-      name: "Work",
-      description: "My Agenda to manage my workd",
+      agendaId: "ANG-0002",
+      name: "Cambio1",
+      description: "Prueba Update",
       startHour: "10:00",
-      endHour: "16:00",
-      appointments: ["hola"]
+      endHour: "12:00",
+      appointments: []
     };
 
     wrapper.vm.borrarAgenda(agenda);

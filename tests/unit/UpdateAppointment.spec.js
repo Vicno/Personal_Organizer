@@ -6,6 +6,11 @@ import store from "@/store";
 import VueRouter from "vue-router";
 import Vuex from "vuex";
 import Vuetify from "vuetify";
+before(() => {
+  global.alert = function(alertMessage) {
+    console.log(alertMessage);
+  };
+});
 
 describe("Scheduling CRUD", () => {
   let localVue;

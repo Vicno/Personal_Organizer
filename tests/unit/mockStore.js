@@ -4,6 +4,7 @@ import mutations from "@/store/mutations";
 
 export const mockStore = {
   state: {
+    agendaSelected: "Work",
     agendas: [
       {
         agendaId: "ANG-0001",
@@ -11,14 +12,24 @@ export const mockStore = {
         description: "My Agenda to manage my workd",
         startHour: "10:00",
         endHour: "16:00",
-        appointments: []
+        appointments: [
+          {
+            name: "Dentist",
+            description: "I need to go to dentist",
+            date: "06/27/2020",
+            startHour: "10:00",
+            endHour: "11:00",
+            agendaId: "ANG-0001",
+            participants: ["PART-001"]
+          }
+        ]
       }
     ],
     scheduledAppointments: [
       {
         name: "Dentist",
         description: "I need to go to dentist",
-        date: "06/18/2020",
+        date: "06/27/2020",
         startHour: "10:00",
         endHour: "11:00",
         agendaId: "ANG-0001",
@@ -37,7 +48,7 @@ export const mockStore = {
         description: "I need to go to dentist",
         date: "06/19/2020",
         endDate: "12/18/2020",
-        frequency: "Day|Week|Month",
+        frequency: "Day",
         startHour: "10:00",
         endHour: "11:00",
         agendaId: "ANG-0001",
@@ -50,7 +61,8 @@ export const mockStore = {
         name: "Person A",
         contactNumber: 70710101
       }
-    ]
+    ],
+    partIdToUpdate: "-1"
   },
   actions,
   getters,

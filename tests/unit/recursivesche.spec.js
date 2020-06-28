@@ -1,6 +1,6 @@
 import { assert } from "chai";
 import { mount, createLocalVue } from "@vue/test-utils";
-import RecursiveScheduling from "@/views/RecursiveScheduling.vue";
+import RecursiveScheduling from "@/components/RecursiveSchedulingComp.vue";
 import { mockStore } from "./mockStore";
 import VueRouter from "vue-router";
 import Vuex from "vuex";
@@ -25,8 +25,19 @@ describe("LocalVue", () => {
   });
 });
 describe("Validate CRUD", () => {
+  let localVue;
+  let store;
+  beforeEach(() => {
+    localVue = createLocalVue();
+    localVue.use(VueRouter);
+    localVue.use(Vuex);
+    store = new Vuex.Store(mockStore);
+  });
   it("Validate data should pass if data enter", () => {
-    const wrapper = mount(RecursiveScheduling);
+    const wrapper = mount(RecursiveScheduling, {
+      store,
+      localVue
+    });
     wrapper.vm.$data.name = "test";
     wrapper.vm.$data.description = "description test";
     wrapper.vm.$data.date = "2020-05-10";
@@ -34,21 +45,28 @@ describe("Validate CRUD", () => {
     wrapper.vm.$data.frequency = "Month";
     wrapper.vm.$data.end_hour = "12:00";
     wrapper.vm.$data.begin_hour = "11:00";
-    wrapper.vm.$data.agenda = "ANG-0001";
+    wrapper.vm.$data.agendaId = "ANG-0001";
     wrapper.vm.$data.participants = {};
     const isValid = wrapper.vm._validateData();
     console.log(isValid);
     assert.isTrue(isValid);
   });
   it("Validate hour data should pass if data enter is within limits", () => {
-    const wrapper = mount(RecursiveScheduling);
+    const wrapper = mount(RecursiveScheduling, {
+      store,
+      localVue
+    });
     wrapper.vm.$data.begin_hour = "11:00";
     wrapper.vm.$data.end_hour = "12:00";
+    wrapper.vm.$data.agenda = "Work";
     const isValid = wrapper.vm._validateHour();
     assert.isTrue(isValid);
   });
   it("Validate date data should pass if data enter is a possible date and endDate", () => {
-    const wrapper = mount(RecursiveScheduling);
+    const wrapper = mount(RecursiveScheduling, {
+      store,
+      localVue
+    });
     wrapper.vm.$data.date = "2020-05-10";
     wrapper.vm.$data.endDate = "2020-06-10";
     const isValid = wrapper.vm._validateDate();
