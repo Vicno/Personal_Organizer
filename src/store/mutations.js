@@ -29,8 +29,18 @@ const mutateParticipantsList = (state, newParticipant) => {
 };
 
 const mutationDeletePart = (state, partToDelete) => {
-  state.participants = state.participants.filter(
-    part => part.participantId !== partToDelete
+  state.agendas.forEach(agenda =>
+    agenda.appointments.forEach(apo =>
+      apo.participants.forEach(part => {
+        if (part !== partToDelete) {
+          state.participants = state.participants.filter(
+            part => part.participantId !== partToDelete
+          );
+        } else {
+          alert(partToDelete + " is in some appointment");
+        }
+      })
+    )
   );
 };
 

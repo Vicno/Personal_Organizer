@@ -143,6 +143,10 @@ export default {
           endHour: this.endHora,
           appointments: []
         });
+        this.name = "";
+        this.descripcion = "";
+        this.startHora = "";
+        this.endHora = "";
       }
     },
     update() {

@@ -152,7 +152,11 @@ export default {
     _generateNewCode() {
       var fracmentId = this.getLastId.split("-");
       var getNumber = parseInt(fracmentId[1]) + 1;
-      var newPartId = "PART-" + getNumber;
+      var number = getNumber.toString();
+      while (number.length < 3) {
+        number = "0" + number;
+      }
+      var newPartId = "PART-" + number;
       return newPartId;
     }
   }
