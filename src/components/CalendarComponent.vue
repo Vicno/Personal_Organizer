@@ -144,16 +144,43 @@ export default {
       agendaAppointments.forEach(appointment => {
         // eslint-disable-next-line no-unused-vars
         var daysforRecursive = this.getDatesFromRecursive(appointment);
-        this.changeformatdatehour(appointment);
-        events.push({
-          name: appointment.name,
-          start: this.spaceinagenda[0],
-          end: this.spaceinagenda[1],
-          description: appointment.description,
-          color: this.colors[this.rnd(0, this.colors.length - 1)]
+        daysforRecursive.forEach(element => {
+          this.changeformatdatehour(
+            element,
+            appointment.startHour,
+            appointment.endHour
+          );
+          events.push({
+            name: appointment.name,
+            start: this.spaceinagenda[0],
+            end: this.spaceinagenda[1],
+            description: appointment.description,
+            color: this.colors[this.rnd(0, this.colors.length - 1)]
+          });
         });
       });
       this.events = events;
+    },
+    // Receives an appointment, puts in format the space it will use in date and hour
+    changeformatdatehour(fecha, startHour, endHour) {
+      var datearray1 = fecha.split("/");
+      var appointmentDateStart =
+        datearray1[2] +
+        "-" +
+        datearray1[0] +
+        "-" +
+        datearray1[1] +
+        " " +
+        startHour;
+      var appointmentDateEnd =
+        datearray1[2] +
+        "-" +
+        datearray1[0] +
+        "-" +
+        datearray1[1] +
+        " " +
+        endHour;
+      this.spaceinagenda = [appointmentDateStart, appointmentDateEnd];
     },
     getEventColor(event) {
       return event.color;
@@ -213,30 +240,6 @@ export default {
           return 31;
       }
     },
-    isbisiesto(year) {
-      return year % 4 === 0;
-    },
-    // Receives an appointment, puts in format the space it will use in date and hour
-    changeformatdatehour(appointment) {
-      var datearray1 = appointment.date.split("/");
-      var appointmentDateStart =
-        datearray1[2] +
-        "-" +
-        datearray1[0] +
-        "-" +
-        datearray1[1] +
-        " " +
-        appointment.startHour;
-      var appointmentDateEnd =
-        datearray1[2] +
-        "-" +
-        datearray1[0] +
-        "-" +
-        datearray1[1] +
-        " " +
-        appointment.endHour;
-      this.spaceinagenda = [appointmentDateStart, appointmentDateEnd];
-    },
     adddaystodate(startday, daystosumup) {
       //01 29 2021
       let fechastartsplit = startday.split("/");
@@ -255,9 +258,7 @@ export default {
           parseInt(fechastartsplit[2])
         );
       } else {
-        console.log("before" + days);
         days = parseInt(fechastartsplit[1]) + daystosumup - daysofmonth;
-        console.log("after" + days);
         var months = parseInt(fechastartsplit[0]) + 1;
         if (months <= 12) {
           return months + "/" + days + "/" + parseInt(fechastartsplit[2]);
@@ -272,10 +273,6 @@ export default {
     formatDate(fechasplit, daystosumup) {
       let days = parseInt(fechasplit[1]) + daystosumup;
       return new Date(fechasplit[2], fechasplit[0] - 1, days);
-    },
-    //Sums 1 month do date
-    formatDateMonth(fechasplit) {
-      return new Date(fechasplit[2], fechasplit[0], fechasplit[1]);
     },
     getDatesFromRecursive(appointment) {
       if (appointment.endDate !== undefined) {
@@ -314,7 +311,6 @@ export default {
             fechastart = this.formatDate(fechastartsplit, daystosumup);
           }
         }
-        console.log(dates);
         var datescorrected = [];
         dates.forEach(element => {
           var dia = parseInt(element.split("/")[1]);
@@ -334,8 +330,7 @@ export default {
             datescorrected.push(mes + "/" + dia + "/" + año);
           }
         });
-        console.log(datescorrected);
-        return dates;
+        return datescorrected;
       } else {
         //console.log([appointment.date]);
         return [appointment.date];

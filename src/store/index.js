@@ -31,7 +31,7 @@ export default new Vuex.Store({
             name: "Time to lunch",
             description: "I msy eat in home for some reason",
             date: "7/31/2020",
-            endDate: "12/28/2021",
+            endDate: "3/28/2021",
             frequency: "Month",
             startHour: "12:00",
             endHour: "13:00",
