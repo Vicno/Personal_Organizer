@@ -1,6 +1,9 @@
 <template>
   <div class="wrapper">
     <div class="inner">
+      <div class="image-holder">
+        <img src="@/assets/Imagen_Registro.jpg" />
+      </div>
       <div class="form">
         <h3>Make A Recursive Appointment</h3>
         <!--Name-->
@@ -121,6 +124,21 @@ export default {
               agendaId: this.agenda,
               participants: this.participants
             });
+            var agendaAppointments = this.appointments.filter(
+              app => app.agendaId === this.agenda
+            );
+            var index = this.agendas.findIndex(
+              app => app.agendaId === this.agenda
+            );
+            var agendaToUpdate = this.agendas[index];
+            this.updateAgendaAppointments({
+              name: agendaToUpdate.name,
+              description: agendaToUpdate.description,
+              startHour: agendaToUpdate.startHour,
+              endHour: agendaToUpdate.endHour,
+              agendaId: this.agenda,
+              appointments: agendaAppointments
+            });
           } else {
             alert("The hours are wrong, you are gonna break time line");
           }
@@ -133,7 +151,7 @@ export default {
     },
     _validateData() {
       // Can't have two Recursive Schedules with same name in same agenda
-      let recursiveScheduleWithSameNameInAgenda = this.recursiveSchedules.filter(
+      let recursiveScheduleWithSameNameInAgenda = this.recursiveAppointments.filter(
         item =>
           item.agendaId === this.agendaIdfromAgendaname &&
           item.name === this.name
@@ -240,7 +258,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getRecursiveSchedules", "getAgendas", "getParticipants"]),
+    ...mapGetters([
+      "getrecursiveAppointments",
+      "getAgendas",
+      "getParticipants"
+    ]),
 
     agendas() {
       return this.getAgendas;
@@ -248,8 +270,8 @@ export default {
     participantes() {
       return this.getParticipants;
     },
-    recursiveSchedules() {
-      return this.getRecursiveSchedules;
+    recursiveAppointments() {
+      return this.getrecursiveAppointments;
     },
     agendafromAgendaname() {
       // Si existe una agenda con el nombre, se devuelve el id de esa agenda

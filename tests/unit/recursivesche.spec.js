@@ -24,7 +24,7 @@ describe("LocalVue", () => {
     assert.equal(wrapper.vm.$store.state.recursiveAppointments.length, 1);
   });
 });
-describe("Validate CRUD", () => {
+describe("Validate Recursive CRUD", () => {
   let localVue;
   let store;
   beforeEach(() => {
@@ -40,12 +40,12 @@ describe("Validate CRUD", () => {
     });
     wrapper.vm.$data.name = "test";
     wrapper.vm.$data.description = "description test";
-    wrapper.vm.$data.date = "2020-05-10";
-    wrapper.vm.$data.endDate = "2020-06-10";
+    wrapper.vm.$data.date = "2020-10-10";
+    wrapper.vm.$data.endDate = "2020-10-12";
     wrapper.vm.$data.frequency = "Month";
     wrapper.vm.$data.end_hour = "12:00";
     wrapper.vm.$data.begin_hour = "11:00";
-    wrapper.vm.$data.agendaId = "ANG-0001";
+    wrapper.vm.$data.agenda = "ANG-0001";
     wrapper.vm.$data.participants = {};
     const isValid = wrapper.vm._validateData();
     console.log(isValid);
@@ -67,8 +67,8 @@ describe("Validate CRUD", () => {
       store,
       localVue
     });
-    wrapper.vm.$data.date = "2020-05-10";
-    wrapper.vm.$data.endDate = "2020-06-10";
+    wrapper.vm.$data.date = "2020-10-10";
+    wrapper.vm.$data.endDate = "2020-10-12";
     const isValid = wrapper.vm._validateDate();
     assert.isTrue(isValid);
   });
