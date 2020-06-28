@@ -16,9 +16,6 @@ const addParticipant = ({ commit }, participant) => {
 const deleteParticipant = ({ commit }, participantId) => {
   commit("mutationDeletePart", participantId);
 };
-const addRecursive = ({ commit }, schedule) => {
-  commit("mutateAddRecursive", schedule);
-};
 
 const updateRecursive = ({ commit }, schedule) => {
   commit("mutateUpdateRecursive", schedule);
@@ -48,6 +45,12 @@ const updateParticipant = ({ commit }, partToUpdate) => {
 const updatePartId = ({ commit }, idUpdate) => {
   commit("idToUpdate", idUpdate);
 };
+const addRecursive = ({ commit }, schedule) => {
+  commit("mutateAddRecursive", schedule);
+};
+const addAppointmentToAgenda = ({ commit }, data) => {
+  commit("mutateAddAgendaAppointments", data);
+};
 export default {
   createNewAgenda,
   updateAgenda,
@@ -63,6 +66,7 @@ export default {
   updateRecursive,
   deleteRecursive,
   updateParticipant,
-  updatePartId
+  updatePartId,
+  addAppointmentToAgenda
   // los nombres de las funciones
 };

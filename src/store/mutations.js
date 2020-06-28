@@ -34,10 +34,6 @@ const mutationDeletePart = (state, partToDelete) => {
   );
 };
 
-const mutateAddRecursive = (state, newSchedule) => {
-  state.recursiveAppointments.push(newSchedule);
-};
-
 const mutateUpdateRecursive = (state, updateSchedule) => {
   const indexSchedule = state.recursiveAppointments.findIndex(
     rt => rt.name === updateSchedule.name
@@ -109,7 +105,21 @@ const mutationUpdatePart = (state, partToUpdate) => {
 const idToUpdate = (state, idToUpdate) => {
   state.partIdToUpdate = idToUpdate;
 };
+const mutateAddRecursive = (state, newSchedule) => {
+  state.recursiveAppointments.push(newSchedule);
+};
+const mutateAddAgendaAppointments = (state, data) => {
+  var agendass = [];
+  state.agendas.forEach(element => {
+    if (element.agendaId === data.agendaId) {
+      element.appointments.push(data);
+    }
+    agendass.push(element);
+  });
+  state.agendas = agendass;
+};
 export default {
+  mutateAddAgendaAppointments,
   mutateCreateAgenda,
   mutateUpdateAgenda,
   mutateDeleteAgenda,

@@ -142,8 +142,8 @@ export default {
       var agendaAppointments = this.agendas[indexselectedAgenda].appointments;
       //Select agenda
       agendaAppointments.forEach(appointment => {
-        // eslint-disable-next-line no-unused-vars
         var daysforRecursive = this.getDatesFromRecursive(appointment);
+        console.log(daysforRecursive);
         daysforRecursive.forEach(element => {
           this.changeformatdatehour(
             element,

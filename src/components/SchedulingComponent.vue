@@ -80,7 +80,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["addAppointment", "updateAgendaAppointments"]),
+    ...mapActions([
+      "addAppointment",
+      "updateAgendaAppointments",
+      "addAppointmentToAgenda"
+    ]),
     saveApointment() {
       if (this._validateData()) {
         if (this._validateDate()) {
@@ -94,20 +98,14 @@ export default {
               agendaId: this.agenda,
               participants: this.participants
             });
-            var agendaAppointments = this.appointments.filter(
-              app => app.agendaId === this.agenda
-            );
-            var index = this.agendas.findIndex(
-              app => app.agendaId === this.agenda
-            );
-            var agendaToUpdate = this.agendas[index];
-            this.updateAgendaAppointments({
-              name: agendaToUpdate.name,
-              description: agendaToUpdate.description,
-              startHour: agendaToUpdate.startHour,
-              endHour: agendaToUpdate.endHour,
+            this.addAppointmentToAgenda({
+              name: this.name,
+              description: this.description,
+              date: String(this.date),
+              startHour: String(this.begin_hour),
+              endHour: String(this.end_hour),
               agendaId: this.agenda,
-              appointments: agendaAppointments
+              participants: this.participants
             });
           } else {
             alert("The hours are wrong, you are gonna break time line");

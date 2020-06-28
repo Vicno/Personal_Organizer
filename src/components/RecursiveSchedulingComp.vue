@@ -108,7 +108,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["addRecursive"]),
+    ...mapActions(["addRecursive", "addAppointmentToAgenda"]),
     create() {
       if (this._validateData()) {
         if (this._validateDate()) {
@@ -124,24 +124,16 @@ export default {
               agendaId: this.agenda,
               participants: this.participants
             });
-            //Search recursive Appointments of the Agenda
-            var agendaRecursive = this.recursiveAppointments.filter(
-              recapp => recapp.agendaId === this.agenda
-            );
-            //Search the agenda
-            var index = this.agendas.findIndex(
-              ag => ag.agendaId === this.agenda
-            );
-            //Select the agenda to update
-            var agendaToUpdate = this.agendas[index];
-            // Keep data, but replace appointments
-            this.updateAgendaAppointments({
-              name: agendaToUpdate.name,
-              description: agendaToUpdate.description,
-              startHour: agendaToUpdate.startHour,
-              endHour: agendaToUpdate.endHour,
+            this.addAppointmentToAgenda({
+              name: this.name,
+              description: this.description,
+              date: String(this.date),
+              endDate: String(this.endDate),
+              frequency: this.frequency,
+              startHour: String(this.begin_hour),
+              endHour: String(this.end_hour),
               agendaId: this.agenda,
-              appointments: agendaRecursive
+              participants: this.participants
             });
           } else {
             alert("The hours are wrong, you are gonna break time line");
@@ -234,7 +226,7 @@ export default {
           }
         }
       }
-      this.date = datearray[2] + "/" + datearray[1] + "/" + datearray[0];
+      this.date = datearray[1] + "/" + datearray[2] + "/" + datearray[0];
 
       var endDatearray = this.endDate.split("-");
       //si el año del final es mayor al inicial

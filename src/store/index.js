@@ -39,6 +39,35 @@ export default new Vuex.Store({
             participants: ["PART-001"]
           }
         ]
+      },
+      {
+        agendaId: "ANG-0002",
+        name: "odioesto",
+        description: "1212",
+        startHour: "11:11",
+        endHour: "22:22",
+        appointments: [
+          {
+            name: "sss",
+            description: "sss",
+            date: "06/28/2020",
+            endDate: "06/30/2020",
+            frequency: "Day",
+            startHour: "12:12",
+            endHour: "21:21",
+            agendaId: "ANG-0002",
+            participants: "Person A"
+          },
+          {
+            name: "wer",
+            description: "wer",
+            date: "07/01/2020",
+            startHour: "16:00",
+            endHour: "19:59",
+            agendaId: "ANG-0002",
+            participants: {}
+          }
+        ]
       }
     ],
     scheduledAppointments: [
@@ -50,6 +79,15 @@ export default new Vuex.Store({
         endHour: "11:00",
         agendaId: "ANG-0001",
         participants: ["PART-001"]
+      },
+      {
+        name: "wer",
+        description: "wer",
+        date: "07/01/2020",
+        startHour: "16:00",
+        endHour: "19:59",
+        agendaId: "ANG-0002",
+        participants: {}
       }
     ],
     postponedAppointments: [
@@ -69,6 +107,17 @@ export default new Vuex.Store({
         endHour: "13:00",
         agendaId: "ANG-0001",
         participants: ["PART-001"]
+      },
+      {
+        name: "sss",
+        description: "sss",
+        date: "28/06/2020",
+        endDate: "30/06/2020",
+        frequency: "Day",
+        startHour: "12:12",
+        endHour: "21:21",
+        agendaId: "ANG-0002",
+        participants: "Person A"
       }
     ],
     participants: [
