@@ -1,7 +1,6 @@
 <template>
   <div>
-    <label for="text">Hi</label>
-    <Participants>HOla</Participants>
+    <Participants></Participants>
   </div>
 </template>
 

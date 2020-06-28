@@ -16,6 +16,27 @@ describe("Participants CRUD", () => {
     router = new VueRouter({ routes: [] });
     store = new Vuex.Store(mockStore);
   });
+  it("Validate participant's data should not pass if no data enter", () => {
+    const wrapper = shallowMount(Participants, {
+      store,
+      localVue,
+      router
+    });
+    const isValid = wrapper.vm._validateData();
+    assert.isFalse(isValid);
+  });
+
+  it("Validate participant's data should pass if data enter", () => {
+    const wrapper = shallowMount(Participants, {
+      store,
+      localVue,
+      router
+    });
+    wrapper.vm.$data.name = "test";
+    wrapper.vm.$data.contactNumber = 68567834;
+    const isValid = wrapper.vm._validateData();
+    assert.isTrue(isValid);
+  });
   it("GenerateCode", () => {
     const wrapper = shallowMount(Participants, {
       store,
