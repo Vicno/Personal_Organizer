@@ -124,20 +124,24 @@ export default {
               agendaId: this.agenda,
               participants: this.participants
             });
-            var agendaAppointments = this.appointments.filter(
-              app => app.agendaId === this.agenda
+            //Search recursive Appointments of the Agenda
+            var agendaRecursive = this.recursiveAppointments.filter(
+              recapp => recapp.agendaId === this.agenda
             );
+            //Search the agenda
             var index = this.agendas.findIndex(
-              app => app.agendaId === this.agenda
+              ag => ag.agendaId === this.agenda
             );
+            //Select the agenda to update
             var agendaToUpdate = this.agendas[index];
+            // Keep data, but replace appointments
             this.updateAgendaAppointments({
               name: agendaToUpdate.name,
               description: agendaToUpdate.description,
               startHour: agendaToUpdate.startHour,
               endHour: agendaToUpdate.endHour,
               agendaId: this.agenda,
-              appointments: agendaAppointments
+              appointments: agendaRecursive
             });
           } else {
             alert("The hours are wrong, you are gonna break time line");

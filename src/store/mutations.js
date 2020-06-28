@@ -73,6 +73,7 @@ const updateAppointment = (state, itemToUpdate) => {
 const updateAgendaSelected = (state, itemToUpdate) => {
   state.agendaSelected = itemToUpdate;
 };
+
 const updateAgendaAppointment = (state, itemToUpdate) => {
   const foundItem = state.agendas.findIndex(
     st => st.agendaId === itemToUpdate.agendaId
@@ -86,7 +87,7 @@ const deleteAppointment = (state, itemToDelete) => {
     it => it.name === itemToDelete
   ));
   var today = new Date();
-  ("06/18/2020");
+  //("06/18/2020");
   var date =
     today.getMonth() + 1 + "/" + today.getDate() + "/" + today.getFullYear();
   if (appointmentToDelete.date === date) {

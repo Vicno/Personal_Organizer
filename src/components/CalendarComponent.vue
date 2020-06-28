@@ -104,7 +104,8 @@ export default {
       "Birthday",
       "Conference",
       "Party"
-    ]
+    ],
+    spaceinagenda: []
   }),
   computed: {
     ...mapGetters([
@@ -133,36 +134,25 @@ export default {
   methods: {
     getEvents() {
       let events = [];
+      // First get Agenda from the name of the Agenda Selected
       var indexselectedAgenda = this.agendas.findIndex(
         ag => ag.name === this.selectedAgenda
       );
+      // Get the appointments of the agenda selected
       var agendaAppointments = this.agendas[indexselectedAgenda].appointments;
-      for (let i = 0; i < agendaAppointments.length; i++) {
-        var datearray1 = agendaAppointments[i].date.split("/");
-        var appointmentDateStart =
-          datearray1[2] +
-          "-" +
-          datearray1[0] +
-          "-" +
-          datearray1[1] +
-          " " +
-          agendaAppointments[i].startHour;
-        var appointmentDateEnd =
-          datearray1[2] +
-          "-" +
-          datearray1[0] +
-          "-" +
-          datearray1[1] +
-          " " +
-          this.appointments[i].endHour;
+      //Select agenda
+      agendaAppointments.forEach(appointment => {
+        // eslint-disable-next-line no-unused-vars
+        var daysforRecursive = this.getDatesFromRecursive(appointment);
+        this.changeformatdatehour(appointment);
         events.push({
-          name: agendaAppointments[i].name,
-          start: appointmentDateStart,
-          end: appointmentDateEnd,
-          description: agendaAppointments[i].description,
+          name: appointment.name,
+          start: this.spaceinagenda[0],
+          end: this.spaceinagenda[1],
+          description: appointment.description,
           color: this.colors[this.rnd(0, this.colors.length - 1)]
         });
-      }
+      });
       this.events = events;
     },
     getEventColor(event) {
@@ -188,6 +178,131 @@ export default {
         open();
       }
       nativeEvent.stopPropagation();
+    },
+    calculatedaysofmonth(month, year) {
+      //Hundred times more efficient than automatica calculation
+      switch (month) {
+        case 1:
+          return 31;
+        case 2:
+          //Si es año bisiesto
+          if (year % 4 === 0) {
+            return 29;
+          } else {
+            return 28;
+          }
+        case 3:
+          return 31;
+        case 4:
+          return 30;
+        case 5:
+          return 31;
+        case 6:
+          return 30;
+        case 7:
+          return 31;
+        case 8:
+          return 31;
+        case 9:
+          return 30;
+        case 10:
+          return 31;
+        case 11:
+          return 30;
+        case 12:
+          return 31;
+      }
+    },
+    // Receives an appointment, puts in format the space it will use in date and hour
+    changeformatdatehour(appointment) {
+      var datearray1 = appointment.date.split("/");
+      var appointmentDateStart =
+        datearray1[2] +
+        "-" +
+        datearray1[0] +
+        "-" +
+        datearray1[1] +
+        " " +
+        appointment.startHour;
+      var appointmentDateEnd =
+        datearray1[2] +
+        "-" +
+        datearray1[0] +
+        "-" +
+        datearray1[1] +
+        " " +
+        appointment.endHour;
+      this.spaceinagenda = [appointmentDateStart, appointmentDateEnd];
+    },
+    adddaystodate(startday, daystosumup) {
+      let fechastartsplit = startday.split("/");
+      let fecha = new Date(
+        fechastartsplit[2],
+        fechastartsplit[0] - 1,
+        parseInt(fechastartsplit[1]) + daystosumup
+      );
+      var daysofmonth = this.calculatedaysofmonth(
+        parseInt(fechastartsplit[0]),
+        parseInt(fechastartsplit[2])
+      );
+      var days = parseInt(fechastartsplit[1]) + daystosumup;
+      // si los dias superan a los del mes, se suma 1 al mes y se resta los dias del mes a fecha
+      if (days <= daysofmonth) {
+        return (
+          parseInt(fechastartsplit[0]) + "/" + days + "/" + fecha.getFullYear()
+        );
+      } else {
+        days = parseInt(fechastartsplit[1]) + daystosumup - daysofmonth;
+        var months = parseInt(fechastartsplit[0]) + 1;
+        return months + "/" + days + "/" + fecha.getFullYear();
+      }
+    },
+    formatDate(fechasplit, daystosumup) {
+      let days = parseInt(fechasplit[1]) + daystosumup;
+      return new Date(fechasplit[2], fechasplit[0] - 1, days);
+    },
+    getDatesFromRecursive(appointment) {
+      if (appointment.endDate !== undefined) {
+        var dates = [];
+        var startday = appointment.date;
+        var endday = appointment.endDate;
+        let daystosumup = 0; //days to add
+        //Save start day and end day of appointment in format to getTime
+        let fechastartsplit = startday.split("/");
+        let fechaendsplit = endday.split("/");
+        let fechastart = this.formatDate(fechastartsplit, daystosumup);
+        let fechaend = this.formatDate(fechaendsplit, daystosumup);
+        // While the start date is <= to end day
+        while (fechastart.getTime() <= fechaend.getTime()) {
+          //Save start date in dates
+          console.log(startday + " " + daystosumup);
+          startday = this.adddaystodate(startday, daystosumup);
+          console.log(startday);
+          dates.push(startday);
+          //Add one day/week/month to start date
+          if (appointment.frequency === "Day") {
+            daystosumup = 1;
+            fechastartsplit = startday.split("/");
+            fechastart = this.formatDate(startday, daystosumup);
+            //startday = this.adddaystodate(startday, daystosumup);
+          } else if (appointment.frequency === "Week") {
+            daystosumup = 7;
+            fechastartsplit = startday.split("/");
+            fechastart = this.formatDate(startday, daystosumup);
+            //
+          } else if (appointment.frequency === "Month") {
+            //Si es el ultimo día del mes
+            daystosumup = 30;
+            fechastartsplit = startday.split("/");
+            fechastart = this.formatDate(startday, daystosumup);
+          }
+        }
+        console.log(dates);
+        return dates;
+      } else {
+        //console.log([appointment.date]);
+        return [appointment.date];
+      }
     }
   }
 };
