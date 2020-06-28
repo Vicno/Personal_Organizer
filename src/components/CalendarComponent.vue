@@ -213,6 +213,9 @@ export default {
           return 31;
       }
     },
+    isbisiesto(year) {
+      return year % 4 === 0;
+    },
     // Receives an appointment, puts in format the space it will use in date and hour
     changeformatdatehour(appointment) {
       var datearray1 = appointment.date.split("/");
@@ -235,12 +238,8 @@ export default {
       this.spaceinagenda = [appointmentDateStart, appointmentDateEnd];
     },
     adddaystodate(startday, daystosumup) {
+      //01 29 2021
       let fechastartsplit = startday.split("/");
-      let fecha = new Date(
-        fechastartsplit[2],
-        fechastartsplit[0] - 1,
-        parseInt(fechastartsplit[1]) + daystosumup
-      );
       var daysofmonth = this.calculatedaysofmonth(
         parseInt(fechastartsplit[0]),
         parseInt(fechastartsplit[2])
@@ -249,17 +248,34 @@ export default {
       // si los dias superan a los del mes, se suma 1 al mes y se resta los dias del mes a fecha
       if (days <= daysofmonth) {
         return (
-          parseInt(fechastartsplit[0]) + "/" + days + "/" + fecha.getFullYear()
+          parseInt(fechastartsplit[0]) +
+          "/" +
+          days +
+          "/" +
+          parseInt(fechastartsplit[2])
         );
       } else {
+        console.log("before" + days);
         days = parseInt(fechastartsplit[1]) + daystosumup - daysofmonth;
+        console.log("after" + days);
         var months = parseInt(fechastartsplit[0]) + 1;
-        return months + "/" + days + "/" + fecha.getFullYear();
+        if (months <= 12) {
+          return months + "/" + days + "/" + parseInt(fechastartsplit[2]);
+        } else {
+          months = months - 12;
+          var years = parseInt(fechastartsplit[2]) + 1;
+          return months + "/" + days + "/" + years;
+        }
       }
     },
+    //Sums days do date
     formatDate(fechasplit, daystosumup) {
       let days = parseInt(fechasplit[1]) + daystosumup;
       return new Date(fechasplit[2], fechasplit[0] - 1, days);
+    },
+    //Sums 1 month do date
+    formatDateMonth(fechasplit) {
+      return new Date(fechasplit[2], fechasplit[0], fechasplit[1]);
     },
     getDatesFromRecursive(appointment) {
       if (appointment.endDate !== undefined) {
@@ -275,29 +291,50 @@ export default {
         // While the start date is <= to end day
         while (fechastart.getTime() <= fechaend.getTime()) {
           //Save start date in dates
-          console.log(startday + " " + daystosumup);
           startday = this.adddaystodate(startday, daystosumup);
-          console.log(startday);
+          //console.log(startday);
           dates.push(startday);
           //Add one day/week/month to start date
           if (appointment.frequency === "Day") {
             daystosumup = 1;
             fechastartsplit = startday.split("/");
-            fechastart = this.formatDate(startday, daystosumup);
-            //startday = this.adddaystodate(startday, daystosumup);
+            fechastart = this.formatDate(fechastartsplit, daystosumup);
           } else if (appointment.frequency === "Week") {
             daystosumup = 7;
             fechastartsplit = startday.split("/");
-            fechastart = this.formatDate(startday, daystosumup);
+            fechastart = this.formatDate(fechastartsplit, daystosumup);
             //
           } else if (appointment.frequency === "Month") {
             //Si es el ultimo día del mes
-            daystosumup = 30;
             fechastartsplit = startday.split("/");
-            fechastart = this.formatDate(startday, daystosumup);
+            daystosumup = this.calculatedaysofmonth(
+              parseInt(fechastartsplit[0]),
+              parseInt(fechastartsplit[2])
+            );
+            fechastart = this.formatDate(fechastartsplit, daystosumup);
           }
         }
         console.log(dates);
+        var datescorrected = [];
+        dates.forEach(element => {
+          var dia = parseInt(element.split("/")[1]);
+          var mes = parseInt(element.split("/")[0]);
+          var año = parseInt(element.split("/")[2]);
+          var daysofmonth = this.calculatedaysofmonth(mes, año);
+          // si el dia es mayor a 29 y es febrero Y ES BISIESTO y es mensual, asi que fin de mes
+          if (dia > 29 && mes === 2 && año % 4 === 0) {
+            datescorrected.push(mes + "/" + 29 + "/" + año);
+            // si el dia es mayor a 28 y es febrero Y NO ES BISIESTO y es mensual, asi que fin de mes
+          } else if (dia > 28 && mes === 2 && año % 4 !== 0) {
+            datescorrected.push(mes + "/" + 28 + "/" + año);
+            //Si es
+          } else if (dia > 30 && daysofmonth === 30) {
+            datescorrected.push(mes + "/" + 30 + "/" + año);
+          } else {
+            datescorrected.push(mes + "/" + dia + "/" + año);
+          }
+        });
+        console.log(datescorrected);
         return dates;
       } else {
         //console.log([appointment.date]);
