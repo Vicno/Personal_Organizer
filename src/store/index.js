@@ -21,7 +21,7 @@ export default new Vuex.Store({
           {
             name: "Dentist",
             description: "I need to go to dentist",
-            date: "6/28/2020",
+            date: "7/15/2020",
             startHour: "10:00",
             endHour: "11:00",
             agendaId: "ANG-0001",
@@ -39,24 +39,6 @@ export default new Vuex.Store({
             participants: ["PART-001"]
           }
         ]
-      },
-      {
-        agendaId: "ANG-0002",
-        name: "Depresionfrombugs",
-        description: "1212",
-        startHour: "11:11",
-        endHour: "22:22",
-        appointments: [
-          {
-            name: "Mass Suicide",
-            description: "I don't want to fix bugs anymore, please help",
-            date: "07/01/2020",
-            startHour: "16:00",
-            endHour: "19:59",
-            agendaId: "ANG-0002",
-            participants: {}
-          }
-        ]
       }
     ],
     scheduledAppointments: [
@@ -68,20 +50,11 @@ export default new Vuex.Store({
         endHour: "11:00",
         agendaId: "ANG-0001",
         participants: ["PART-001"]
-      },
-      {
-        name: "wer",
-        description: "wer",
-        date: "07/01/2020",
-        startHour: "16:00",
-        endHour: "19:59",
-        agendaId: "ANG-0002",
-        participants: {}
       }
     ],
     postponedAppointments: [
       {
-        name: "Dentist",
+        name: "nononodio",
         description: "I need to go to dentist"
       }
     ],

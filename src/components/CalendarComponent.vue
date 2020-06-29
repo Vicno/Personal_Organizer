@@ -45,11 +45,10 @@
         <v-card color="grey lighten-4" min-width="350px" flat>
           <v-toolbar :color="selectedEvent.color" dark>
             <v-btn
-              :value="isRecursive"
               icon
               router
               :to="'/updateRecursiveAppoint'"
-              v-if="value"
+              v-if="isRecursive"
             >
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
@@ -114,7 +113,8 @@ export default {
       "Conference",
       "Party"
     ],
-    spaceinagenda: []
+    spaceinagenda: [],
+    isRecursive: false
   }),
   computed: {
     ...mapGetters([
@@ -138,20 +138,6 @@ export default {
     },
     selectedAgenda() {
       return this.getAgendaSelected;
-    },
-    isRecursive() {
-      //Search in recursiveAppointments if there is one inside of agenda
-      //Search if the selected appointment is the selected one
-      console.log("perhaps" + this.selectedEvent.name);
-      this.recursiveAppointments.forEach(element => {
-        if (
-          element.agendaId === this.selectedAgenda.agendaId &&
-          this.selectedEvent.name === element.name
-        ) {
-          return true;
-        }
-      });
-      return false;
     }
   },
   methods: {
@@ -355,6 +341,20 @@ export default {
       } else {
         return [appointment.date];
       }
+    },
+    isRecursivemethod() {
+      //Search in recursiveAppointments if there is one inside of agenda
+      //Search if the selected appointment is the selected event
+      console.log("perhaps" + this.selectedEvent.name);
+      this.recursiveAppointments.forEach(element => {
+        if (
+          element.agendaId === this.selectedAgenda.agendaId &&
+          this.selectedEvent.name === element.name
+        ) {
+          this.isRecursive = true;
+        }
+      });
+      this.isRecursive = false;
     }
   }
 };

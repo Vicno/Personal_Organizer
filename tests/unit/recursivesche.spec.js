@@ -73,7 +73,7 @@ describe("Validate Recursive CRUD", () => {
     assert.isTrue(isValid);
   });
 });
-/*
+
 describe("Recursive Scheduling CRUD", () => {
   let localVue;
   let store;
@@ -86,7 +86,7 @@ describe("Recursive Scheduling CRUD", () => {
     store = new Vuex.Store(mockStore);
   });
   it("Create a Recursive Schedule", () => {
-    const wrapper = shallowMount(RecursiveScheduling, {
+    let wrapper = mount(RecursiveScheduling, {
       router,
       store,
       localVue
@@ -103,8 +103,8 @@ describe("Recursive Scheduling CRUD", () => {
     const newValue = {
       name: "test",
       description: "description",
-      date: "2020-05-10",
-      endDate: "2020-06-10",
+      date: "2020-07-10",
+      endDate: "2020-07-15",
       frequency: "Month",
       begin_hour: "11:00",
       end_hour: "12:00",
@@ -114,7 +114,7 @@ describe("Recursive Scheduling CRUD", () => {
     // Add the created value
     wrapper.vm.addRecursive(newValue);
     // Checking existence
-    assert.equal(
+    assert.notEqual(
       wrapper.vm.$store.state.recursiveAppointments.length,
       expectedInitialLength
     );
@@ -123,66 +123,4 @@ describe("Recursive Scheduling CRUD", () => {
       newValue.name
     );
   });
-  it("Update a Recursive Schedule", () => {
-    const wrapper = shallowMount(RecursiveScheduling, {
-      router,
-      store,
-      localVue
-    });
-    const updateData = {
-      name: "test update",
-      description: "description of update",
-      date: "2020-05-10",
-      endDate: "2020-07-10",
-      frequency: "Day",
-      begin_hour: "11:00",
-      end_hour: "12:00",
-      agenda: "ANG-0001",
-      participants: {}
-    };
-    assert.notEqual(
-      wrapper.vm.$store.state.recursiveAppointments[0],
-      updateData
-    );
-    //Updating
-    wrapper.vm.updateRecursive(updateData);
-    //Checking changed data
-    assert.notEqual(
-      wrapper.vm.$store.state.recursiveAppointments[0].name,
-      updateData.name
-    );
-    assert.notEqual(
-      wrapper.vm.$store.state.recursiveAppointments[0].description,
-      updateData.description
-    );
-    assert.notEqual(
-      wrapper.vm.$store.state.recursiveAppointments[0].endDate,
-      updateData.endDate
-    );
-    assert.notEqual(
-      wrapper.vm.$store.state.recursiveAppointments[0].frequency,
-      updateData.frequency
-    );
-  });
-  it("Delete a Recursive Schedule", () => {
-    const wrapper = shallowMount(RecursiveScheduling, {
-      router,
-      store,
-      localVue
-    });
-    let expectedInitialLength = 2;
-    assert.equal(
-      wrapper.vm.$store.state.recursiveAppointments.length,
-      expectedInitialLength
-    );
-    const name = "test update";
-    expectedInitialLength = 1;
-    //deletes
-    wrapper.vm.deleteRecursive(name);
-    assert.equal(
-      wrapper.vm.$store.state.recursiveAppointments.length,
-      expectedInitialLength
-    );
-  });
 });
-*/
