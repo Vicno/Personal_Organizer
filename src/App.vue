@@ -33,6 +33,11 @@
         <v-icon>mdi-book-plus-multiple</v-icon>
         <span class="mr-2"> Participants</span>
       </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn icon router :to="'/postpone'">
+        <v-icon>mdi-book-plus-multiple</v-icon>
+        <span class="mr-2"> Postpone</span>
+      </v-btn>
     </v-app-bar>
     <v-main>
       <router-view />

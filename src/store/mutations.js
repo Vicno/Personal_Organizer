@@ -79,7 +79,6 @@ const updateAppointment = (state, itemToUpdate) => {
 const updateAgendaSelected = (state, itemToUpdate) => {
   state.agendaSelected = itemToUpdate;
 };
-
 const updateAgendaAppointment = (state, itemToUpdate) => {
   const foundItem = state.agendas.findIndex(
     st => st.agendaId === itemToUpdate.agendaId
@@ -128,6 +127,21 @@ const mutateAddAgendaAppointments = (state, data) => {
   });
   state.agendas = agendass;
 };
+const mutatePostponeAppointment = (state, PostAppointment) => {
+  state.postponedAppointments.push(PostAppointment);
+};
+const mutateDeletePostponedAppointment = (state, PostAppointment) => {
+  state.postponedAppointments = state.postponedAppointments.filter(
+    element => element.name !== PostAppointment.name
+  );
+};
+const mutateEnableAppointment = (state, newAppointment) => {
+  state.agendas.forEach(element => {
+    if (element.agendaId === newAppointment.agendaId) {
+      element.appointments.push(newAppointment);
+    }
+  });
+};
 export default {
   mutateAddAgendaAppointments,
   mutateCreateAgenda,
@@ -144,6 +158,9 @@ export default {
   mutateUpdateRecursive,
   mutateDeleteRecursive,
   mutationUpdatePart,
-  idToUpdate
+  idToUpdate,
+  mutateEnableAppointment,
+  mutatePostponeAppointment,
+  mutateDeletePostponedAppointment
   // los nombres de las funciones
 };

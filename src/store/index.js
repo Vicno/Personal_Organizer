@@ -54,8 +54,9 @@ export default new Vuex.Store({
     ],
     postponedAppointments: [
       {
-        name: "nononodio",
-        description: "I need to go to dentist"
+        agendaId: "ANG-0001",
+        name: "Study with no one",
+        description: "I need help "
       }
     ],
     recursiveAppointments: [

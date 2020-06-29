@@ -1,4 +1,3 @@
-// Ejemplo de como escribir la funcion
 const createNewAgenda = ({ commit }, agenda) => {
   commit("mutateCreateAgenda", agenda);
 };
@@ -30,9 +29,6 @@ const addAppointment = ({ commit }, item) => {
 const updateAppointment = ({ commit }, itemToUpdate) => {
   commit("updateAppointment", itemToUpdate);
 };
-const updateAgendaAppointments = ({ commit }, itemToUpdate) => {
-  commit("updateAgendaAppointment", itemToUpdate);
-};
 const deleteAppointment = ({ commit }, itemToDelete) => {
   commit("deleteAppointment", itemToDelete);
 };
@@ -51,22 +47,41 @@ const addRecursive = ({ commit }, schedule) => {
 const addAppointmentToAgenda = ({ commit }, data) => {
   commit("mutateAddAgendaAppointments", data);
 };
+const addTargetAgendaAppointment = ({ commit }, item) => {
+  commit("mutateTargetAgendaAppointment", item);
+};
+const PostponeAppointment = ({ commit }, postponeApp) => {
+  commit("mutatePostponeAppointment", postponeApp);
+};
+const deletePostponedAppointment = ({ commit }, PostAppointment) => {
+  commit("mutateDeletePostponedAppointment", PostAppointment);
+};
+const enableAppointment = ({ commit }, PostAppointment) => {
+  commit("mutateEnableAppointment", PostAppointment);
+};
+const updateAgendaAppointments = ({ commit }, itemToUpdate) => {
+  commit("updateAgendaAppointment", itemToUpdate);
+};
 export default {
   createNewAgenda,
   updateAgenda,
   deleteAgenda,
+  updateAgendaSelected,
+  updateAgendaAppointments,
   addAppointment,
   updateAppointment,
-  updateAgendaAppointments,
+  addAppointmentToAgenda,
+  PostponeAppointment,
   deleteAppointment,
-  updateAgendaSelected,
-  addParticipant,
-  deleteParticipant,
   addRecursive,
   updateRecursive,
   deleteRecursive,
+  addParticipant,
+  deleteParticipant,
   updateParticipant,
   updatePartId,
-  addAppointmentToAgenda
+  addTargetAgendaAppointment,
+  deletePostponedAppointment,
+  enableAppointment
   // los nombres de las funciones
 };
