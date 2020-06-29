@@ -11,11 +11,26 @@ const PostponeAppointment = ({ commit }, postponeApp) => {
 const deleteAppointment = ({ commit }, deleteApp) => {
   commit("mutateDeleteAppointment", deleteApp);
 };
-
+const updateAgendaSelected = ({ commit }, itemToUpdate) => {
+  commit("updateAgendaSelected", itemToUpdate);
+};
+const deletePostponedAppointment = ({ commit }, PostAppointment) => {
+  commit("mutateDeletePostponedAppointment", PostAppointment);
+};
+const enableAppointment = ({ commit }, PostAppointment) => {
+  commit("mutateEnableAppointment", PostAppointment);
+};
+const updateAgendaAppointments = ({ commit }, itemToUpdate) => {
+  commit("updateAgendaAppointment", itemToUpdate);
+};
 export default {
   addAccount,
   addTargetAgendaAppointment,
   PostponeAppointment,
-  deleteAppointment
+  deleteAppointment,
+  updateAgendaSelected,
+  deletePostponedAppointment,
+  enableAppointment,
+  updateAgendaAppointments
   // los nombres de las funciones
 };

@@ -2,13 +2,6 @@
 const mutateAccountList = (state, newAccount) => {
   state.ACCOUNTS.push(newAccount);
 };
-const mutateTargetAgendaAppointment = (state, newAppointment) => {
-  state.agendas.forEach(element => {
-    if (element.agendaId === newAppointment.agendaId) {
-      element.appointments.push(newAppointment);
-    }
-  });
-};
 const updateAppointment = (state, itemToUpdate) => {
   const foundItem = state.scheduledAppointments.findIndex(
     st => st.name === itemToUpdate.name
@@ -20,19 +13,36 @@ const updateAppointment = (state, itemToUpdate) => {
 const mutatePostponeAppointment = (state, PostAppointment) => {
   state.postponedAppointments.push(PostAppointment);
 };
-const mutateDeleteAppointment = (state, AppToDelete) => {
+const mutateDeletePostponedAppointment = (state, PostAppointment) => {
+  state.postponedAppointments = state.postponedAppointments.filter(
+    element => element.name !== PostAppointment.name
+  );
+};
+const updateAgendaSelected = (state, itemToUpdate) => {
+  state.agendaSelected = itemToUpdate;
+};
+const mutateEnableAppointment = (state, newAppointment) => {
   state.agendas.forEach(element => {
-    if (element.agendaId === AppToDelete.agendaId) {
-      element.appointments.filter(element => element.name !== AppToDelete.name);
+    if (element.agendaId === newAppointment.agendaId) {
+      element.appointments.push(newAppointment);
     }
   });
 };
-
+const updateAgendaAppointment = (state, itemToUpdate) => {
+  const foundItem = state.agendas.findIndex(
+    st => st.agendaId === itemToUpdate.agendaId
+  );
+  if (foundItem >= 0) {
+    state.agendas.splice(foundItem, 1, itemToUpdate);
+  }
+};
 export default {
   mutateAccountList,
-  mutateTargetAgendaAppointment,
+  mutateEnableAppointment,
   updateAppointment,
   mutatePostponeAppointment,
-  mutateDeleteAppointment
+  updateAgendaSelected,
+  mutateDeletePostponedAppointment,
+  updateAgendaAppointment
   // los nombres de las funciones
 };
