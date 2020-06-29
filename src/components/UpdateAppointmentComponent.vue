@@ -53,6 +53,15 @@
           style="height: 130px;"
           v-model="description"
         ></textarea>
+        <v-select
+          v-model="participants"
+          :items="allParticipantsName()"
+          label="Select"
+          multiple
+          chips
+          hint="Participants"
+          persistent-hint
+        ></v-select>
         <button @click="saveApointment">Book Now</button>
         <button icon @click="deleteApp">
           <v-icon>mdi-delete</v-icon>
@@ -74,14 +83,15 @@ export default {
       begin_hour: "00:00",
       date: "",
       agenda: "",
-      participants: {}
+      participants: []
     };
   },
   computed: {
     ...mapGetters([
       "getAgendas",
       "getAppointments",
-      "getrecursiveAppointments"
+      "getrecursiveAppointments",
+      "getParticipants"
     ]),
     agendas() {
       return this.getAgendas;
@@ -91,6 +101,9 @@ export default {
     },
     recursiveAppointments() {
       return this.getrecursiveAppointments;
+    },
+    allParticipants() {
+      return this.getParticipants;
     }
   },
   methods: {
@@ -99,6 +112,13 @@ export default {
       "deleteAppointment",
       "updateAgendaAppointments"
     ]),
+    allParticipantsName() {
+      var participantName = [];
+      for (var i = 0; i < this.allParticipants.length; i++) {
+        participantName.push(this.allParticipants[i].name);
+      }
+      return participantName;
+    },
     saveApointment() {
       if (this._validateData()) {
         if (this._validateDate()) {

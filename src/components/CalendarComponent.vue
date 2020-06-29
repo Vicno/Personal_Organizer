@@ -57,12 +57,10 @@
             </v-btn>
             <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn icon>
-              <!--router :to="'/participants'"-->
+            <v-btn icon router :to="'/participants'">
               <v-icon>mdi-account-multiple-plus</v-icon>
             </v-btn>
-            <v-btn icon>
-              <!--router :to="'/postpone'"-->
+            <v-btn icon router :to="'/postpone'">
               <v-icon>mdi-clock-time-four</v-icon>
             </v-btn>
           </v-toolbar>
