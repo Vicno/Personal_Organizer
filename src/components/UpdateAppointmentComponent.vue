@@ -90,7 +90,8 @@ export default {
     ...mapActions([
       "updateAppointment",
       "deleteAppointment",
-      "updateAgendaAppointments"
+      "updateAgendaAppointments",
+      "addAppointmentToAgenda"
     ]),
     saveApointment() {
       if (this._validateData()) {
@@ -98,6 +99,15 @@ export default {
           if (this._validateHour()) {
             this._getParticipants();
             this.updateAppointment({
+              name: this.name,
+              description: this.description,
+              date: String(this.date),
+              startHour: String(this.begin_hour),
+              endHour: String(this.end_hour),
+              agendaId: this.agenda,
+              participants: this.participants
+            });
+            this.addAppointmentToAgenda({
               name: this.name,
               description: this.description,
               date: String(this.date),
