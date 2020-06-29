@@ -221,7 +221,7 @@ export default {
           bool = true;
         } else if (utcarray[1] === datearray[1]) {
           //si no, el dia inicial es mayor al de hoy
-          if (datearray[2] > utcarray[2]) {
+          if (datearray[2] >= utcarray[2]) {
             bool = true;
           }
         }

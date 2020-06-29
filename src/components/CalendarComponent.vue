@@ -44,7 +44,16 @@
       >
         <v-card color="grey lighten-4" min-width="350px" flat>
           <v-toolbar :color="selectedEvent.color" dark>
-            <v-btn icon router :to="'/updateAppoint'">
+            <v-btn
+              :value="isRecursive"
+              icon
+              router
+              :to="'/updateRecursiveAppoint'"
+              v-if="value"
+            >
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn icon router :to="'/updateAppoint'" v-else>
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
             <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
@@ -129,6 +138,20 @@ export default {
     },
     selectedAgenda() {
       return this.getAgendaSelected;
+    },
+    isRecursive() {
+      //Search in recursiveAppointments if there is one inside of agenda
+      //Search if the selected appointment is the selected one
+      console.log("perhaps" + this.selectedEvent.name);
+      this.recursiveAppointments.forEach(element => {
+        if (
+          element.agendaId === this.selectedAgenda.agendaId &&
+          this.selectedEvent.name === element.name
+        ) {
+          return true;
+        }
+      });
+      return false;
     }
   },
   methods: {
@@ -143,7 +166,6 @@ export default {
       //Select agenda
       agendaAppointments.forEach(appointment => {
         var daysforRecursive = this.getDatesFromRecursive(appointment);
-        console.log(daysforRecursive);
         daysforRecursive.forEach(element => {
           this.changeformatdatehour(
             element,
@@ -289,7 +311,6 @@ export default {
         while (fechastart.getTime() <= fechaend.getTime()) {
           //Save start date in dates
           startday = this.adddaystodate(startday, daystosumup);
-          //console.log(startday);
           dates.push(startday);
           //Add one day/week/month to start date
           if (appointment.frequency === "Day") {
@@ -332,7 +353,6 @@ export default {
         });
         return datescorrected;
       } else {
-        //console.log([appointment.date]);
         return [appointment.date];
       }
     }

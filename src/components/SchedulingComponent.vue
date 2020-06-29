@@ -170,7 +170,7 @@ export default {
         if (datearray[1] > utcarray[1]) {
           bool = true;
         } else if (utcarray[1] === datearray[1]) {
-          if (datearray[2] > utcarray[2]) {
+          if (datearray[2] >= utcarray[2]) {
             bool = true;
           }
         }

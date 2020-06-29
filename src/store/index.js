@@ -29,9 +29,9 @@ export default new Vuex.Store({
           },
           {
             name: "Time to lunch",
-            description: "I msy eat in home for some reason",
-            date: "7/31/2020",
-            endDate: "3/28/2021",
+            description: "I may eat in home for some reason",
+            date: "7/15/2020",
+            endDate: "7/25/2021",
             frequency: "Month",
             startHour: "12:00",
             endHour: "13:00",
@@ -42,25 +42,14 @@ export default new Vuex.Store({
       },
       {
         agendaId: "ANG-0002",
-        name: "odioesto",
+        name: "Depresionfrombugs",
         description: "1212",
         startHour: "11:11",
         endHour: "22:22",
         appointments: [
           {
-            name: "sss",
-            description: "sss",
-            date: "06/28/2020",
-            endDate: "06/30/2020",
-            frequency: "Day",
-            startHour: "12:12",
-            endHour: "21:21",
-            agendaId: "ANG-0002",
-            participants: "Person A"
-          },
-          {
-            name: "wer",
-            description: "wer",
+            name: "Mass Suicide",
+            description: "I don't want to fix bugs anymore, please help",
             date: "07/01/2020",
             startHour: "16:00",
             endHour: "19:59",
@@ -107,17 +96,6 @@ export default new Vuex.Store({
         endHour: "13:00",
         agendaId: "ANG-0001",
         participants: ["PART-001"]
-      },
-      {
-        name: "sss",
-        description: "sss",
-        date: "28/06/2020",
-        endDate: "30/06/2020",
-        frequency: "Day",
-        startHour: "12:12",
-        endHour: "21:21",
-        agendaId: "ANG-0002",
-        participants: "Person A"
       }
     ],
     participants: [

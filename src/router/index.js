@@ -21,6 +21,11 @@ const routes = [
     component: () => import("@/views/Agenda.vue")
   },
   {
+    path: "/updateRecursiveAppoint",
+    name: "UpdateRecursiveAppoint",
+    component: () => import("../views/UpdateRecursiveAppointment.vue")
+  },
+  {
     path: "/updateAppoint",
     name: "UpdateAppoint",
     component: () => import("../views/UpdateAppointment.vue")
