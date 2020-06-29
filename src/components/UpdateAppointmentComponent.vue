@@ -78,20 +78,26 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getAgendas", "getAppointments"]),
+    ...mapGetters([
+      "getAgendas",
+      "getAppointments",
+      "getrecursiveAppointments"
+    ]),
     agendas() {
       return this.getAgendas;
     },
     appointments() {
       return this.getAppointments;
+    },
+    recursiveAppointments() {
+      return this.getrecursiveAppointments;
     }
   },
   methods: {
     ...mapActions([
       "updateAppointment",
       "deleteAppointment",
-      "updateAgendaAppointments",
-      "addAppointmentToAgenda"
+      "updateAgendaAppointments"
     ]),
     saveApointment() {
       if (this._validateData()) {
@@ -107,14 +113,25 @@ export default {
               agendaId: this.agenda,
               participants: this.participants
             });
-            this.addAppointmentToAgenda({
-              name: this.name,
-              description: this.description,
-              date: String(this.date),
-              startHour: String(this.begin_hour),
-              endHour: String(this.end_hour),
+            var agendaAppointments = this.appointments.filter(
+              app => app.agendaId === this.agenda
+            );
+            var agendaRecursiveAppointments = this.recursiveAppointments.filter(
+              app => app.agendaId === this.agenda
+            );
+            var index = this.agendas.findIndex(
+              app => app.agendaId === this.agenda
+            );
+            var agendaToUpdate = this.agendas[index];
+            this.updateAgendaAppointments({
+              name: agendaToUpdate.name,
+              description: agendaToUpdate.description,
+              startHour: agendaToUpdate.startHour,
+              endHour: agendaToUpdate.endHour,
               agendaId: this.agenda,
-              participants: this.participants
+              appointments: agendaAppointments.concat(
+                agendaRecursiveAppointments
+              )
             });
           } else {
             alert("The hours are wrong, you are gonna break time line");
