@@ -1,26 +1,59 @@
 <template>
   <div>
-    <div v-if="formUpdate">
-      <label> {{ idUpdate }}</label>
+    <label class="title">Participants</label>
+    <div class="form">
+      <h3 v-if="!formUpdate">New Participant</h3>
+      <h3 v-if="formUpdate">Update Participant</h3>
+      <div v-if="formUpdate">
+        <label for="text">Id:</label>
+        <label> {{ idUpdate }}</label>
+      </div>
+      <div class="left">
+        <label for="text">Name:</label>
+        <div class="centerI">
+          <input
+            id="name"
+            class="form-control"
+            placeholder="Name"
+            v-model="name"
+            type="text"
+          />
+        </div>
+        <label for="text">Contact:</label>
+
+        <input
+          id="contactNumber"
+          class="form-control"
+          placeholder="Contact"
+          v-model="contactNumber"
+          type="number"
+        />
+      </div>
+      <br />
+      <div class="rigth">
+        <br />
+        <br />
+        <button v-if="!formUpdate" v-on:click="saveNewPart()">Register</button>
+        <button
+          class="button updateFrom"
+          v-if="formUpdate"
+          v-on:click="saveUpdate()"
+        >
+          Update
+        </button>
+      </div>
+      <br />
+      <br />
     </div>
-    <input id="name" v-model="name" type="text" />
-    <br />
-    <br />
-    <input id="contactNumber" v-model="contactNumber" type="number" />
-
-    <!--button :@click="_generateCode()">save</button-->
-    <button v-if="!formUpdate" v-on:click="saveNewPart()">Register</button>
-    <button v-if="formUpdate" v-on:click="saveUpdate()">Updateee</button>
-
-    <br />
-    <div>
-      <br />
-      <br />
+    <div v-if="!formUpdate" class="form">
+      <h3>Participants</h3>
       <table id="table">
         <thead>
           <th>Code</th>
           <th>Name</th>
           <th>Contact</th>
+          <th>Update Participant</th>
+          <th>Delete Participant</th>
         </thead>
         <tbody>
           <tr :key="part.participantId" v-for="part in participants">
@@ -28,10 +61,17 @@
             <td>{{ part.name }}</td>
             <td>{{ part.contactNumber }}</td>
             <td>
-              <button @click="deletePart(part.participantId)">Delete</button>
+              <button class="button update" @click="updateVisible(part)">
+                Update
+              </button>
             </td>
             <td>
-              <button @click="updateVisible(part)">Update</button>
+              <button
+                class="button delete"
+                @click="deletePart(part.participantId)"
+              >
+                Delete
+              </button>
             </td>
           </tr>
         </tbody>
@@ -82,10 +122,11 @@ export default {
         this.contactNumber = "";
         console.log("saved ");
       } else {
-        console.log("No saved");
+        alert("There don't have to be empty fields");
       }
     },
     updateVisible(part) {
+      console.log(part);
       this.formUpdate = true;
       this.name = part.name;
       this.contactNumber = part.contactNumber;
@@ -112,9 +153,14 @@ export default {
     _generateNewCode() {
       var fracmentId = this.getLastId.split("-");
       var getNumber = parseInt(fracmentId[1]) + 1;
-      var newPartId = "PART-" + getNumber;
+      var number = getNumber.toString();
+      while (number.length < 3) {
+        number = "0" + number;
+      }
+      var newPartId = "PART-" + number;
       return newPartId;
     }
   }
 };
 </script>
+<style src="@/components/styleParticipants.css" scoped></style>
