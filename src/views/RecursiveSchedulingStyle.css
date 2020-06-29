@@ -122,3 +122,49 @@ span.form-control {
   margin-top: auto;
   margin-bottom: auto;
 }
+table {
+  width: 80%;
+  border: 1px solid rgb(41, 194, 199);
+  border-spacing: 0;
+}
+thead {
+  font-size: 20px;
+  color: white;
+}
+th {
+  width: 25%;
+  text-align: center;
+  border: 1px solid rgb(41, 194, 199);
+  border-spacing: 0;
+  background-color: rgb(155, 221, 218);
+}
+td {
+  border: 1px solid rgb(41, 194, 199);
+  font-size: 20px;
+  width: 25%;
+  text-align: center;
+  border-spacing: 0;
+}
+.delete {
+  background-color: #af4545;
+  color: white;
+  border: 2px solid #ba0000;
+  margin: auto;
+  height: 40px;
+
+  
+}
+
+.delete:hover {
+  background-color: rgb(214, 102, 102);
+  color: white;
+}
+
+.buttonSelect {
+  width: 70%;
+  height: 60%;
+}
+.lableAlarm {
+  color: #4da4b9;
+  text-align: center;
+}
