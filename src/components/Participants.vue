@@ -126,6 +126,7 @@ export default {
       }
     },
     updateVisible(part) {
+      console.log(part);
       this.formUpdate = true;
       this.name = part.name;
       this.contactNumber = part.contactNumber;
