@@ -1,6 +1,7 @@
 import { assert } from "chai";
 import { shallowMount, createLocalVue } from "@vue/test-utils";
 import UpdateAppoint from "@/components/UpdateAppointmentComponent.vue";
+import Scheduling from "@/components/SchedulingComponent.vue";
 import { mockStore } from "./mockStore";
 import store from "@/store";
 import VueRouter from "vue-router";
@@ -12,7 +13,7 @@ before(() => {
   };
 });
 
-describe("Scheduling CRUD", () => {
+describe("Update Scheduling CRUD", () => {
   let localVue;
   let store;
   let wrapper;
@@ -72,6 +73,74 @@ describe("Scheduling CRUD", () => {
     wrapper.vm.$data.date = "2020-12-10";
     const isValid = wrapper.vm._validateDate();
     assert.isTrue(isValid);
+  });
+  it("Decrease when delete", () => {
+    wrapper = shallowMount(UpdateAppoint, {
+      store,
+      vuetify,
+      localVue
+    });
+    let wrapper1 = shallowMount(Scheduling, {
+      store,
+      vuetify,
+      localVue
+    });
+    wrapper1.vm.$data.name = "test";
+    wrapper1.vm.$data.description = "description test";
+    wrapper1.vm.$data.end_hour = "12:00";
+    wrapper1.vm.$data.begin_hour = "11:00";
+    wrapper1.vm.$data.date = "2020-10-10";
+    wrapper1.vm.$data.agenda = "Work";
+    wrapper1.vm.$data.participants = [];
+    wrapper1.vm.saveApointment();
+    assert.equal(wrapper1.vm.$store.state.scheduledAppointments.length, 3);
+    wrapper.vm.$data.name = "test";
+    wrapper.vm.$data.description = "description test";
+    wrapper.vm.$data.end_hour = "12:00";
+    wrapper.vm.$data.begin_hour = "11:00";
+    wrapper.vm.$data.date = "2020-10-10";
+    wrapper.vm.$data.agenda = "Work";
+    wrapper.vm.$data.participants = [];
+    wrapper.vm.deleteApp();
+    assert.equal(wrapper1.vm.$store.state.scheduledAppointments.length, 0);
+  });
+  it("Update Data", () => {
+    wrapper = shallowMount(UpdateAppoint, {
+      store,
+      vuetify,
+      localVue
+    });
+    let wrapper1 = shallowMount(Scheduling, {
+      store,
+      vuetify,
+      localVue
+    });
+    wrapper1.vm.$data.name = "test";
+    wrapper1.vm.$data.description = "description test";
+    wrapper1.vm.$data.end_hour = "12:00";
+    wrapper1.vm.$data.begin_hour = "11:00";
+    wrapper1.vm.$data.date = "2020-10-10";
+    wrapper1.vm.$data.agenda = "Work";
+    wrapper1.vm.$data.participants = [];
+    wrapper1.vm.saveApointment();
+    assert.equal(wrapper1.vm.$store.state.scheduledAppointments.length, 1);
+    assert.equal(
+      wrapper1.vm.$store.state.scheduledAppointments[0].name,
+      "test"
+    );
+    wrapper.vm.$data.name = "test";
+    wrapper.vm.$data.description = "description";
+    wrapper.vm.$data.end_hour = "12:00";
+    wrapper.vm.$data.begin_hour = "11:00";
+    wrapper.vm.$data.date = "2020-10-10";
+    wrapper.vm.$data.agenda = "Work";
+    wrapper.vm.$data.participants = [];
+    wrapper.vm.saveApointment();
+    assert.equal(wrapper1.vm.$store.state.scheduledAppointments.length, 1);
+    assert.equal(
+      wrapper1.vm.$store.state.scheduledAppointments[0].description,
+      "description"
+    );
   });
 });
 describe("LocalVue", () => {

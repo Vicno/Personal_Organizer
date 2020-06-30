@@ -42,7 +42,7 @@ describe("Scheduling CRUD", () => {
     wrapper.vm.$data.begin_hour = "11:00";
     wrapper.vm.$data.date = "2020-10-10";
     wrapper.vm.$data.agenda = "ANG-0001";
-    wrapper.vm.$data.participants = {};
+    wrapper.vm.$data.participants = [];
     const isValid = wrapper.vm._validateData();
     assert.isTrue(isValid);
   });
@@ -67,6 +67,22 @@ describe("Scheduling CRUD", () => {
     wrapper.vm.$data.date = "2020-12-10";
     const isValid = wrapper.vm._validateDate();
     assert.isTrue(isValid);
+  });
+  it("Increase when save", () => {
+    wrapper = shallowMount(Scheduling, {
+      store,
+      vuetify,
+      localVue
+    });
+    wrapper.vm.$data.name = "test";
+    wrapper.vm.$data.description = "description test";
+    wrapper.vm.$data.end_hour = "12:00";
+    wrapper.vm.$data.begin_hour = "11:00";
+    wrapper.vm.$data.date = "2020-10-10";
+    wrapper.vm.$data.agenda = "Work";
+    wrapper.vm.$data.participants = [];
+    wrapper.vm.saveApointment();
+    assert.equal(wrapper.vm.$store.state.scheduledAppointments.length, 2);
   });
 });
 describe("LocalVue", () => {
