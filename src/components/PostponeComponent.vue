@@ -1,15 +1,15 @@
 <template>
   <div>
     <div>
-      <div>
+      <!--div>
         <label>Choose an agenda: </label>
         <select v-model="agenda" placeholder="Choose an agenda">
           <option :key="index" v-for="(element, index) in agendas">
             {{ element.agendaId }}
           </option>
         </select>
-      </div>
-      <div v-if="agenda !== ''">
+      </div-->
+      <div v-if="agendaSelected !== ''">
         <label>agenda Chosen </label>
         <table id="table1">
           <thead>
@@ -136,12 +136,16 @@ export default {
     },
     globalAppointmentsList() {
       var indexselectedAgenda = this.agendas.findIndex(
-        ag => ag.agendaId === this.agenda
+        ag => ag.name === this.agendaSelected
       );
       var agendaAppointments = this.agendas[indexselectedAgenda].appointments;
       return agendaAppointments.filter(
-        element => element.agendaId === this.agenda
+        element =>
+          element.agendaId === this.agendas[indexselectedAgenda].agendaId
       );
+    },
+    agendaSelected() {
+      return this.getAgendaSelected;
     }
   },
   methods: {
@@ -161,7 +165,7 @@ export default {
         name: element.name,
         description: element.description
       });
-      var index = this.agendas.findIndex(app => app.agendaId === this.agenda);
+      var index = this.agendas.findIndex(ag => ag.name === this.agendaSelected);
       var agendaToUpdate = this.agendas[index];
       var newAgendaAppointments = this.globalAppointmentsList.filter(
         aux => aux.name !== element.name
@@ -171,7 +175,7 @@ export default {
         description: agendaToUpdate.description,
         startHour: agendaToUpdate.startHour,
         endHour: agendaToUpdate.endHour,
-        agendaId: this.agendas[index].agendaId,
+        agendaId: this.agendaSelected,
         appointments: newAgendaAppointments
       });
     },
@@ -208,7 +212,7 @@ export default {
       var endArray = this.end_hour.split(":");
       var beginArray = this.begin_hour.split(":");
       var agendaHour = this.agendas.findIndex(
-        ag => ag.agendaId === this.agenda
+        ag => ag.name === this.agendaSelected
       );
       var endAgendaArray = this.agendas[agendaHour].endHour.split(":");
       var beginAgendaArray = this.agendas[agendaHour].startHour.split(":");

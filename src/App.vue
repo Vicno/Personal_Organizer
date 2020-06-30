@@ -1,6 +1,9 @@
 <template>
   <v-app>
     <v-app-bar app color="#gggg   " dark>
+      <v-btn icon router :to="'/'">
+        <v-icon>mdi-arrow-left</v-icon>
+      </v-btn>
       <v-select
         v-model="agendaSelected"
         :items="agendasName()"
@@ -10,6 +13,7 @@
         single-line
         @input="updateAgenda"
       ></v-select>
+      <v-spacer></v-spacer>
       <v-btn icon router :to="'/schedul'">
         <v-icon>mdi-book-plus</v-icon>
         <span class="mr-2">Book new Appointment</span>
@@ -22,21 +26,6 @@
       <v-spacer></v-spacer>
       <v-btn icon router :to="'/calendar'">
         <v-icon>mdi-calendar-month</v-icon>
-      </v-btn>
-      <v-spacer></v-spacer>
-      <v-btn icon router :to="'/Agenda'">
-        <v-icon>mdi-book-plus-multiple</v-icon>
-        <span class="mr-2">New Agenda</span>
-      </v-btn>
-      <v-spacer></v-spacer>
-      <v-btn icon router :to="'/participants'">
-        <v-icon>mdi-book-plus-multiple</v-icon>
-        <span class="mr-2"> Participants</span>
-      </v-btn>
-      <v-spacer></v-spacer>
-      <v-btn icon router :to="'/postpone'">
-        <v-icon>mdi-book-plus-multiple</v-icon>
-        <span class="mr-2"> Postpone</span>
       </v-btn>
     </v-app-bar>
     <v-main>

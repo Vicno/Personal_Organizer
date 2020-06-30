@@ -49,6 +49,15 @@
           style="height: 130px;"
           v-model="description"
         ></textarea>
+        <v-select
+          v-model="participants"
+          :items="allParticipantsName()"
+          label="Select"
+          multiple
+          chips
+          hint="Participants"
+          persistent-hint
+        ></v-select>
         <button @click="saveApointment">Book Now</button>
       </div>
     </div>
@@ -67,16 +76,19 @@ export default {
       begin_hour: "00:00",
       date: "",
       agenda: "",
-      participants: {}
+      participants: []
     };
   },
   computed: {
-    ...mapGetters(["getAgendas", "getAppointments"]),
+    ...mapGetters(["getAgendas", "getAppointments", "getParticipants"]),
     agendas() {
       return this.getAgendas;
     },
     appointments() {
       return this.getAppointments;
+    },
+    allParticipants() {
+      return this.getParticipants;
     }
   },
   methods: {
@@ -85,6 +97,13 @@ export default {
       "updateAgendaAppointments",
       "addAppointmentToAgenda"
     ]),
+    allParticipantsName() {
+      var participantName = [];
+      for (var i = 0; i < this.allParticipants.length; i++) {
+        participantName.push(this.allParticipants[i].name);
+      }
+      return participantName;
+    },
     saveApointment() {
       if (this._validateData()) {
         if (this._validateDate()) {

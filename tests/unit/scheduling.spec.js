@@ -80,6 +80,6 @@ describe("LocalVue", () => {
       store,
       localVue
     });
-    assert.equal(wrapper.vm.$store.state.scheduledAppointments.length, 2); //added in recursive appointments 1 appointment, so changed 1 for 2 of expected
+    assert.equal(wrapper.vm.$store.state.scheduledAppointments.length, 1); //added in recursive appointments 1 appointment, so changed 1 for 2 of expected
   });
 });
