@@ -141,6 +141,7 @@ export default {
         this.formUpdate = false;
         this.name = "";
         this.contactNumber = "";
+        this.updatePartId("-1");
       }
     },
     deletePart(idPart) {
