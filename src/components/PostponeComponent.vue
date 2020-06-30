@@ -10,7 +10,7 @@
         </select>
       </div-->
       <div v-if="agendaSelected !== ''">
-        <label>agenda Chosen </label>
+        <label>Appointments of Agenda Chosen </label>
         <table id="table1">
           <thead>
             <th>name</th>
@@ -41,13 +41,17 @@
         </table>
       </div>
       <br />
+      <input v-model="modifiedName" placeholder="Set your new name" />
+      <br />
+      <input
+        v-model="modifiedDescription"
+        placeholder="Set your new description"
+      />
       <br /><label>Global Postponed List</label>
       <table id="table2">
         <thead>
           <th>Name</th>
           <th>Description</th>
-          <th>Assign appointment?</th>
-          <th>Delete appointment?</th>
         </thead>
         <tbody>
           <tr :key="obj.name" v-for="obj in postponedAppointmentsList">
@@ -56,6 +60,11 @@
             <td>
               <button v-on:click="EnablePostAppointment(obj)">
                 Enable
+              </button>
+            </td>
+            <td>
+              <button v-on:click="EditPostAppointment(obj)">
+                Edit
               </button>
             </td>
             <td>
@@ -111,13 +120,14 @@ export default {
   name: "Postpone",
   data() {
     return {
+      modifiedName: "",
+      modifiedDescription: "",
       targetAgenda: "",
       name: "",
       description: "",
       end_hour: "23:59",
       begin_hour: "00:00",
       date: "",
-      agenda: "",
       participants: {}
     };
   },
@@ -155,8 +165,16 @@ export default {
       "deletePostponedAppointment",
       "enableAppointment",
       "updateAgendaSelected",
-      "updateAgendaAppointments"
+      "updateAgendaAppointments",
+      "updatePostponedAppointment"
     ]),
+    EditPostAppointment(editPostApp) {
+      this.deletePostponedAppointment(editPostApp);
+      this.PostponeAppointment({
+        name: this.modifiedName,
+        description: this.modifiedDescription
+      });
+    },
     updateAgenda() {
       this.updateAgendaSelected(this.agendaSelected);
     },

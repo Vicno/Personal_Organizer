@@ -152,6 +152,14 @@ const mutateAddAgendaAppointments = (state, data) => {
   });
   state.agendas = agendass;
 };
+const mutateUpdatePostponedAppointment = (state, itemToUpdate) => {
+  const foundItem = state.postponedAppointments.findIndex(
+    st => st.name === itemToUpdate.name
+  );
+  if (foundItem >= 0) {
+    state.postponedAppointments.splice(foundItem, 1, itemToUpdate);
+  }
+};
 const mutatePostponeAppointment = (state, PostAppointment) => {
   state.postponedAppointments.push(PostAppointment);
 };
@@ -185,6 +193,7 @@ export default {
   mutationUpdatePart,
   idToUpdate,
   mutateEnableAppointment,
+  mutateUpdatePostponedAppointment,
   mutatePostponeAppointment,
   mutateDeletePostponedAppointment
   // los nombres de las funciones

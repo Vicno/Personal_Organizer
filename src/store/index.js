@@ -31,7 +31,7 @@ export default new Vuex.Store({
             startHour: "10:00",
             endHour: "11:00",
             agendaId: "ANG-0001",
-            participants: ["PART-001"]
+            participants: ["Person A"]
           },
           {
             name: "Time to lunch",
@@ -42,7 +42,7 @@ export default new Vuex.Store({
             startHour: "12:00",
             endHour: "13:00",
             agendaId: "ANG-0001",
-            participants: ["PART-001"]
+            participants: ["Person A"]
           }
         ]
       }
@@ -55,7 +55,7 @@ export default new Vuex.Store({
         startHour: "10:00",
         endHour: "11:00",
         agendaId: "ANG-0001",
-        participants: ["PART-001"]
+        participants: ["Person A"]
       }
     ],
     postponedAppointments: [
@@ -75,7 +75,7 @@ export default new Vuex.Store({
         startHour: "12:00",
         endHour: "13:00",
         agendaId: "ANG-0001",
-        participants: ["PART-001"]
+        participants: ["Person A"]
       }
     ],
     participants: [

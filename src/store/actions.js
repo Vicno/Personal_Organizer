@@ -62,6 +62,10 @@ const enableAppointment = ({ commit }, PostAppointment) => {
 const updateAgendaAppointments = ({ commit }, itemToUpdate) => {
   commit("updateAgendaAppointment", itemToUpdate);
 };
+const updatePostponedAppointment = ({ commit }, itemToUpdate) => {
+  commit("mutateUpdatePostponedAppointment", itemToUpdate);
+};
+
 export default {
   createNewAgenda,
   updateAgenda,
@@ -82,6 +86,7 @@ export default {
   updatePartId,
   addTargetAgendaAppointment,
   deletePostponedAppointment,
-  enableAppointment
+  enableAppointment,
+  updatePostponedAppointment
   // los nombres de las funciones
 };
