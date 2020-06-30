@@ -7,12 +7,19 @@
       <div class="form">
         <h3>Make A Recursive Appointment</h3>
         <!--Name-->
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Name"
-          v-model="name"
-        />
+        <label>(Only fill name if deleting)</label>
+        <div class="form-row">
+          <span class="form-control"> Name </span>
+          <select v-model="name" id="names">
+            <option
+              :key="na.id"
+              v-for="na in recursiveAppointments"
+              class="optionsAppointments"
+            >
+              {{ na.name }}
+            </option>
+          </select>
+        </div>
         <!--description-->
         <textarea
           name="description"
@@ -25,8 +32,8 @@
         <!--Agenda-->
         <div class="form-row">
           <span class="form-control"> Agenda </span>
-          <select v-model="agenda">
-            <option v-for="(ag, index) in agendas" :key="index">
+          <select v-model="agenda" id="agendas">
+            <option :key="ag.id" v-for="ag in agendas" class="optionsAgenda">
               {{ ag.name }}
             </option>
           </select>
@@ -78,13 +85,16 @@
         <div class="form-row">
           <span class="form-control"> Participants </span>
           <select v-model="participants">
-            <option v-for="(par, index) in participantes" :key="index">
+            <option v-for="(par, index) in allParticipants" :key="index">
               {{ par.name }}
             </option>
           </select>
         </div>
         <!--Create Button-->
-        <button @click="create">Book Now</button>
+        <button @click="update">Book Now</button>
+        <button icon @click="deleteApp">
+          <v-icon>mdi-delete</v-icon>
+        </button>
       </div>
     </div>
   </div>
@@ -93,7 +103,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
-  name: "RecursiveSchedulingComponent",
+  name: "UpdateRecursiveAppoint",
   data() {
     return {
       name: "",
@@ -108,12 +118,17 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["addRecursive", "addAppointmentToAgenda"]),
-    create() {
+    ...mapActions([
+      "updateRecursive",
+      "updateAgendaAppointments",
+      "deleteRecursive"
+    ]),
+    update() {
       if (this._validateData()) {
         if (this._validateDate()) {
           if (this._validateHour()) {
-            this.addRecursive({
+            this._getParticipants();
+            this.updateRecursive({
               name: this.name,
               description: this.description,
               date: String(this.date),
@@ -124,16 +139,29 @@ export default {
               agendaId: this.agenda,
               participants: this.participants
             });
-            this.addAppointmentToAgenda({
-              name: this.name,
-              description: this.description,
-              date: String(this.date),
-              endDate: String(this.endDate),
-              frequency: this.frequency,
-              startHour: String(this.begin_hour),
-              endHour: String(this.end_hour),
+            console.log(this.recursiveAppointments);
+            var agendaAppointments = this.appointments.filter(
+              app => app.agendaId === this.agenda
+            );
+            var agendaRecursiveAppointments = this.recursiveAppointments.filter(
+              app => app.agendaId === this.agenda
+            );
+            console.log(this.recursiveAppointments);
+            var index = this.agendas.findIndex(
+              app => app.agendaId === this.agenda
+            );
+            var agendaToUpdate = this.agendas[index];
+            this.updateAgendaAppointments({
+              name: agendaToUpdate.name,
+              description: agendaToUpdate.description,
+              startHour: agendaToUpdate.startHour,
+              endHour: agendaToUpdate.endHour,
+              date: agendaToUpdate.date,
+              endDate: agendaToUpdate.endDate,
               agendaId: this.agenda,
-              participants: this.participants
+              appointments: agendaAppointments.concat(
+                agendaRecursiveAppointments
+              )
             });
           } else {
             alert("The hours are wrong, you are gonna break time line");
@@ -251,23 +279,63 @@ export default {
       //modify agenda name for agenda id
       var index = this.agendas.findIndex(ag => ag.name === this.agenda);
       this.agenda = this.agendas[index].agendaId;
+    },
+    _getParticipants() {
+      var index = this.recursiveAppointments.findIndex(
+        ag => ag.name === this.name
+      );
+      this.participants = this.recursiveAppointments[index].participants;
+    },
+    deleteApp() {
+      //Search for the recursive appointment we want to delete
+      var indexDeleted = this.recursiveAppointments.findIndex(
+        app => app.name === this.name
+      );
+      //Search for the id agenda of the recursive appointment
+      var idAgendaDeleted = this.recursiveAppointments[indexDeleted].agendaId;
+      //Search for the index of the id agenda in agendas
+      var index = this.agendas.findIndex(
+        app => app.agendaId === idAgendaDeleted
+      );
+      //Search for the agenda
+      var agendaToUpdate = this.agendas[index];
+      //delete agenda
+      this.deleteRecursive(this.name);
+      var agendaAppointments = this.appointments.filter(
+        app => app.agendaId === idAgendaDeleted
+      );
+      var agendaRecursiveAppointments = this.recursiveAppointments.filter(
+        app => app.agendaId === this.agenda
+      );
+      this.updateAgendaAppointments({
+        name: agendaToUpdate.name,
+        description: agendaToUpdate.description,
+        startHour: agendaToUpdate.startHour,
+        endHour: agendaToUpdate.endHour,
+        agendaId: this.agendas[index].agendaId,
+        appointments: agendaAppointments.concat(agendaRecursiveAppointments)
+      });
     }
   },
   computed: {
     ...mapGetters([
       "getrecursiveAppointments",
       "getAgendas",
-      "getParticipants"
+      "getParticipants",
+      "getAppointments"
     ]),
 
     agendas() {
       return this.getAgendas;
     },
-    participantes() {
+    allParticipants() {
       return this.getParticipants;
     },
     recursiveAppointments() {
       return this.getrecursiveAppointments;
+    },
+    appointments() {
+      return this.getAppointments;
     },
     agendafromAgendaname() {
       // Si existe una agenda con el nombre, se devuelve el id de esa agenda
