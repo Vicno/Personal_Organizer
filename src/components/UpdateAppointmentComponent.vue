@@ -123,7 +123,6 @@ export default {
       if (this._validateData()) {
         if (this._validateDate()) {
           if (this._validateHour()) {
-            this._getParticipants();
             this.updateAppointment({
               name: this.name,
               description: this.description,
@@ -227,10 +226,6 @@ export default {
     _getAgendaId() {
       var index = this.agendas.findIndex(ag => ag.name === this.agenda);
       this.agenda = this.agendas[index].agendaId;
-    },
-    _getParticipants() {
-      var index = this.appointments.findIndex(ag => ag.name === this.name);
-      this.participants = this.appointments[index].participants;
     },
     deleteApp() {
       var indexDeleted = this.appointments.findIndex(
