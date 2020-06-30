@@ -75,49 +75,15 @@
         </div>
         <!---->
         <!--Participants-->
-        <div class="form-row">
-          <span class="form-control"> Participants </span>
-          <select v-model="participants">
-            <option v-for="(par, index) in participantes" :key="index">
-              {{ par.name }}
-            </option>
-          </select>
-          <br />
-          <br />
-          <div>
-            <button class="buttonSelect" @click="_addParticipants()">
-              Select Participant
-            </button>
-          </div>
-        </div>
-        <div>
-          <h2 v-if="!tableVisible" class="lableAlarm">
-            You don't add participants
-          </h2>
-          <table v-if="tableVisible" id="table">
-            <thead>
-              <th>Code</th>
-              <th>Name</th>
-              <th>Contact</th>
-              <th>Delete</th>
-            </thead>
-            <tbody>
-              <tr :key="part.participantId" v-for="part in tableOfPart">
-                <td>{{ part.participantId }}</td>
-                <td>{{ part.name }}</td>
-                <td>{{ part.contactNumber }}</td>
-                <td>
-                  <button
-                    class="button delete"
-                    @click="deletePart(part.participantId)"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <v-select
+          v-model="participants"
+          :items="allParticipantsName()"
+          label="Select"
+          multiple
+          chips
+          hint="Participants"
+          persistent-hint
+        ></v-select>
         <!--Create Button-->
         <button @click="create">Book Now</button>
       </div>
@@ -139,7 +105,7 @@ export default {
       begin_hour: "",
       end_hour: "",
       agenda: "", //agenda id
-      participants: {},
+      participants: [],
       tableVisible: false
     };
   },
@@ -150,6 +116,13 @@ export default {
       "addPartToAppoitments",
       "deletePartOfAppo"
     ]),
+    allParticipantsName() {
+      var participantName = [];
+      for (var i = 0; i < this.allParticipants.length; i++) {
+        participantName.push(this.allParticipants[i].name);
+      }
+      return participantName;
+    },
     create() {
       if (this._validateData()) {
         if (this._validateDate()) {
@@ -163,7 +136,7 @@ export default {
               startHour: String(this.begin_hour),
               endHour: String(this.end_hour),
               agendaId: this.agenda,
-              participants: this.listOfPart
+              participants: this.participants
             });
             this.addAppointmentToAgenda({
               name: this.name,
@@ -174,7 +147,7 @@ export default {
               startHour: String(this.begin_hour),
               endHour: String(this.end_hour),
               agendaId: this.agenda,
-              participants: this.listOfPart
+              participants: this.participants
             });
             this.tableOfPart.length = 0;
             this.listOfPart.length = 0;
@@ -323,9 +296,13 @@ export default {
       "getAgendas",
       "getParticipants",
       "getPartOfAppoitments",
-      "getListPart"
+      "getListPart",
+      "getParticipants"
     ]),
 
+    allParticipants() {
+      return this.getParticipants;
+    },
     agendas() {
       return this.getAgendas;
     },

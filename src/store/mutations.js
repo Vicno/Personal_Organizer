@@ -29,19 +29,23 @@ const mutateParticipantsList = (state, newParticipant) => {
 };
 
 const mutationDeletePart = (state, partToDelete) => {
+  var bool = 0;
   state.agendas.forEach(agenda =>
     agenda.appointments.forEach(apo =>
       apo.participants.forEach(part => {
-        if (part !== partToDelete) {
-          state.participants = state.participants.filter(
-            part => part.participantId !== partToDelete
-          );
-        } else {
-          alert(partToDelete + " is in some appointment");
+        if (part === partToDelete) {
+          bool += 1;
         }
       })
     )
   );
+  if (bool === 0) {
+    state.participants = state.participants.filter(
+      part => part.participantId !== partToDelete
+    );
+  } else {
+    alert(partToDelete + " is in some appointment");
+  }
 };
 
 const mutateUpdateRecursive = (state, updateSchedule) => {

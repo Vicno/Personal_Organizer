@@ -68,7 +68,7 @@
             <td>
               <button
                 class="button delete"
-                @click="deletePart(part.participantId)"
+                @click="deletePart(part.name)"
               >
                 Delete
               </button>
