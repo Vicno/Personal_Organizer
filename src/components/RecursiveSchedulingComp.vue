@@ -82,6 +82,41 @@
               {{ par.name }}
             </option>
           </select>
+          <br />
+          <br />
+          <div>
+            <button class="buttonSelect" @click="_addParticipants()">
+              Select Participant
+            </button>
+          </div>
+        </div>
+        <div>
+          <h2 v-if="!tableVisible" class="lableAlarm">
+            You don't add participants
+          </h2>
+          <table v-if="tableVisible" id="table">
+            <thead>
+              <th>Code</th>
+              <th>Name</th>
+              <th>Contact</th>
+              <th>Delete</th>
+            </thead>
+            <tbody>
+              <tr :key="part.participantId" v-for="part in tableOfPart">
+                <td>{{ part.participantId }}</td>
+                <td>{{ part.name }}</td>
+                <td>{{ part.contactNumber }}</td>
+                <td>
+                  <button
+                    class="button delete"
+                    @click="deletePart(part.participantId)"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <!--Create Button-->
         <button @click="create">Book Now</button>
@@ -104,11 +139,17 @@ export default {
       begin_hour: "",
       end_hour: "",
       agenda: "", //agenda id
-      participants: {}
+      participants: {},
+      tableVisible: false
     };
   },
   methods: {
-    ...mapActions(["addRecursive", "addAppointmentToAgenda"]),
+    ...mapActions([
+      "addRecursive",
+      "addAppointmentToAgenda",
+      "addPartToAppoitments",
+      "deletePartOfAppo"
+    ]),
     create() {
       if (this._validateData()) {
         if (this._validateDate()) {
@@ -122,7 +163,7 @@ export default {
               startHour: String(this.begin_hour),
               endHour: String(this.end_hour),
               agendaId: this.agenda,
-              participants: this.participants
+              participants: this.listOfPart
             });
             this.addAppointmentToAgenda({
               name: this.name,
@@ -133,8 +174,10 @@ export default {
               startHour: String(this.begin_hour),
               endHour: String(this.end_hour),
               agendaId: this.agenda,
-              participants: this.participants
+              participants: this.listOfPart
             });
+            this.tableOfPart.length = 0;
+            this.listOfPart.length = 0;
           } else {
             alert("The hours are wrong, you are gonna break time line");
           }
@@ -251,13 +294,36 @@ export default {
       //modify agenda name for agenda id
       var index = this.agendas.findIndex(ag => ag.name === this.agenda);
       this.agenda = this.agendas[index].agendaId;
+    },
+    _addParticipants() {
+      // if (this.participantes.name === this.participants)
+      this.participantes.find(part => {
+        if (part.name == this.participants) {
+          this.addPartToAppoitments(part);
+          console.log(this.listOfPart);
+          this._visibleTable();
+        }
+      });
+    },
+    deletePart(idPart) {
+      this.deletePartOfAppo(idPart);
+      this._visibleTable();
+    },
+    _visibleTable() {
+      if (this.listOfPart.length == 0 && this.tableOfPart.length == 0) {
+        this.tableVisible = false;
+      } else {
+        this.tableVisible = true;
+      }
     }
   },
   computed: {
     ...mapGetters([
       "getrecursiveAppointments",
       "getAgendas",
-      "getParticipants"
+      "getParticipants",
+      "getPartOfAppoitments",
+      "getListPart"
     ]),
 
     agendas() {
@@ -265,6 +331,12 @@ export default {
     },
     participantes() {
       return this.getParticipants;
+    },
+    listOfPart() {
+      return this.getPartOfAppoitments;
+    },
+    tableOfPart() {
+      return this.getListPart;
     },
     recursiveAppointments() {
       return this.getrecursiveAppointments;

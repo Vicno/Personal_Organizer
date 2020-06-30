@@ -64,7 +64,26 @@ const mutateDeleteRecursive = (state, name) => {
     }
   });
 };
-
+const mutateAddPartToAppointment = (state, newParticipant) => {
+  let validate = false;
+  state.idPartOfAppo.forEach(part => {
+    if (part === newParticipant.participantId) {
+      validate = true;
+    }
+  });
+  if (!validate) {
+    state.participantOfAppoitments.push(newParticipant);
+    state.idPartOfAppo.push(newParticipant.participantId);
+  } else {
+    alert("This participants is already in the appointment");
+  }
+};
+const mutateDeletePartOfAppo = (state, partToDelete) => {
+  state.participantOfAppoitments = state.participantOfAppoitments.filter(
+    part => part.participantId !== partToDelete
+  );
+  state.idPartOfAppo = state.idPartOfAppo.filter(part => part !== partToDelete);
+};
 const mutateAppointmentsList = (state, newAppointment) => {
   state.scheduledAppointments.push(newAppointment);
 };
@@ -154,6 +173,8 @@ export default {
   updateAgendaSelected,
   mutateParticipantsList,
   mutationDeletePart,
+  mutateAddPartToAppointment,
+  mutateDeletePartOfAppo,
   mutateAddRecursive,
   mutateUpdateRecursive,
   mutateDeleteRecursive,
