@@ -175,6 +175,16 @@ const mutateEnableAppointment = (state, newAppointment) => {
     }
   });
 };
+
+const removeAppointmentFromAgenda = (
+  state,
+  { agendaName, appointmentName }
+) => {
+  var index = state.agendas.findIndex(ag => ag.name === agendaName);
+  state.agendas[index].appointments = state.agendas[index].appointments.filter(
+    element => element.name !== appointmentName
+  );
+};
 export default {
   mutateAddAgendaAppointments,
   mutateCreateAgenda,
@@ -195,6 +205,7 @@ export default {
   mutateEnableAppointment,
   mutateUpdatePostponedAppointment,
   mutatePostponeAppointment,
-  mutateDeletePostponedAppointment
+  mutateDeletePostponedAppointment,
+  removeAppointmentFromAgenda
   // los nombres de las funciones
 };

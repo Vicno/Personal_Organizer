@@ -175,11 +175,7 @@ export default {
       var indexselectedAgenda = this.agendas.findIndex(
         ag => ag.name === this.agendaSelected
       );
-      var agendaAppointments = this.agendas[indexselectedAgenda].appointments;
-      return agendaAppointments.filter(
-        element =>
-          element.agendaId === this.agendas[indexselectedAgenda].agendaId
-      );
+      return this.agendas[indexselectedAgenda].appointments;
     },
     agendaSelected() {
       return this.getAgendaSelected;
@@ -193,7 +189,8 @@ export default {
       "enableAppointment",
       "updateAgendaSelected",
       "updateAgendaAppointments",
-      "updatePostponedAppointment"
+      "updatePostponedAppointment",
+      "removeAppointmentAgenda"
     ]),
     EditPostAppointment(editPostApp) {
       if (this._validateData()) {
@@ -214,18 +211,9 @@ export default {
         name: element.name,
         description: element.description
       });
-      var index = this.agendas.findIndex(ag => ag.name === this.agendaSelected);
-      var agendaToUpdate = this.agendas[index];
-      var newAgendaAppointments = this.globalAppointmentsList.filter(
-        aux => aux.name !== element.name
-      );
-      this.updateAgendaAppointments({
-        name: agendaToUpdate.name,
-        description: agendaToUpdate.description,
-        startHour: agendaToUpdate.startHour,
-        endHour: agendaToUpdate.endHour,
-        agendaId: this.agendaSelected,
-        appointments: newAgendaAppointments
+      this.removeAppointmentAgenda({
+        agendaName: this.agendaSelected,
+        appointmentName: element.name
       });
     },
     EnablePostAppointment(enabledAppointment) {
