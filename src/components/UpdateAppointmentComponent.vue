@@ -102,6 +102,18 @@ export default {
     recursiveAppointments() {
       return this.getrecursiveAppointments;
     },
+    allParticipantsId() {
+      var participantsId = [];
+      this.participants.forEach(element => {
+        for (var i = 0; i < this.allParticipants.length; i++) {
+          if (element.name === this.allParticipants[i].name) {
+            participantsId.push(this.allParticipants[i].participantId);
+          }
+        }
+      });
+
+      return participantsId;
+    },
     allParticipants() {
       return this.getParticipants;
     }
@@ -130,7 +142,7 @@ export default {
               startHour: String(this.begin_hour),
               endHour: String(this.end_hour),
               agendaId: this.agenda,
-              participants: this.participants
+              participants: this.allParticipantsId()
             });
             var agendaAppointments = this.appointments.filter(
               app => app.agendaId === this.agenda

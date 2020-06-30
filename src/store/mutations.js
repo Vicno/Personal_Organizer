@@ -25,37 +25,9 @@ const mutateDeleteAgenda = (state, id) => {
   });
 };
 const mutateParticipantsList = (state, newParticipant) => {
-  let valide = false;
-  state.participants.forEach(part => {
-    if (part.name.toUpperCase() === newParticipant.name.toUpperCase()) {
-      valide = true;
-    }
-  });
-  if (!valide) {
-    state.participants.push(newParticipant);
-  } else {
-    alert("This name is already exists \n  Change name please.");
-  }
+  state.participants.push(newParticipant);
 };
-const mutationUpdatePart = (state, partToUpdate) => {
-  let valide = false;
-  let foundAccountIndex = state.participants.findIndex(account => {
-    account.participantId === partToUpdate.participantId;
-  });
-  let listPart = state.participants.filter(
-    part => part.participantId !== partToUpdate.participantId
-  );
-  listPart.forEach(part => {
-    if (part.name.toUpperCase() === partToUpdate.name.toUpperCase()) {
-      valide = true;
-    }
-  });
-  if (!valide) {
-    state.participants.splice(foundAccountIndex, 1, partToUpdate);
-  } else {
-    alert("This name is already exists \n  Change name please.");
-  }
-};
+
 const mutationDeletePart = (state, partToDelete) => {
   var bool = 0;
   state.agendas.forEach(agenda =>
@@ -96,6 +68,26 @@ const mutateDeleteRecursive = (state, name) => {
     }
   });
 };
+const mutateAddPartToAppointment = (state, newParticipant) => {
+  let validate = false;
+  state.idPartOfAppo.forEach(part => {
+    if (part === newParticipant.participantId) {
+      validate = true;
+    }
+  });
+  if (!validate) {
+    state.participantOfAppoitments.push(newParticipant);
+    state.idPartOfAppo.push(newParticipant.participantId);
+  } else {
+    alert("This participants is already in the appointment");
+  }
+};
+const mutateDeletePartOfAppo = (state, partToDelete) => {
+  state.participantOfAppoitments = state.participantOfAppoitments.filter(
+    part => part.participantId !== partToDelete
+  );
+  state.idPartOfAppo = state.idPartOfAppo.filter(part => part !== partToDelete);
+};
 const mutateAppointmentsList = (state, newAppointment) => {
   state.scheduledAppointments.push(newAppointment);
 };
@@ -135,6 +127,12 @@ const deleteAppointment = (state, itemToDelete) => {
   state.scheduledAppointments = state.scheduledAppointments.filter(
     it => it.name !== itemToDelete
   );
+};
+const mutationUpdatePart = (state, partToUpdate) => {
+  let foundAccountIndex = state.participants.findIndex(
+    account => account.participantId === partToUpdate.participantId
+  );
+  state.participants.splice(foundAccountIndex, 1, partToUpdate);
 };
 const idToUpdate = (state, idToUpdate) => {
   state.partIdToUpdate = idToUpdate;
@@ -179,6 +177,8 @@ export default {
   updateAgendaSelected,
   mutateParticipantsList,
   mutationDeletePart,
+  mutateAddPartToAppointment,
+  mutateDeletePartOfAppo,
   mutateAddRecursive,
   mutateUpdateRecursive,
   mutateDeleteRecursive,
