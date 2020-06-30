@@ -65,7 +65,7 @@ describe("Postpone CRUD", () => {
     const isValid = wrapper.vm._validateDate();
     assert.isTrue(isValid);
   });
-});
+});/*
 describe("LocalVue", () => {
   it("using the store directly", () => {
     const localVue = createLocalVue();
@@ -78,5 +78,5 @@ describe("LocalVue", () => {
       localVue
     });
     assert.equal(wrapper.vm.$store.state.postponedAppointments.length, 1);
-  });
+  });*/
 });
