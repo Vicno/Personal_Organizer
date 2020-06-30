@@ -11,21 +11,17 @@ const getParticipants = state => state.participants;
 const getPostponedAppointments = state => state.postponedAppointments;
 const getRecursiveAppointments = state => state.recursiveAppointments;
 const getUpdateIdPart = state => state.partIdToUpdate;
-const getPartOfAppoitments = state => state.idPartOfAppo;
-const getListPart = state => state.participantOfAppoitments;
 export default {
   getAgendas,
   getAppointments,
   getpostponedAppointments,
   getrecursiveAppointments,
-  getPartOfAppoitments,
   getAgendaSelected,
   getLastId,
   getLastParticipant,
   getParticipants,
   getUpdateIdPart,
   getPostponedAppointments,
-  getRecursiveAppointments,
-  getListPart
+  getRecursiveAppointments
   // los nombres de las funciones
 };

@@ -41,12 +41,6 @@ const updateParticipant = ({ commit }, partToUpdate) => {
 const updatePartId = ({ commit }, idUpdate) => {
   commit("idToUpdate", idUpdate);
 };
-const addPartToAppoitments = ({ commit }, idPart) => {
-  commit("mutateAddPartToAppointment", idPart);
-};
-const deletePartOfAppo = ({ commit }, Part) => {
-  commit("mutateDeletePartOfAppo", Part);
-};
 const addRecursive = ({ commit }, schedule) => {
   commit("mutateAddRecursive", schedule);
 };
@@ -79,8 +73,6 @@ export default {
   addAppointmentToAgenda,
   PostponeAppointment,
   deleteAppointment,
-  addPartToAppoitments,
-  deletePartOfAppo,
   addRecursive,
   updateRecursive,
   deleteRecursive,

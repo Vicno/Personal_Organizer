@@ -68,7 +68,7 @@
             <td>
               <button
                 class="button delete"
-                @click="deletePart(part.name)"
+                @click="deletePart(part.participantId)"
               >
                 Delete
               </button>
@@ -120,7 +120,6 @@ export default {
         });
         this.name = "";
         this.contactNumber = "";
-        console.log("saved ");
       } else {
         alert("There don't have to be empty fields");
       }
