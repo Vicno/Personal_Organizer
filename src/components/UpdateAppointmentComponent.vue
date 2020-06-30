@@ -102,6 +102,16 @@ export default {
     recursiveAppointments() {
       return this.getrecursiveAppointments;
     },
+    allParticipants() {
+      return this.getParticipants;
+    }
+  },
+  methods: {
+    ...mapActions([
+      "updateAppointment",
+      "deleteAppointment",
+      "updateAgendaAppointments"
+    ]),
     allParticipantsId() {
       var participantsId = [];
       this.participants.forEach(element => {
@@ -114,16 +124,6 @@ export default {
 
       return participantsId;
     },
-    allParticipants() {
-      return this.getParticipants;
-    }
-  },
-  methods: {
-    ...mapActions([
-      "updateAppointment",
-      "deleteAppointment",
-      "updateAgendaAppointments"
-    ]),
     allParticipantsName() {
       var participantName = [];
       for (var i = 0; i < this.allParticipants.length; i++) {
