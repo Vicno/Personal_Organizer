@@ -85,9 +85,7 @@ export default new Vuex.Store({
         contactNumber: 70710101
       }
     ],
-    partIdToUpdate: "-1",
-    participantOfAppoitments: [],
-    idPartOfAppo: []
+    partIdToUpdate: "-1"
   },
   actions,
   getters,
