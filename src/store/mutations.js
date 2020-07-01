@@ -78,7 +78,8 @@ const mutateDeleteRecursive = (state, name) => {
 const mutateAddPartToAppointment = (state, newParticipant) => {
   let validate = false;
   state.idPartOfAppo.forEach(part => {
-    if (part === newParticipant.participantId) {
+    //if (part === newParticipant.participantId) {
+    if (part === newParticipant.name) {
       validate = true;
     }
   });

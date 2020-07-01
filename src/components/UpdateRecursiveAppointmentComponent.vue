@@ -82,14 +82,15 @@
         </div>
         <!---->
         <!--Participants-->
-        <div class="form-row">
-          <span class="form-control"> Participants </span>
-          <select v-model="participants">
-            <option v-for="(par, index) in allParticipants" :key="index">
-              {{ par.name }}
-            </option>
-          </select>
-        </div>
+        <v-select
+          v-model="participants"
+          :items="allParticipantsName()"
+          label="Select"
+          multiple
+          chips
+          hint="Participants"
+          persistent-hint
+        ></v-select>
         <!--Create Button-->
         <button @click="update">Book Now</button>
         <button icon @click="deleteApp">
@@ -114,7 +115,7 @@ export default {
       begin_hour: "",
       end_hour: "",
       agenda: "", //agenda id
-      participants: {}
+      participants: []
     };
   },
   methods: {
@@ -123,6 +124,20 @@ export default {
       "updateAgendaAppointments",
       "deleteRecursive"
     ]),
+    allParticipantsName() {
+      var participantName = [];
+      for (var i = 0; i < this.allParticipants.length; i++) {
+        participantName.push(this.allParticipants[i].name);
+      }
+      return participantName;
+    },
+    allParticipantsId() {
+      var participantsId = [];
+      for (var i = 0; i < this.allParticipants.length; i++) {
+        participantsId.push(this.allParticipants[i].participantId);
+      }
+      return participantsId;
+    },
     update() {
       if (this._validateData()) {
         if (this._validateDate()) {
@@ -137,7 +152,7 @@ export default {
               startHour: String(this.begin_hour),
               endHour: String(this.end_hour),
               agendaId: this.agenda,
-              participants: this.participants
+              participants: this.allParticipantsId()
             });
             console.log(this.recursiveAppointments);
             var agendaAppointments = this.appointments.filter(

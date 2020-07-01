@@ -99,14 +99,9 @@ export default {
     ]),
     allParticipantsId() {
       var participantsId = [];
-      this.participants.forEach(element => {
-        for (var i = 0; i < this.allParticipants.length; i++) {
-          if (element.name === this.allParticipants[i].name) {
-            participantsId.push(this.allParticipants[i].participantId);
-          }
-        }
-      });
-
+      for (var i = 0; i < this.allParticipants.length; i++) {
+        participantsId.push(this.allParticipants[i].participantId);
+      }
       return participantsId;
     },
     allParticipantsName() {
