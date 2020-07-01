@@ -38,8 +38,9 @@ export const mockStore = {
     ],
     postponedAppointments: [
       {
-        name: "Dentist",
-        description: "I need to go to dentist"
+        agendaId: "ANG-0001",
+        name: "Study with no one",
+        description: "I need help "
       }
     ],
     recursiveAppointments: [
