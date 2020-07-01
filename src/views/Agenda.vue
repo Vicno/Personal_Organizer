@@ -79,6 +79,7 @@
       ></textarea>
       <button @click="update()">Confirm Update</button>
     </div>
+    <br />
     <label class="title">Agendas</label>
     <div id="CreateInterface" class="cred">
       <div>
@@ -270,13 +271,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getAgendas", "getAppointments", "getLastId"]),
+    ...mapGetters(["getAgendas", "getAppointments"]),
     // getList,
     agendas() {
       return this.getAgendas;
     },
     lastId() {
-      return this.getLastId;
+      return this.agendas[this.agendas.length - 1].agendaId;
     }
   }
 };
