@@ -123,9 +123,8 @@ const deleteAppointment = (state, itemToDelete) => {
     it => it.name === itemToDelete
   ));
   var today = new Date();
-  //("06/18/2020");
   var date =
-    today.getMonth() + 1 + "/" + today.getDate() + "/" + today.getFullYear();
+    today.getMonth() + "/" + today.getDate() + "/" + today.getFullYear();
   if (appointmentToDelete.date === date) {
     state.postponedAppointments.push({
       name: appointmentToDelete.name,

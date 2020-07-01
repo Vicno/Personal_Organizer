@@ -157,8 +157,6 @@ export default {
               agendaId: this.agenda,
               participants: this.allParticipantsId()
             });
-            this.tableOfPart.length = 0;
-            this.listOfPart.length = 0;
           } else {
             alert("The hours are wrong, you are gonna break time line");
           }
@@ -285,26 +283,12 @@ export default {
           this._visibleTable();
         }
       });
-    },
-    deletePart(idPart) {
-      this.deletePartOfAppo(idPart);
-      this._visibleTable();
-    },
-    _visibleTable() {
-      if (this.listOfPart.length == 0 && this.tableOfPart.length == 0) {
-        this.tableVisible = false;
-      } else {
-        this.tableVisible = true;
-      }
     }
   },
   computed: {
     ...mapGetters([
       "getrecursiveAppointments",
       "getAgendas",
-      "getParticipants",
-      "getPartOfAppoitments",
-      "getListPart",
       "getParticipants"
     ]),
 
@@ -316,12 +300,6 @@ export default {
     },
     participantes() {
       return this.getParticipants;
-    },
-    listOfPart() {
-      return this.getPartOfAppoitments;
-    },
-    tableOfPart() {
-      return this.getListPart;
     },
     recursiveAppointments() {
       return this.getrecursiveAppointments;

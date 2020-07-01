@@ -26,9 +26,8 @@ describe("Agenda CRUD", () => {
       router,
       store,
       localVue
-    }); // wrapper = { new Vue(), html, find, findAll, etc }
+    });
     let expectedInitialLength = 1;
-    //const agendas = wrapper.vm.$data.agendas; // wrapper.vm.$data.groups[0]
     assert.equal(wrapper.vm.$store.state.agendas.length, expectedInitialLength);
     assert.equal(wrapper.vm.$store.state.agendas[0].name, "Work");
     const newVal = {
@@ -50,7 +49,7 @@ describe("Agenda CRUD", () => {
       router,
       store,
       localVue
-    }); // wrapper = { new Vue(), html, find, findAll, etc }
+    });
     const updateVal = {
       agendaId: "ANG-0002",
       name: "Cambio1",
@@ -60,7 +59,6 @@ describe("Agenda CRUD", () => {
       appointments: []
     };
     assert.notEqual(wrapper.vm.$store.state.agendas[1], updateVal);
-    //const agendas = wrapper.vm.$data.agendas; // wrapper.vm.$data.groups[0]
     wrapper.vm.updateAgenda(updateVal);
     assert.equal(
       wrapper.vm.$store.state.agendas[1].agendaId,
@@ -87,9 +85,8 @@ describe("Agenda CRUD", () => {
       router,
       store,
       localVue
-    }); // wrapper = { new Vue(), html, find, findAll, etc }
+    });
     let expectedInitialLength = 2;
-    //const agendas = wrapper.vm.$data.agendas; // wrapper.vm.$data.groups[0]
     assert.equal(wrapper.vm.$store.state.agendas.length, expectedInitialLength);
     const id = "ANG-0002";
     expectedInitialLength = 1;
@@ -114,8 +111,7 @@ describe("Agenda logic tests should work properly", () => {
       router,
       store,
       localVue
-    }); // wrapper = { new Vue(), html, find, findAll, etc }
-    //const agendas = wrapper.vm.$data.agendas; // wrapper.vm.$data.groups[0]
+    });
     assert.equal(wrapper.vm.verifyHora("10:30", "10:40"), true);
     assert.notEqual(wrapper.vm.verifyHora("10:50", "10:40"), true);
   });
@@ -125,9 +121,7 @@ describe("Agenda logic tests should work properly", () => {
       router,
       store,
       localVue
-    }); // wrapper = { new Vue(), html, find, findAll, etc }
-    //const agendas = wrapper.vm.$data.agendas; // wrapper.vm.$data.groups[0]
-
+    });
     assert.notEqual(wrapper.vm.verifyHora("10:50", "10:40"), true);
     wrapper.vm.$data.agendaID = "Algo";
     wrapper.vm.$data.nombre = "Algo";

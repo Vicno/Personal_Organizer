@@ -68,7 +68,6 @@ describe("Participants CRUD", () => {
       router
     });
     let partToUpdate = wrapper.vm.$store.state.participants[1];
-    //ParticipantId: PART-0002
     wrapper.vm.updateVisible(partToUpdate);
     let name = wrapper.vm.name;
     let contactNumber = wrapper.vm.contactNumber;
@@ -83,7 +82,6 @@ describe("Participants CRUD", () => {
       localVue,
       router
     });
-    //ParticipantId: PART-0002
     let participantId = wrapper.vm.idUpdate;
     wrapper.vm.name = "Person C";
     wrapper.vm.contactNumber = "4567864";
@@ -116,7 +114,6 @@ describe("Participants CRUD", () => {
     });
     let initialPartList = wrapper.vm.$store.state.participants.length;
     wrapper.vm.deletePart("PART-001");
-    //PART-001 with appoitments
     let partListLength = wrapper.vm.$store.state.participants.length;
 
     assert.equal(initialPartList, partListLength);

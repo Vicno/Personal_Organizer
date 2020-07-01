@@ -155,7 +155,7 @@ export default {
       end_hour: "23:59",
       begin_hour: "00:00",
       date: "",
-      participants: {}
+      participants: []
     };
   },
   computed: {
