@@ -16,8 +16,8 @@ const deleteParticipant = ({ commit }, participantId) => {
   commit("mutationDeletePart", participantId);
 };
 
-const updateRecursive = ({ commit }, schedule) => {
-  commit("mutateUpdateRecursive", schedule);
+const updateRecursive = ({ commit }, itemToUpdate) => {
+  commit("mutateUpdateRecursive", itemToUpdate);
 };
 const deleteRecursive = ({ commit }, schedulename) => {
   commit("mutateDeleteRecursive", schedulename);

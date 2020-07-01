@@ -7,6 +7,7 @@
       <div class="form">
         <h3>Make An Appointment</h3>
         <div class="form-row">
+          <!--Name-->
           <label>Name</label>
           <select v-model="name" id="names">
             <option
@@ -17,6 +18,7 @@
               {{ na.name }}
             </option>
           </select>
+          <!--Agenda-->
           <label>Agenda</label>
           <select v-model="agenda" id="agendas">
             <option :key="ag.id" v-for="ag in agendas" class="optionsAgenda">
@@ -25,6 +27,7 @@
           </select>
         </div>
         <div class="form-row">
+          <!--Begin Hour-->
           <input
             type="time"
             id="begin_hour"
@@ -33,6 +36,7 @@
             required
           />
           <small class="timebegin">Begin Hour</small>
+          <!--End Hour-->
           <input
             type="time"
             id="end_hour"
@@ -45,6 +49,7 @@
         <div class="form-row">
           <input v-model="date" type="date" id="dateP" name="dateP" />
         </div>
+        <!--description-->
         <textarea
           name="description"
           id="description"

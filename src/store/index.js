@@ -68,7 +68,7 @@ export default new Vuex.Store({
     recursiveAppointments: [
       {
         name: "Time to lunch",
-        description: "I msy eat in home for some reason",
+        description: "I may eat in home for some reason",
         date: "7/15/2020",
         endDate: "7/25/2021",
         frequency: "Month",

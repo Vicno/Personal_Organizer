@@ -56,7 +56,14 @@ const mutateUpdateRecursive = (state, updateSchedule) => {
     state.recursiveAppointments.splice(indexSchedule, 1, updateSchedule);
   }
 };
-
+const updateAppointment = (state, itemToUpdate) => {
+  const foundItem = state.scheduledAppointments.findIndex(
+    st => st.name === itemToUpdate.name
+  );
+  if (foundItem >= 0) {
+    state.scheduledAppointments.splice(foundItem, 1, itemToUpdate);
+  }
+};
 const mutateDeleteRecursive = (state, name) => {
   let index;
   state.recursiveAppointments.forEach(schedule => {
@@ -90,14 +97,6 @@ const mutateDeletePartOfAppo = (state, partToDelete) => {
 };
 const mutateAppointmentsList = (state, newAppointment) => {
   state.scheduledAppointments.push(newAppointment);
-};
-const updateAppointment = (state, itemToUpdate) => {
-  const foundItem = state.scheduledAppointments.findIndex(
-    st => st.name === itemToUpdate.name
-  );
-  if (foundItem >= 0) {
-    state.scheduledAppointments.splice(foundItem, 1, itemToUpdate);
-  }
 };
 const updateAgendaSelected = (state, itemToUpdate) => {
   state.agendaSelected = itemToUpdate;
