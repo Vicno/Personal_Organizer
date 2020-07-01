@@ -150,6 +150,14 @@ const mutateAddAgendaAppointments = (state, data) => {
   });
   state.agendas = agendass;
 };
+const mutateUpdatePostponedAppointment = (state, itemToUpdate) => {
+  const foundItem = state.postponedAppointments.findIndex(
+    st => st.name === itemToUpdate.name
+  );
+  if (foundItem >= 0) {
+    state.postponedAppointments.splice(foundItem, 1, itemToUpdate);
+  }
+};
 const mutatePostponeAppointment = (state, PostAppointment) => {
   state.postponedAppointments.push(PostAppointment);
 };
@@ -164,6 +172,16 @@ const mutateEnableAppointment = (state, newAppointment) => {
       element.appointments.push(newAppointment);
     }
   });
+};
+
+const removeAppointmentFromAgenda = (
+  state,
+  { agendaName, appointmentName }
+) => {
+  var index = state.agendas.findIndex(ag => ag.name === agendaName);
+  state.agendas[index].appointments = state.agendas[index].appointments.filter(
+    element => element.name !== appointmentName
+  );
 };
 export default {
   mutateAddAgendaAppointments,
@@ -185,7 +203,9 @@ export default {
   mutationUpdatePart,
   idToUpdate,
   mutateEnableAppointment,
+  mutateUpdatePostponedAppointment,
   mutatePostponeAppointment,
-  mutateDeletePostponedAppointment
+  mutateDeletePostponedAppointment,
+  removeAppointmentFromAgenda
   // los nombres de las funciones
 };

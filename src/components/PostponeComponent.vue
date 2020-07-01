@@ -10,14 +10,15 @@
         </select>
       </div-->
       <div v-if="agendaSelected !== ''">
-        <label>agenda Chosen </label>
+        <h1>Appointments of Agenda Chosen</h1>
+        <br />
         <table id="table1">
           <thead>
             <th>name</th>
             <th>description</th>
             <th>date</th>
-            <th>startHour</th>
-            <th>endHour</th>
+            <th>start hour</th>
+            <th>end hour</th>
             <th>agendaId</th>
             <th>participants</th>
             <th>Postpone Appointment?</th>
@@ -32,7 +33,10 @@
               <td>{{ element.agendaId }}</td>
               <td>{{ element.participants }}</td>
               <td>
-                <button v-on:click="savePostponedAppointment(element)">
+                <button
+                  class="button buttonPostpone"
+                  v-on:click="savePostponedAppointment(element)"
+                >
                   Postpone
                 </button>
               </td>
@@ -41,25 +45,53 @@
         </table>
       </div>
       <br />
-      <br /><label>Global Postponed List</label>
+      <h1>Global Postponed List</h1>
+      <br />
       <table id="table2">
         <thead>
           <th>Name</th>
           <th>Description</th>
-          <th>Assign appointment?</th>
-          <th>Delete appointment?</th>
         </thead>
         <tbody>
           <tr :key="obj.name" v-for="obj in postponedAppointmentsList">
             <td>{{ obj.name }}</td>
             <td>{{ obj.description }}</td>
             <td>
-              <button v-on:click="EnablePostAppointment(obj)">
+              <button
+                class="button buttonEnable"
+                v-on:click="EnablePostAppointment(obj)"
+              >
                 Enable
               </button>
             </td>
             <td>
-              <button v-on:click="DeletePostAppointment(obj)">
+              <button
+                class="button buttonEdit"
+                v-on:click="EditPostAppointment(obj)"
+              >
+                Edit
+              </button>
+            </td>
+            <td>
+              <input
+                type="text"
+                v-model="modifiedName"
+                placeholder="Set your new name"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                v-model="modifiedDescription"
+                placeholder="Set your new
+      description"
+              />
+            </td>
+            <td>
+              <button
+                class="button buttonDelete"
+                v-on:click="DeletePostAppointment(obj)"
+              >
                 Delete
               </button>
             </td>
@@ -68,39 +100,43 @@
       </table>
     </div>
     <br />
+    <h2>Fill the data to enable a postponed appointment</h2>
     <br />
-    <div class="form-row">
-      <input v-model="date" type="date" id="dateP" name="dateP" />
-    </div>
-    <br />
-    <br />
-    <div class="form-row">
-      <input
-        type="time"
-        id="begin_hour"
-        name="begin_hour"
-        v-model="begin_hour"
-        required
-      />
-      <small class="timebegin">Begin Hour</small>
-      <input
-        type="time"
-        id="end_hour"
-        name="end_hour"
-        v-model="end_hour"
-        required
-      />
-      <small>End Hour</small>
-    </div>
-    <div>
+    <div class="envoltorio">
+      <div class="form-row">
+        <input v-model="date" type="date" id="dateP" name="dateP" />
+      </div>
       <br />
-      <label>Target Agenda</label>
-      <select v-model="targetAgenda" placeholder="Choose an agenda">
-        <option :key="index" v-for="(element, index) in agendas">
-          {{ element.agendaId }}
-        </option>
-      </select>
+      <br />
+      <div class="form-row">
+        <input
+          type="time"
+          id="begin_hour"
+          name="begin_hour"
+          v-model="begin_hour"
+          required
+        />
+        <small class="timebegin">Begin Hour</small>
+        <input
+          type="time"
+          id="end_hour"
+          name="end_hour"
+          v-model="end_hour"
+          required
+        />
+        <small>End Hour</small>
+      </div>
+      <div>
+        <br />
+        <label>Target Agenda -> </label>
+        <select v-model="targetAgenda" placeholder="Choose an agenda">
+          <option :key="index" v-for="(element, index) in agendas">
+            {{ element.agendaId }}
+          </option>
+        </select>
+      </div>
     </div>
+
     <br />
     <br />
   </div>
@@ -111,13 +147,14 @@ export default {
   name: "Postpone",
   data() {
     return {
+      modifiedName: "",
+      modifiedDescription: "",
       targetAgenda: "",
       name: "",
       description: "",
       end_hour: "23:59",
       begin_hour: "00:00",
       date: "",
-      agenda: "",
       participants: {}
     };
   },
@@ -138,11 +175,7 @@ export default {
       var indexselectedAgenda = this.agendas.findIndex(
         ag => ag.name === this.agendaSelected
       );
-      var agendaAppointments = this.agendas[indexselectedAgenda].appointments;
-      return agendaAppointments.filter(
-        element =>
-          element.agendaId === this.agendas[indexselectedAgenda].agendaId
-      );
+      return this.agendas[indexselectedAgenda].appointments;
     },
     agendaSelected() {
       return this.getAgendaSelected;
@@ -155,8 +188,21 @@ export default {
       "deletePostponedAppointment",
       "enableAppointment",
       "updateAgendaSelected",
-      "updateAgendaAppointments"
+      "updateAgendaAppointments",
+      "updatePostponedAppointment",
+      "removeAppointmentAgenda"
     ]),
+    EditPostAppointment(editPostApp) {
+      if (this._validateData()) {
+        this.deletePostponedAppointment(editPostApp);
+        this.PostponeAppointment({
+          name: this.modifiedName,
+          description: this.modifiedDescription
+        });
+      } else {
+        alert("The spaces can not be empty");
+      }
+    },
     updateAgenda() {
       this.updateAgendaSelected(this.agendaSelected);
     },
@@ -165,18 +211,9 @@ export default {
         name: element.name,
         description: element.description
       });
-      var index = this.agendas.findIndex(ag => ag.name === this.agendaSelected);
-      var agendaToUpdate = this.agendas[index];
-      var newAgendaAppointments = this.globalAppointmentsList.filter(
-        aux => aux.name !== element.name
-      );
-      this.updateAgendaAppointments({
-        name: agendaToUpdate.name,
-        description: agendaToUpdate.description,
-        startHour: agendaToUpdate.startHour,
-        endHour: agendaToUpdate.endHour,
-        agendaId: this.agendaSelected,
-        appointments: newAgendaAppointments
+      this.removeAppointmentAgenda({
+        agendaName: this.agendaSelected,
+        appointmentName: element.name
       });
     },
     EnablePostAppointment(enabledAppointment) {
@@ -239,10 +276,11 @@ export default {
     },
     _validateData() {
       return (
-        this.begin_hour !== "" &&
-        this.end_hour !== "" &&
-        this.date !== "" &&
-        this.targetAgenda !== ""
+        (this.begin_hour !== "" &&
+          this.end_hour !== "" &&
+          this.date !== "" &&
+          this.targetAgenda !== "") ||
+        (this.modifiedName !== "" && this.modifiedDescription !== "")
       );
     },
     _validateDate() {
@@ -270,4 +308,4 @@ export default {
   }
 };
 </script>
-<style src="@/views/SchedulingStyle.css" scoped></style>
+<style src="@/components/PostponeStyle.css" scoped></style>

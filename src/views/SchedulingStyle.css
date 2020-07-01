@@ -4,7 +4,7 @@
   input, textarea, select, button, small, label {
     font-size: 125%;
     color: rgb(102, 102, 102);
-    border-radius: 5%;
+    border-radius: 15%;
   }
   
   textarea {
