@@ -80,7 +80,7 @@ describe("Recursive Scheduling CRUD", () => {
     );
     assert.equal(
       wrapper.vm.$store.state.recursiveAppointments[0].endDate,
-      "19/07/2020"
+      "07/19/2020"
     );
     assert.equal(
       wrapper.vm.$store.state.recursiveAppointments[0].frequency,

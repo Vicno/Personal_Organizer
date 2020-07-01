@@ -2,7 +2,6 @@ import { assert } from "chai";
 import { shallowMount, createLocalVue } from "@vue/test-utils";
 import Postpone from "@/components/PostponeComponent.vue";
 import { mockStore } from "./mockStore";
-import store from "@/store";
 import VueRouter from "vue-router";
 import Vuex from "vuex";
 import Vuetify from "vuetify";
