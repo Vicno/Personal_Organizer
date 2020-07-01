@@ -26,36 +26,44 @@ const mutateDeleteAgenda = (state, id) => {
 };
 const mutateParticipantsList = (state, newParticipant) => {
   let valide = false;
+
   state.participants.forEach(part => {
     if (part.name.toUpperCase() === newParticipant.name.toUpperCase()) {
       valide = true;
     }
   });
+
   if (!valide) {
     state.participants.push(newParticipant);
   } else {
-    alert("This name is already exists \n  Change name please. ");
+    alert("This name is already exists \n  Change name please.");
   }
 };
+
 const mutationUpdatePart = (state, partToUpdate) => {
   let valide = false;
+
   let foundAccountIndex = state.participants.findIndex(account => {
     account.participantId === partToUpdate.participantId;
   });
+
   let listPart = state.participants.filter(
     part => part.participantId !== partToUpdate.participantId
   );
+
   listPart.forEach(part => {
     if (part.name.toUpperCase() === partToUpdate.name.toUpperCase()) {
       valide = true;
     }
   });
+
   if (!valide) {
     state.participants.splice(foundAccountIndex, 1, partToUpdate);
   } else {
     alert("This name is already exists \n  Change name please.");
   }
 };
+
 const mutationDeletePart = (state, partToDelete) => {
   var bool = 0;
   state.agendas.forEach(agenda =>
@@ -84,7 +92,14 @@ const mutateUpdateRecursive = (state, updateSchedule) => {
     state.recursiveAppointments.splice(indexSchedule, 1, updateSchedule);
   }
 };
-
+const updateAppointment = (state, itemToUpdate) => {
+  const foundItem = state.scheduledAppointments.findIndex(
+    st => st.name === itemToUpdate.name
+  );
+  if (foundItem >= 0) {
+    state.scheduledAppointments.splice(foundItem, 1, itemToUpdate);
+  }
+};
 const mutateDeleteRecursive = (state, name) => {
   let index;
   state.recursiveAppointments.forEach(schedule => {
@@ -96,16 +111,28 @@ const mutateDeleteRecursive = (state, name) => {
     }
   });
 };
+const mutateAddPartToAppointment = (state, newParticipant) => {
+  let validate = false;
+  state.idPartOfAppo.forEach(part => {
+    if (part === newParticipant.name) {
+      validate = true;
+    }
+  });
+  if (!validate) {
+    state.participantOfAppoitments.push(newParticipant);
+    state.idPartOfAppo.push(newParticipant.participantId);
+  } else {
+    alert("This participants is already in the appointment");
+  }
+};
+const mutateDeletePartOfAppo = (state, partToDelete) => {
+  state.participantOfAppoitments = state.participantOfAppoitments.filter(
+    part => part.participantId !== partToDelete
+  );
+  state.idPartOfAppo = state.idPartOfAppo.filter(part => part !== partToDelete);
+};
 const mutateAppointmentsList = (state, newAppointment) => {
   state.scheduledAppointments.push(newAppointment);
-};
-const updateAppointment = (state, itemToUpdate) => {
-  const foundItem = state.scheduledAppointments.findIndex(
-    st => st.name === itemToUpdate.name
-  );
-  if (foundItem >= 0) {
-    state.scheduledAppointments.splice(foundItem, 1, itemToUpdate);
-  }
 };
 const updateAgendaSelected = (state, itemToUpdate) => {
   state.agendaSelected = itemToUpdate;
@@ -151,6 +178,14 @@ const mutateAddAgendaAppointments = (state, data) => {
   });
   state.agendas = agendass;
 };
+const mutateUpdatePostponedAppointment = (state, itemToUpdate) => {
+  const foundItem = state.postponedAppointments.findIndex(
+    st => st.name === itemToUpdate.name
+  );
+  if (foundItem >= 0) {
+    state.postponedAppointments.splice(foundItem, 1, itemToUpdate);
+  }
+};
 const mutatePostponeAppointment = (state, PostAppointment) => {
   state.postponedAppointments.push(PostAppointment);
 };
@@ -166,6 +201,16 @@ const mutateEnableAppointment = (state, newAppointment) => {
     }
   });
 };
+
+const removeAppointmentFromAgenda = (
+  state,
+  { agendaName, appointmentName }
+) => {
+  var index = state.agendas.findIndex(ag => ag.name === agendaName);
+  state.agendas[index].appointments = state.agendas[index].appointments.filter(
+    element => element.name !== appointmentName
+  );
+};
 export default {
   mutateAddAgendaAppointments,
   mutateCreateAgenda,
@@ -178,13 +223,17 @@ export default {
   updateAgendaSelected,
   mutateParticipantsList,
   mutationDeletePart,
+  mutateAddPartToAppointment,
+  mutateDeletePartOfAppo,
   mutateAddRecursive,
   mutateUpdateRecursive,
   mutateDeleteRecursive,
   mutationUpdatePart,
   idToUpdate,
   mutateEnableAppointment,
+  mutateUpdatePostponedAppointment,
   mutatePostponeAppointment,
-  mutateDeletePostponedAppointment
+  mutateDeletePostponedAppointment,
+  removeAppointmentFromAgenda
   // los nombres de las funciones
 };
