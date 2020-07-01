@@ -5,7 +5,7 @@
         <img src="@/assets/Imagen_Registro.jpg" />
       </div>
       <div class="form">
-        <h3>Make An Appointment</h3>
+        <h3 id="titleSchedul">Make An Appointment</h3>
         <div class="form-row">
           <input
             type="text"
