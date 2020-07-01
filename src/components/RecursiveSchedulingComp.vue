@@ -122,7 +122,7 @@ export default {
         participantName.push(this.allParticipants[i].name);
       }
       return participantName;
-    }, 
+    },
     allParticipantsId() {
       var participantsId = [];
       for (var i = 0; i < this.allParticipants.length; i++) {
@@ -130,6 +130,7 @@ export default {
       }
       return participantsId;
     },
+
     create() {
       if (this._valdateData()) {
         if (this._validateDate()) {
