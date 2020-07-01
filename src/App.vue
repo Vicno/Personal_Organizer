@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="#gggg   " dark>
+    <v-app-bar app color="#gggg   " dark id="navBar">
       <v-btn icon router :to="'/'">
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
@@ -14,17 +14,17 @@
         @input="updateAgenda"
       ></v-select>
       <v-spacer></v-spacer>
-      <v-btn icon router :to="'/schedul'">
+      <v-btn icon router :to="'/schedul'" id="scheduledView">
         <v-icon>mdi-book-plus</v-icon>
         <span class="mr-2">Book new Appointment</span>
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn icon router :to="'/recursiveschedul'">
+      <v-btn icon router :to="'/recursiveschedul'" id="recursiveView">
         <v-icon>mdi-book-plus-multiple</v-icon>
         <span class="mr-2">Book new Recursive Appointment</span>
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn icon router :to="'/calendar'">
+      <v-btn icon router :to="'/calendar'" id="calendarView">
         <v-icon>mdi-calendar-month</v-icon>
       </v-btn>
     </v-app-bar>
