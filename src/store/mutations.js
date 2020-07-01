@@ -34,7 +34,7 @@ const mutateParticipantsList = (state, newParticipant) => {
   if (!valide) {
     state.participants.push(newParticipant);
   } else {
-    alert("This name is already exists \n  Change name please.");
+    alert("This name is already exists \n  Change name please. ");
   }
 };
 const mutationUpdatePart = (state, partToUpdate) => {
