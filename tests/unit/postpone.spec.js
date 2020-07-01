@@ -1,13 +1,13 @@
 import { assert } from "chai";
 import { shallowMount, createLocalVue } from "@vue/test-utils";
-import Scheduling from "@/components/SchedulingComponent.vue";
+import Postpone from "@/components/PostponeComponent.vue";
 import { mockStore } from "./mockStore";
 import store from "@/store";
 import VueRouter from "vue-router";
 import Vuex from "vuex";
 import Vuetify from "vuetify";
 
-describe("Scheduling CRUD", () => {
+describe("Postpone CRUD", () => {
   let localVue;
   let store;
   let wrapper;
@@ -22,7 +22,7 @@ describe("Scheduling CRUD", () => {
     store = new Vuex.Store(mockStore);
   });
   it("Validate data shoul pass if data enter", () => {
-    wrapper = shallowMount(Scheduling, {
+    wrapper = shallowMount(Postpone, {
       store,
       vuetify,
       localVue
@@ -31,23 +31,20 @@ describe("Scheduling CRUD", () => {
     assert.isFalse(isValid);
   });
   it("Validate data should pass if data enter", () => {
-    wrapper = shallowMount(Scheduling, {
+    wrapper = shallowMount(Postpone, {
       store,
       vuetify,
       localVue
     });
-    wrapper.vm.$data.name = "test";
-    wrapper.vm.$data.description = "description test";
     wrapper.vm.$data.end_hour = "12:00";
     wrapper.vm.$data.begin_hour = "11:00";
     wrapper.vm.$data.date = "2020-10-10";
-    wrapper.vm.$data.agenda = "ANG-0001";
-    wrapper.vm.$data.participants = [];
+    wrapper.vm.$data.targetAgenda = "ANG-0001";
     const isValid = wrapper.vm._validateData();
     assert.isTrue(isValid);
   });
   it("Validate hour data should pass if data enter is correct", () => {
-    wrapper = shallowMount(Scheduling, {
+    wrapper = shallowMount(Postpone, {
       store,
       vuetify,
       localVue
@@ -59,7 +56,7 @@ describe("Scheduling CRUD", () => {
     assert.isTrue(isValid);
   });
   it("Validate date data should pass if data enter is a possible date", () => {
-    wrapper = shallowMount(Scheduling, {
+    wrapper = shallowMount(Postpone, {
       store,
       vuetify,
       localVue
@@ -68,34 +65,18 @@ describe("Scheduling CRUD", () => {
     const isValid = wrapper.vm._validateDate();
     assert.isTrue(isValid);
   });
-  it("Increase when save", () => {
-    wrapper = shallowMount(Scheduling, {
-      store,
-      vuetify,
-      localVue
-    });
-    wrapper.vm.$data.name = "test";
-    wrapper.vm.$data.description = "description test";
-    wrapper.vm.$data.end_hour = "12:00";
-    wrapper.vm.$data.begin_hour = "11:00";
-    wrapper.vm.$data.date = "2020-10-10";
-    wrapper.vm.$data.agenda = "Work";
-    wrapper.vm.$data.participants = [];
-    wrapper.vm.saveApointment();
-    assert.equal(wrapper.vm.$store.state.scheduledAppointments.length, 2);
-  });
-});
+});/*
 describe("LocalVue", () => {
   it("using the store directly", () => {
     const localVue = createLocalVue();
     localVue.use(VueRouter);
     localVue.use(Vuex);
     const router = new VueRouter({ routes: [] });
-    let wrapper = shallowMount(Scheduling, {
+    let wrapper = shallowMount(Postpone, {
       router,
       store,
       localVue
     });
-    assert.equal(wrapper.vm.$store.state.scheduledAppointments.length, 1); //added in recursive appointments 1 appointment, so changed 1 for 2 of expected
-  });
+    assert.equal(wrapper.vm.$store.state.postponedAppointments.length, 1);
+  });*/
 });

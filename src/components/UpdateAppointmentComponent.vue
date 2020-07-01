@@ -7,6 +7,7 @@
       <div class="form">
         <h3>Make An Appointment</h3>
         <div class="form-row">
+          <!--Name-->
           <label>Name</label>
           <select v-model="name" id="names">
             <option
@@ -17,6 +18,7 @@
               {{ na.name }}
             </option>
           </select>
+          <!--Agenda-->
           <label>Agenda</label>
           <select v-model="agenda" id="agendas">
             <option :key="ag.id" v-for="ag in agendas" class="optionsAgenda">
@@ -25,6 +27,7 @@
           </select>
         </div>
         <div class="form-row">
+          <!--Begin Hour-->
           <input
             type="time"
             id="begin_hour"
@@ -33,6 +36,7 @@
             required
           />
           <small class="timebegin">Begin Hour</small>
+          <!--End Hour-->
           <input
             type="time"
             id="end_hour"
@@ -45,6 +49,7 @@
         <div class="form-row">
           <input v-model="date" type="date" id="dateP" name="dateP" />
         </div>
+        <!--description-->
         <textarea
           name="description"
           id="description"
@@ -112,6 +117,18 @@ export default {
       "deleteAppointment",
       "updateAgendaAppointments"
     ]),
+    allParticipantsId() {
+      var participantsId = [];
+      this.participants.forEach(element => {
+        for (var i = 0; i < this.allParticipants.length; i++) {
+          if (element.name === this.allParticipants[i].name) {
+            participantsId.push(this.allParticipants[i].participantId);
+          }
+        }
+      });
+
+      return participantsId;
+    },
     allParticipantsName() {
       var participantName = [];
       for (var i = 0; i < this.allParticipants.length; i++) {
@@ -123,7 +140,6 @@ export default {
       if (this._validateData()) {
         if (this._validateDate()) {
           if (this._validateHour()) {
-            this._getParticipants();
             this.updateAppointment({
               name: this.name,
               description: this.description,
@@ -131,7 +147,7 @@ export default {
               startHour: String(this.begin_hour),
               endHour: String(this.end_hour),
               agendaId: this.agenda,
-              participants: this.participants
+              participants: this.allParticipantsId()
             });
             var agendaAppointments = this.appointments.filter(
               app => app.agendaId === this.agenda
@@ -227,10 +243,6 @@ export default {
     _getAgendaId() {
       var index = this.agendas.findIndex(ag => ag.name === this.agenda);
       this.agenda = this.agendas[index].agendaId;
-    },
-    _getParticipants() {
-      var index = this.appointments.findIndex(ag => ag.name === this.name);
-      this.participants = this.appointments[index].participants;
     },
     deleteApp() {
       var indexDeleted = this.appointments.findIndex(

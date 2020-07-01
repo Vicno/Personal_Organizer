@@ -31,7 +31,7 @@ export default new Vuex.Store({
             startHour: "10:00",
             endHour: "11:00",
             agendaId: "ANG-0001",
-            participants: ["PART-001"]
+            participants: ["Person A"]
           },
           {
             name: "Time to lunch",
@@ -42,7 +42,7 @@ export default new Vuex.Store({
             startHour: "12:00",
             endHour: "13:00",
             agendaId: "ANG-0001",
-            participants: ["PART-001"]
+            participants: ["Person A"]
           }
         ]
       }
@@ -55,7 +55,7 @@ export default new Vuex.Store({
         startHour: "10:00",
         endHour: "11:00",
         agendaId: "ANG-0001",
-        participants: ["PART-001"]
+        participants: ["Person A"]
       }
     ],
     postponedAppointments: [
@@ -68,14 +68,14 @@ export default new Vuex.Store({
     recursiveAppointments: [
       {
         name: "Time to lunch",
-        description: "I msy eat in home for some reason",
+        description: "I may eat in home for some reason",
         date: "7/15/2020",
         endDate: "7/25/2021",
         frequency: "Month",
         startHour: "12:00",
         endHour: "13:00",
         agendaId: "ANG-0001",
-        participants: ["PART-001"]
+        participants: ["Person A"]
       }
     ],
     participants: [
@@ -85,9 +85,7 @@ export default new Vuex.Store({
         contactNumber: 70710101
       }
     ],
-    partIdToUpdate: "-1",
-    participantOfAppoitments: [],
-    idPartOfAppo: []
+    partIdToUpdate: "-1"
   },
   actions,
   getters,

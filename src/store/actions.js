@@ -16,8 +16,8 @@ const deleteParticipant = ({ commit }, participantId) => {
   commit("mutationDeletePart", participantId);
 };
 
-const updateRecursive = ({ commit }, schedule) => {
-  commit("mutateUpdateRecursive", schedule);
+const updateRecursive = ({ commit }, itemToUpdate) => {
+  commit("mutateUpdateRecursive", itemToUpdate);
 };
 const deleteRecursive = ({ commit }, schedulename) => {
   commit("mutateDeleteRecursive", schedulename);
@@ -41,6 +41,12 @@ const updateParticipant = ({ commit }, partToUpdate) => {
 const updatePartId = ({ commit }, idUpdate) => {
   commit("idToUpdate", idUpdate);
 };
+const addPartToAppoitments = ({ commit }, idPart) => {
+  commit("mutateAddPartToAppointment", idPart);
+};
+const deletePartOfAppo = ({ commit }, Part) => {
+  commit("mutateDeletePartOfAppo", Part);
+};
 const addRecursive = ({ commit }, schedule) => {
   commit("mutateAddRecursive", schedule);
 };
@@ -62,6 +68,16 @@ const enableAppointment = ({ commit }, PostAppointment) => {
 const updateAgendaAppointments = ({ commit }, itemToUpdate) => {
   commit("updateAgendaAppointment", itemToUpdate);
 };
+const updatePostponedAppointment = ({ commit }, itemToUpdate) => {
+  commit("mutateUpdatePostponedAppointment", itemToUpdate);
+};
+const removeAppointmentAgenda = (
+  { commit },
+  { agendaName, appointmentName }
+) => {
+  commit("removeAppointmentFromAgenda", { agendaName, appointmentName });
+};
+
 export default {
   createNewAgenda,
   updateAgenda,
@@ -73,6 +89,8 @@ export default {
   addAppointmentToAgenda,
   PostponeAppointment,
   deleteAppointment,
+  addPartToAppoitments,
+  deletePartOfAppo,
   addRecursive,
   updateRecursive,
   deleteRecursive,
@@ -82,6 +100,8 @@ export default {
   updatePartId,
   addTargetAgendaAppointment,
   deletePostponedAppointment,
-  enableAppointment
+  enableAppointment,
+  updatePostponedAppointment,
+  removeAppointmentAgenda
   // los nombres de las funciones
 };

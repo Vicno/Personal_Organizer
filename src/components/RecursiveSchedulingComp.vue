@@ -105,17 +105,35 @@ export default {
       begin_hour: "",
       end_hour: "",
       agenda: "", //agenda id
-      participants: []
+      participants: [],
+      tableVisible: false
     };
   },
   methods: {
-    ...mapActions(["addRecursive", "addAppointmentToAgenda"]),
+    ...mapActions([
+      "addRecursive",
+      "addAppointmentToAgenda",
+      "addPartToAppoitments",
+      "deletePartOfAppo"
+    ]),
     allParticipantsName() {
       var participantName = [];
       for (var i = 0; i < this.allParticipants.length; i++) {
         participantName.push(this.allParticipants[i].name);
       }
       return participantName;
+    },
+    allParticipantsId() {
+      var participantsId = [];
+      this.participants.forEach(element => {
+        for (var i = 0; i < this.allParticipants.length; i++) {
+          if (element.name === this.allParticipants[i].name) {
+            participantsId.push(this.allParticipants[i].participantId);
+          }
+        }
+      });
+
+      return participantsId;
     },
     create() {
       if (this._validateData()) {
@@ -130,7 +148,7 @@ export default {
               startHour: String(this.begin_hour),
               endHour: String(this.end_hour),
               agendaId: this.agenda,
-              participants: this.participants
+              participants: this.allParticipantsId()
             });
             this.addAppointmentToAgenda({
               name: this.name,
@@ -141,8 +159,10 @@ export default {
               startHour: String(this.begin_hour),
               endHour: String(this.end_hour),
               agendaId: this.agenda,
-              participants: this.participants
+              participants: this.allParticipantsId()
             });
+            this.tableOfPart.length = 0;
+            this.listOfPart.length = 0;
           } else {
             alert("The hours are wrong, you are gonna break time line");
           }
@@ -259,12 +279,36 @@ export default {
       //modify agenda name for agenda id
       var index = this.agendas.findIndex(ag => ag.name === this.agenda);
       this.agenda = this.agendas[index].agendaId;
+    },
+    _addParticipants() {
+      // if (this.participantes.name === this.participants)
+      this.participantes.find(part => {
+        if (part.name == this.participants) {
+          this.addPartToAppoitments(part);
+          console.log(this.listOfPart);
+          this._visibleTable();
+        }
+      });
+    },
+    deletePart(idPart) {
+      this.deletePartOfAppo(idPart);
+      this._visibleTable();
+    },
+    _visibleTable() {
+      if (this.listOfPart.length == 0 && this.tableOfPart.length == 0) {
+        this.tableVisible = false;
+      } else {
+        this.tableVisible = true;
+      }
     }
   },
   computed: {
     ...mapGetters([
       "getrecursiveAppointments",
       "getAgendas",
+      "getParticipants",
+      "getPartOfAppoitments",
+      "getListPart",
       "getParticipants"
     ]),
 
@@ -273,6 +317,15 @@ export default {
     },
     agendas() {
       return this.getAgendas;
+    },
+    participantes() {
+      return this.getParticipants;
+    },
+    listOfPart() {
+      return this.getPartOfAppoitments;
+    },
+    tableOfPart() {
+      return this.getListPart;
     },
     recursiveAppointments() {
       return this.getrecursiveAppointments;

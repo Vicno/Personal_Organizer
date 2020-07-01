@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import { mount, createLocalVue } from "@vue/test-utils";
+import { shallowMount, createLocalVue } from "@vue/test-utils";
 import RecursiveScheduling from "@/components/RecursiveSchedulingComp.vue";
 import { mockStore } from "./mockStore";
 import VueRouter from "vue-router";
@@ -16,7 +16,7 @@ describe("LocalVue", () => {
     localVue.use(Vuex);
     const router = new VueRouter({ routes: [] });
     const store = new Vuex.Store(mockStore);
-    let wrapper = mount(RecursiveScheduling, {
+    let wrapper = shallowMount(RecursiveScheduling, {
       router,
       store,
       localVue
@@ -34,7 +34,7 @@ describe("Validate Recursive CRUD", () => {
     store = new Vuex.Store(mockStore);
   });
   it("Validate data should pass if data enter", () => {
-    const wrapper = mount(RecursiveScheduling, {
+    const wrapper = shallowMount(RecursiveScheduling, {
       store,
       localVue
     });
@@ -52,7 +52,7 @@ describe("Validate Recursive CRUD", () => {
     assert.isTrue(isValid);
   });
   it("Validate hour data should pass if data enter is within limits", () => {
-    const wrapper = mount(RecursiveScheduling, {
+    const wrapper = shallowMount(RecursiveScheduling, {
       store,
       localVue
     });
@@ -63,7 +63,7 @@ describe("Validate Recursive CRUD", () => {
     assert.isTrue(isValid);
   });
   it("Validate date data should pass if data enter is a possible date and endDate", () => {
-    const wrapper = mount(RecursiveScheduling, {
+    const wrapper = shallowMount(RecursiveScheduling, {
       store,
       localVue
     });
@@ -86,7 +86,7 @@ describe("Recursive Scheduling CRUD", () => {
     store = new Vuex.Store(mockStore);
   });
   it("Create a Recursive Schedule", () => {
-    let wrapper = mount(RecursiveScheduling, {
+    let wrapper = shallowMount(RecursiveScheduling, {
       router,
       store,
       localVue

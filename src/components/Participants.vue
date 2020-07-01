@@ -120,6 +120,7 @@ export default {
         });
         this.name = "";
         this.contactNumber = "";
+        console.log("saved ");
       } else {
         alert("There don't have to be empty fields");
       }
@@ -141,7 +142,6 @@ export default {
         this.formUpdate = false;
         this.name = "";
         this.contactNumber = "";
-        this.updatePartId("-1");
       }
     },
     deletePart(idPart) {
