@@ -65,18 +65,4 @@ describe("Postpone CRUD", () => {
     const isValid = wrapper.vm._validateDate();
     assert.isTrue(isValid);
   });
-});/*
-describe("LocalVue", () => {
-  it("using the store directly", () => {
-    const localVue = createLocalVue();
-    localVue.use(VueRouter);
-    localVue.use(Vuex);
-    const router = new VueRouter({ routes: [] });
-    let wrapper = shallowMount(Postpone, {
-      router,
-      store,
-      localVue
-    });
-    assert.equal(wrapper.vm.$store.state.postponedAppointments.length, 1);
-  });*/
 });

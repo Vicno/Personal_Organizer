@@ -7,7 +7,6 @@ import store from "@/store";
 import VueRouter from "vue-router";
 import Vuex from "vuex";
 import Vuetify from "vuetify";
-//import Agenda from "@/views/Agenda.vue";
 before(() => {
   global.alert = function(alertMessage) {
     console.log(alertMessage);
@@ -19,7 +18,6 @@ describe("Update Scheduling CRUD", () => {
   let store;
   let wrapper;
   let vuetify;
-  //let router;
   beforeEach(() => {
     vuetify = new Vuetify();
   });
@@ -27,7 +25,6 @@ describe("Update Scheduling CRUD", () => {
     localVue = createLocalVue();
     localVue.use(VueRouter);
     localVue.use(Vuex);
-    //router = new VueRouter({ routes: [] });
     store = new Vuex.Store(mockStore);
   });
   it("Validate data shoul pass if data enter", () => {
@@ -118,21 +115,6 @@ describe("Update Scheduling CRUD", () => {
       vuetify,
       localVue
     });
-    /*let wrapper2 = shallowMount(Agenda, {
-      router,
-      store,
-      localVue
-    }); 
-    const newVal = {
-      agendaId: "ANG-0003",
-      name: "Nuevo2",
-      description: "Prueba Nuevo",
-      startHour: "10:00",
-      endHour: "12:00",
-      appointments: []
-    };
-    wrapper2.vm.createNewAgenda(newVal);
-    assert.equal(wrapper2.vm.$store.state.agendas[1].name, newVal.name);*/
     wrapper1.vm.$data.name = "test";
     wrapper1.vm.$data.description = "description test";
     wrapper1.vm.$data.end_hour = "12:00";
@@ -142,10 +124,7 @@ describe("Update Scheduling CRUD", () => {
     wrapper1.vm.$data.participants = [];
     wrapper1.vm.saveApointment();
     assert.equal(wrapper.vm.$store.state.scheduledAppointments.length, 1);
-    assert.equal(
-      wrapper.vm.$store.state.scheduledAppointments[0].name,
-      "test"
-    );
+    assert.equal(wrapper.vm.$store.state.scheduledAppointments[0].name, "test");
     wrapper.vm.$data.name = "test";
     wrapper.vm.$data.description = "description";
     wrapper.vm.$data.end_hour = "12:00";

@@ -287,7 +287,7 @@ export default {
         }
       }
       this.endDate =
-        endDatearray[2] + "/" + endDatearray[1] + "/" + endDatearray[0];
+        endDatearray[1] + "/" + endDatearray[2] + "/" + endDatearray[0];
       return bool;
     },
     _getAgendaId() {

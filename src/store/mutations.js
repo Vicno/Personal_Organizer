@@ -25,7 +25,43 @@ const mutateDeleteAgenda = (state, id) => {
   });
 };
 const mutateParticipantsList = (state, newParticipant) => {
-  state.participants.push(newParticipant);
+  let valide = false;
+
+  state.participants.forEach(part => {
+    if (part.name.toUpperCase() === newParticipant.name.toUpperCase()) {
+      valide = true;
+    }
+  });
+
+  if (!valide) {
+    state.participants.push(newParticipant);
+  } else {
+    alert("This name is already exists \n  Change name please.");
+  }
+};
+
+const mutationUpdatePart = (state, partToUpdate) => {
+  let valide = false;
+
+  let foundAccountIndex = state.participants.findIndex(account => {
+    account.participantId === partToUpdate.participantId;
+  });
+
+  let listPart = state.participants.filter(
+    part => part.participantId !== partToUpdate.participantId
+  );
+
+  listPart.forEach(part => {
+    if (part.name.toUpperCase() === partToUpdate.name.toUpperCase()) {
+      valide = true;
+    }
+  });
+
+  if (!valide) {
+    state.participants.splice(foundAccountIndex, 1, partToUpdate);
+  } else {
+    alert("This name is already exists \n  Change name please.");
+  }
 };
 
 const mutationDeletePart = (state, partToDelete) => {
@@ -78,7 +114,6 @@ const mutateDeleteRecursive = (state, name) => {
 const mutateAddPartToAppointment = (state, newParticipant) => {
   let validate = false;
   state.idPartOfAppo.forEach(part => {
-    //if (part === newParticipant.participantId) {
     if (part === newParticipant.name) {
       validate = true;
     }
@@ -115,9 +150,8 @@ const deleteAppointment = (state, itemToDelete) => {
     it => it.name === itemToDelete
   ));
   var today = new Date();
-  //("06/18/2020");
   var date =
-    today.getMonth() + 1 + "/" + today.getDate() + "/" + today.getFullYear();
+    today.getMonth() + "/" + today.getDate() + "/" + today.getFullYear();
   if (appointmentToDelete.date === date) {
     state.postponedAppointments.push({
       name: appointmentToDelete.name,
@@ -127,12 +161,6 @@ const deleteAppointment = (state, itemToDelete) => {
   state.scheduledAppointments = state.scheduledAppointments.filter(
     it => it.name !== itemToDelete
   );
-};
-const mutationUpdatePart = (state, partToUpdate) => {
-  let foundAccountIndex = state.participants.findIndex(
-    account => account.participantId === partToUpdate.participantId
-  );
-  state.participants.splice(foundAccountIndex, 1, partToUpdate);
 };
 const idToUpdate = (state, idToUpdate) => {
   state.partIdToUpdate = idToUpdate;
